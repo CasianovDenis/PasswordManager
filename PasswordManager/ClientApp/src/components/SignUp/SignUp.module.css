@@ -1,0 +1,18 @@
+﻿
+.form_position {
+    margin-left: 10%;
+}
+.book_image {
+    position:relative;
+    bottom:500px;
+    left:50%;
+
+}
+
+.faq_image{
+    position:relative;
+    width:25px;
+    height:25px;
+    top:-40px;
+    left:150px;
+}

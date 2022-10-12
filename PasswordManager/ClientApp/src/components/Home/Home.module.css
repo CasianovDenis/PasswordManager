@@ -1,0 +1,90 @@
+﻿/*div style*/
+.first_div {
+    margin-top: -16px;
+    background-color: rgb(41,44,51);
+    width: 121.4%;
+    height: 300px;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.second_div{
+    position:relative;
+    top:25px;
+}
+
+/*text style*/
+.home_text{
+    position:relative;
+    color:white;
+    left:30%;
+    top:25%;
+    font-size:20px;
+}
+
+.text_description_1
+{
+    position:relative;
+display:inline-block;
+width:200px;
+height:50px;
+
+}
+
+
+/*image style*/
+.image_form {
+    position:relative;
+    width: 150px;
+    height: 150px;
+    top:50px;
+    left:25%;
+    float: left;
+}
+
+.image_form_second{
+   
+    width:50px;
+    height:50px;
+   margin-left:220px;
+   
+}
+
+
+
+@media(max-width:792px)
+{
+    .first_div {
+        margin-top: -15px;
+        
+        width: 150%;
+        
+    }
+
+    .image_form {
+       
+        width: 100px;
+        height: 100px;
+       
+       left:0%;
+        
+    }
+    .image_form_second {
+        width: 50px;
+        height: 50px;
+        margin-left: 50px;
+    }
+
+    .home_text { 
+   
+        left: 0%;     
+        font-size: 15px;
+    }
+    .text_description_1 {
+        
+        
+        width: 100px;
+        
+    }
+
+}
