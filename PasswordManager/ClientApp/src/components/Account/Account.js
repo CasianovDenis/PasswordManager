@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  Modal_password   from './Modal_password';
+import Modal_password from './Modal_password';
+import Modal_delete from './Modal_delete';
 import key from './key.png';
 
 export default function Account() {
@@ -19,7 +20,8 @@ export default function Account() {
             }
             return "";
         }
-   
+
+    if (getCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
 
         //create object which get data from input
     
@@ -37,26 +39,27 @@ export default function Account() {
 
         //call api from backend and send json data,which create before
 
-        fetch('http://localhost:32349/api/getdata', requestOptions)
+        fetch('http://localhost:32349/api/getdatastore', requestOptions)
             .then(response => response.json())
             .then((responseData) => {
-
-                for (let index = 0; index < responseData.length; index++)
+                
+               
+                for (let index = 0; index < responseData.length;index++)
                 {
                    
-
                     var image = document.createElement("img");
                     image.src = key;
                     image.style = 'width:25px; height:25px; float:left ';
 
-                    var element = document.getElementById("new");
+                    var element = document.getElementById("display_data");
                     element.appendChild(image);
 
                     var tag_name = document.createElement("p");
+                   
                     var text_name = document.createTextNode("Name: " + responseData[index].Name);
-
+                   
                     var tag_password = document.createElement("p");
-                    var text_password = document.createTextNode("Password: " + "*********");
+                    var text_password = document.createTextNode("Password: " + responseData[index].Password);
 
                     var tag_description = document.createElement("p");
                     var text_description = document.createTextNode("Description: " + responseData[index].Description);
@@ -79,16 +82,24 @@ export default function Account() {
         }
             });
 
+   
+    
+            
+        
+    
+
     return (
 
         <div >
             <Modal_password />
+            <Modal_delete />
             <hr />
 
-            <div id="new" >
-
+            <div id="display_data" >
+                
 
             </div>
+            
         </div>
     );
 }
