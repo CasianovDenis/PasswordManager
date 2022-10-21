@@ -9,6 +9,24 @@ export default function SignUp() {
     const [message, setMessage] = useState("");
     const refUsername = useRef(""), refEmail = useRef(""), refQuestion = useRef(""), refAnswer = useRef("");
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    if (getCookie("status_account") == "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
+
     const onCreateUser = (event) => {
 
         event.preventDefault();
