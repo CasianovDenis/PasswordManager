@@ -23,7 +23,9 @@ namespace PasswordManager.Models
             Message.Subject = "one-time password";
             Message.Body = "Use this password " + Password + " for log in account online password manager "
                  + "\n" +
-                "This password is one-time,after 1 hour or finished session password will not actual";
+                "This password is one-time,after you log in account you can not use password againg."+
+                "\n"+
+                "After 1 hour or you terminate session, system logout from your account.";
 
             Smtp.Send(Message);
         }
