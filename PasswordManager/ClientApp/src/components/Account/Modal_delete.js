@@ -51,7 +51,7 @@ export default function Modal_delete() {
 
                     setMessage("Data was deleted successfully");
 
-                    sessionStorage.setItem("windows", "active");
+                    document.cookie = "window=active";
 
                     window.open("http://localhost:32349/Account", '_self', "noopener noreferrer");
                 }

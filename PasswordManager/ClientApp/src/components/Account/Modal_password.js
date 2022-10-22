@@ -52,7 +52,7 @@ export default function Modal_password() {
 
                     setMessage("Data added successfully");
 
-                    sessionStorage.setItem("windows", "active");
+                    document.cookie = "window=active";
 
                     window.open("http://localhost:32349/Account", '_self', "noopener noreferrer");
                 }
