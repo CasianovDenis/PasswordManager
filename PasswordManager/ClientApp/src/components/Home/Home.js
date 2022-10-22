@@ -27,10 +27,10 @@ export default function Home()  {
                 <p className={style.home_text}> Online Password Manager</p>
                 <p className={style.home_text}> Store you passwords in safe. You passwords ever near for you</p>
 
-                <button class="btn btn-primary button_style" style={{ position: "relative", left: "30%", top: "30%" }}
+                <button class="btn btn-primary button_style" id={style.login_button }
                     onClick={redirect_to_SignIn}> Sign In </button>
 
-                <button class="btn btn-primary" style={{ position: "relative", left: "40%", top: "30%" }}
+                <button class="btn btn-primary" id={ style.signup_button}
                     onClick={redirect_to_SignUp}> Sign Up </button>
             </div>
 
