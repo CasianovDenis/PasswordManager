@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import Modal_password from './Modal_password';
 import Modal_delete from './Modal_delete';
 import key from './key.png';
+import style from './Account.module.css'
 
 export default function Account() {
+
+    const [responseData, setResponseData] = React.useState([]);
     
         function getCookie(cname) {
             let name = cname + "=";
@@ -42,50 +45,12 @@ export default function Account() {
         fetch('http://localhost:32349/api/getdatastore', requestOptions)
             .then(response => response.json())
             .then((responseData) => {
-                
+                setResponseData(responseData)
                
-                for (let index = 0; index < responseData.length;index++)
-                {
-                   
-                    var image = document.createElement("img");
-                    image.src = key;
-                    image.style = 'width:25px; height:25px; float:left ';
-
-                    var element = document.getElementById("display_data");
-                    element.appendChild(image);
-
-                    var tag_name = document.createElement("p");
-                   
-                    var text_name = document.createTextNode("Name: " + responseData[index].Name);
-                   
-                    var tag_password = document.createElement("p");
-                    var text_password = document.createTextNode("Password: " + responseData[index].Password);
-
-                    var tag_description = document.createElement("p");
-                    var text_description = document.createTextNode("Description: " + responseData[index].Description);
-
-                    
-                    //var text = document.createTextNode("Name: " + responseData[index].Name + "Password: " + 
-                      //  +hide_pass + "Description: " + responseData[index].Description);
-
-//                    tag.style = 'margin:50px';
-                    // tag_password.name = responseData[index].Password;
-                    //tag_password.onclick = this.myFunction;
-                    //tag_password.className = display_data_user;
-                    tag_name.appendChild(text_name);
-                    tag_password.appendChild(text_password);
-                    tag_description.appendChild(text_description);
-
-                    element.appendChild(tag_name);
-                    element.appendChild(tag_password);
-                    element.appendChild(tag_description);
-        }
+//              
             });
 
    
-    
-            
-        
     
 
     return (
@@ -94,12 +59,18 @@ export default function Account() {
             <Modal_password />
             <Modal_delete />
             <hr />
-
-            <div id="display_data" >
-                
-
-            </div>
-            
+            {responseData.map(item => {
+                return (
+                    <div className={style.div_data } >
+                        <img src={key} style={{width:"25px",height:"25px"} }/> Your Data
+                    <p>Name: {item.Name}</p>
+                        <p>Password: {item.Password}</p>
+                        <p>Description: {item.Description}</p>
+                        
+                        </div>
+                    );
+            })}
+           
         </div>
     );
 }
