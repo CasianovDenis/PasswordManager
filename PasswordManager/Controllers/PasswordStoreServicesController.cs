@@ -90,6 +90,8 @@ namespace PasswordManager.Controllers
                         _conString.Remove(item);
                         _conString.SaveChanges();
                     }
+                    else
+                        return Json("This name not exist");
                 }
                 
                 return Json("Succes");

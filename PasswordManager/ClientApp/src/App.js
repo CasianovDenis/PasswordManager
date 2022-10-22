@@ -10,33 +10,38 @@ import './custom.css'
 
 export default function App() {
 
-    useEffect(() => {
-
-        window.addEventListener('beforeunload', function (e) {
-            
-            let data = sessionStorage.getItem("window");
-            if (data != "active") {
-                window.localStorage.clear();
-                document.cookie = "username=";
-                document.cookie = "status_account=offline";}
-        });
-
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
             }
-            return "";
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
+        return "";
+    }
 
+    window.addEventListener('beforeunload', (e) => {
+
+        let data = getCookie("window");
+        
+        if (data == "active") console.log("");
+        else
+        {
+            window.localStorage.clear();
+            document.cookie = "username=";
+            document.cookie = "status_account=offline";}
+       
+        
+    })
+            
+        
+    //virifie if session time isn't expired
         let time = window.localStorage.getItem('sesion_time');
         const date = new Date().toLocaleString();
 
@@ -49,7 +54,7 @@ export default function App() {
         }
         
         
-    })
+    
     return (
         <Layout>
             <Route exact path='/' component={Home} />

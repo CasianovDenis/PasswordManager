@@ -140,7 +140,7 @@ export default function SignIn() {
 
                         setMessage( "Log in successfully" );
 
-                        sessionStorage.setItem("windows", "active");
+                        document.cookie = "window=active";
 
                         window.open("http://localhost:32349/Account", '_self', "noopener noreferrer");
 
