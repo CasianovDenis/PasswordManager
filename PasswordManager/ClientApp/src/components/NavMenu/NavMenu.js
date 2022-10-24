@@ -34,14 +34,15 @@ export class NavMenu extends Component {
 
 
       if (status_account == "online") {
-
-          this.state = {
-              collapsed: true,
-              status_link: "none",
-              status_dropdown: "block",
-              username: user_name
-          };
-
+          
+              if (user_name != "") {
+                  this.state = {
+                      collapsed: true,
+                      status_link: "none",
+                      status_dropdown: "block",
+                      username: user_name
+                  };
+              }
       }
       else {
           this.state = {
