@@ -11,6 +11,23 @@ export default function SignIn() {
     const refUsername = useRef("");
     const refPassword = useRef("");
     
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    if (getCookie("status_account") == "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
 
     
 
@@ -44,7 +61,7 @@ export default function SignIn() {
                             if (responseData == "user_not_exist")
                                 setMessage("user not exist");
                             else {
-
+                                window.localStorage.setItem('sesion_time', responseData);
 
                                     let element_div = document.getElementById('password_form');
                                     element_div.style.display = "block";
@@ -52,9 +69,12 @@ export default function SignIn() {
                                     let element_button = document.getElementById('smtp_button');
                                     element_button.style.display = "none";
 
+                                let style_image = document.getElementById("signin_image");
+                                style_image.style.top = "-300px";
+
                                     setMessage(
-                                        "Password is sended in the email." +"\n"+"\n"+
-                                        " Password can come delay or you can find him in the  spam"
+                                        "Password is sended in the email." +'\n'+
+                                        "Mail can come delay or you can find him in the spam"
                                     );
                                    
                                 }
@@ -108,15 +128,19 @@ export default function SignIn() {
 
 
                         // +1 hour when create cookie
-                        var date_time = new Date();
-                        date_time.setHours(1);
+                        var now = new Date();
+                        var time = now.getTime();
+                        time += 3600 * 1000;
+                        now.setTime(time);
 
 
-                        document.cookie = "username=" + userdata.Username + "; expires = " + date_time;
+                        document.cookie = "username=" + userdata.Username + "; expires = " + now.toUTCString();
 
-                        document.cookie = "status_account=online; expires = " + date_time;
+                        document.cookie = "status_account=online; expires = " + now.toUTCString();
 
                         setMessage( "Log in successfully" );
+
+                        document.cookie = "window=active";
 
                         window.open("http://localhost:32349/Account", '_self', "noopener noreferrer");
 
@@ -161,7 +185,7 @@ export default function SignIn() {
                 <p>{message} </p>
 
                 <div className={style.div_image}>
-                    <img src={home_office} className={style.home_image} />
+                    <img id="signin_image" src={home_office} className={style.home_image} />
                 </div>
            
             </div>

@@ -54,8 +54,7 @@ namespace PasswordManager.Controllers
                             _conString.ProjectUsers.Add(newuser);
                             _conString.SaveChanges();
 
-                            byte[] key = Bytes.GenerateKey();
-                            byte[] iv = Bytes.GenerateIV();
+                           
                            
 
                             //create record in encryption table
@@ -63,8 +62,8 @@ namespace PasswordManager.Controllers
 
                             e_data.Username = newuser.Username;
 
-                            e_data.Key = key;
-                            e_data.IV = iv;
+                            e_data.Key = null;
+                            e_data.IV = null;
                             _conString.Encryption_data.Add(e_data);
                             _conString.SaveChanges();
 
@@ -112,10 +111,14 @@ namespace PasswordManager.Controllers
 
                 dbdata.Password = crypt_password;
 
+                DateTime actual_time = DateTime.Now;
+                DateTime new_time = actual_time.AddHours(1);
+
+                dbdata.Time_expire= new_time.ToString();
                 _conString.SaveChanges();
 
 
-                Json_update obj = new Json_update();
+                
 
                 SendEmail send = new SendEmail(crypt_password, dbdata.Email);
 
@@ -126,7 +129,7 @@ namespace PasswordManager.Controllers
                 dbdata_encrypt.IV = iv;
                 _conString.SaveChanges();
 
-                return Json("succes");
+                return Json(new_time.ToString());
             }
             catch
             {
@@ -141,7 +144,7 @@ namespace PasswordManager.Controllers
         {
             try
             {
-                //get jey and iv for descrypt pass
+                //get key and iv for descrypt pass
                 var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == user.Username);
 
 //decrypt password from post object
@@ -153,6 +156,11 @@ namespace PasswordManager.Controllers
 
                 if (decrypt_password_1==decrypt_password_2)
                 {
+                    dbdata.Password = "";
+                   // _conString.SaveChanges();
+                    dbdata_encryption.IV = null;
+                    dbdata_encryption.Key = null;
+                  _conString.SaveChanges();
                     return Json("Access_granted");
                 }
                 else
@@ -165,7 +173,25 @@ namespace PasswordManager.Controllers
 
         }
 
+        [Route("~/api/get")]
+        [HttpPost]
+        public JsonResult GetData(ProjectUsers newuser)
+        {
+            try
+            {
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == newuser.Username);
+               
+                
+                return Json(dbdata);
+            }
+            catch
+            {
+                
+                        return Json("no data");
 
+            }
+
+        }
         static public string DecodeFrom64(string encodedData)
 
         {

@@ -22,20 +22,22 @@ namespace PasswordManager.Controllers
         }
 
 
-        [Route("~/api/getdata")]
+        [Route("~/api/getdatastore")]
         [HttpPost]
         public JsonResult GetAll(Password_store get_store)
         {
             var dbdata = _conString.Password_store.Where(data => data.Username == get_store.Username).ToList();
+            List<Password_list> password_list = new List<Password_list>();
 
-            for(int index=0;index>dbdata.Count;index++)
+            foreach (var item in dbdata)
             {
-                dbdata[index].Name = DecodeFrom64(dbdata[index].Name);
-                dbdata[index].Description = DecodeFrom64(dbdata[index].Description);
-                dbdata[index].Password = Strings.Decrypt(dbdata[index].Password, dbdata[index].Key, dbdata[index].IV);
+                password_list.Add(new Password_list(DecodeFrom64(item.Name), DecodeFrom64(item.Description), Strings.Decrypt(DecodeFrom64(item.Password),item.Key, item.IV)));
             }
-            return Json(dbdata);
+            
+            
+            return Json(password_list);
         }
+
 
         [Route("~/api/add_data")]
         [HttpPost]
@@ -72,6 +74,33 @@ namespace PasswordManager.Controllers
             }
            
         }
+
+        [Route("~/api/deletedatastore")]
+        [HttpPost]
+        public JsonResult DeleteData(Password_store get_store)
+        {
+            try
+            {
+                var dbdata = _conString.Password_store.Where(data => data.Username == get_store.Username).ToList();
+                foreach (var item in dbdata)
+                {
+
+                    if (get_store.Name == DecodeFrom64(item.Name))
+                    {
+                        _conString.Remove(item);
+                        _conString.SaveChanges();
+                    }
+                    else
+                        return Json("This name not exist");
+                }
+                
+                return Json("Succes");
+        }
+            catch
+            {
+                return Json("This name not exist");
+    }
+}
 
         static public string DecodeFrom64(string encodedData)
 

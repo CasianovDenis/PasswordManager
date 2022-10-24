@@ -50,10 +50,20 @@ height:50px;
    
 }
 
+#login_button {
+    position:relative;
+    left: 30%;
+    top: 30%;
+}
+
+#signup_button {
+    position: relative;
+    left: 40%;
+    top: 30%;
+}
 
 
-@media(max-width:792px)
-{
+@media(max-width:792px) {
     .first_div {
         margin-top: -15px;
         
@@ -76,15 +86,18 @@ height:50px;
     }
 
     .home_text { 
-   
         left: 0%;     
         font-size: 15px;
     }
     .text_description_1 {
         
-        
         width: 100px;
-        
     }
+
+    #login_button{
+margin-left:-30%;
+    }
+
+    
 
 }
