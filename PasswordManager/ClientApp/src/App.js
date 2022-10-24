@@ -4,7 +4,8 @@ import  Layout  from './components/NavMenu/Layout';
 import  Home  from './components/Home/Home';
 import  SignIn  from './components/SignIn/SignIn';
 import  SignUp  from './components/SignUp/SignUp';
-import  Account  from './components/Account/Account';
+import Account from './components/Account/Account';
+import Secret from './components/SecretQuestion/Secret';
 
 import './custom.css'
 
@@ -26,6 +27,7 @@ export default function App() {
         return "";
     }
 
+    //if user close window system logout him from account,if system reload page user stay log in
     window.addEventListener('beforeunload', (e) => {
 
         let data = getCookie("window");
@@ -61,6 +63,7 @@ export default function App() {
             <Route path='/SignIn' component={SignIn} />
             <Route path='/SignUp' component={SignUp} />
             <Route path='/Account' component={Account} />
+            <Route path='/Secret' component={Secret} />
         </Layout>
     );
 }
