@@ -10,13 +10,24 @@
     height:350px;
 }
 
+.redirect_secret {
+ 
+    margin-left: 25px;
+   
+}
 
-@media(max-width:792px)
-{
+@media(max-width:792px) {
+    .redirect_secret {
+
+    position: absolute;
+    margin-left: -17%;
+    margin-top:30px;
+
+    }
     .home_image {
        
-        left: 50%;
-        top:-30px;
+        left: 55%;
+        top:-80px;
         width: 200px;
         height: 200px;
     }

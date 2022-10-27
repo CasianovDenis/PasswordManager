@@ -55,7 +55,7 @@ export default function SignIn() {
                     fetch('http://localhost:32349/api/smtp', requestOptions)
                         .then(response => response.json())
                         .then((responseData) => {
-                            //debugger;
+                            
                             
                             //get returned data from backend and display result on displya for user
                             if (responseData == "user_not_exist")
@@ -71,6 +71,16 @@ export default function SignIn() {
 
                                 let style_image = document.getElementById("signin_image");
                                 style_image.style.top = "-300px";
+
+                                let link_signup = document.getElementById("link_signup");
+                                link_signup.style.position = "absolute";
+                                link_signup.style.marginTop = "130px";
+                                link_signup.style.marginLeft = "100px";
+
+                                let link_secret = document.getElementById("link_secret");
+                                link_secret.style.position = "absolute";
+                                link_secret.style.marginTop = "130px";
+                                link_secret.style.marginLeft = "220px";
 
                                     setMessage(
                                         "Password is sended in the email." +'\n'+
@@ -169,6 +179,9 @@ export default function SignIn() {
 
                 <button id="smtp_button" class="btn btn-primary" onClick={Smtp_password}> Verifie </button>
 
+                <NavLink id="link_signup" tag={Link} to="/SignUp" style={{ margin: "25px" }}>Create Account</NavLink>
+
+                <NavLink id="link_secret" tag={Link} to="/Secret" className={style.redirect_secret }>Inaccessible Email</NavLink>
 
                 </form>
 
@@ -179,7 +192,7 @@ export default function SignIn() {
 
                     <br /><br />
                 <button  class="btn btn-primary" onClick={Login_account}>Log In</button>
-                <NavLink tag={Link} to="/SignUp" style={{ margin: "25px" }}>Create Account</NavLink>
+                
             </form>
             
                 <p>{message} </p>

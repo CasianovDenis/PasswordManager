@@ -173,25 +173,62 @@ namespace PasswordManager.Controllers
 
         }
 
-        [Route("~/api/get")]
+ 
+
+        [Route("~/api/getquestion")]
         [HttpPost]
-        public JsonResult GetData(ProjectUsers newuser)
+        public JsonResult GetQuestion(ProjectUsers newuser)
         {
             try
             {
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == newuser.Username);
-               
-                
-                return Json(dbdata);
+
+
+                return Json(DecodeFrom64(dbdata.Secret_question));
             }
             catch
             {
-                
-                        return Json("no data");
+
+                return Json(null);
 
             }
 
         }
+
+        [Route("~/api/sendanswer")]
+        [HttpPost]
+        public JsonResult SendAnswer(ProjectUsers user)
+        {
+            try
+            {
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+
+                
+
+                if (user.Secret_answer == DecodeFrom64(dbdata.Secret_answer))
+                {
+                    
+                    DateTime actual_time = DateTime.Now;
+                    DateTime new_time = actual_time.AddHours(1);
+
+                    dbdata.Time_expire = new_time.ToString();
+                    _conString.SaveChanges();
+
+                    
+                    return Json(dbdata.Time_expire); 
+                }
+
+                return Json("Answer isn't right");
+            }
+            catch
+            {
+
+                return Json("User not exist");
+
+            }
+
+        }
+
         static public string DecodeFrom64(string encodedData)
 
         {
