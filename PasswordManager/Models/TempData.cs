@@ -11,8 +11,15 @@ namespace PasswordManager.Models
         [Required]
         public string Username { get; set; }
 
-        public string Password_local { get; set; }
-        public string Password_input { get; set; }
-       
+        public string NewUsername { get; set; }
+
+        public string NewEmail { get; set; }
+
+        public string NewQuestion { get; set; }
+
+        public string NewAnswer { get; set; }
+
+        public string OldAnswer { get; set; }
+
     }
 }
