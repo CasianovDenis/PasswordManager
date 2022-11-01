@@ -1,0 +1,8 @@
+﻿.edit_icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    left:300px;
+    top: 280px;
+}
