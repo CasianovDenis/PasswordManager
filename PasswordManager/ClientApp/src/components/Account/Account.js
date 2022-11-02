@@ -1,33 +1,34 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Modal_password from './Modal_password';
 import Modal_delete from './Modal_delete';
 import key from './key.png';
 import style from './Account.module.css'
 
 export default function Account() {
-
+   
     const [responseData, setResponseData] = React.useState([]);
-    
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
             }
-            return "";
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
+        return "";
+    }
 
     if (getCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
 
-        //create object which get data from input
-    
+ 
+    //    //create object which get data from input
+    useEffect(() => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -46,11 +47,12 @@ export default function Account() {
             .then(response => response.json())
             .then((responseData) => {
                 setResponseData(responseData)
-               
-//              
+
             });
 
-   
+    }, []);
+    
+
     
 
     return (
