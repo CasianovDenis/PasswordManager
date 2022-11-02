@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import style from './Modal_edit_username.module.css';
+import style from './Settings.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import edit_icon from './edit_icon.png';
 
@@ -86,7 +86,7 @@ export default function Modal_edit_username() {
             <body>
 
 
-                <img src={edit_icon} className={ style.edit_icon} data-toggle="modal" data-target="#edit_username" />
+                <img src={edit_icon} className={ style.username_edit_icon} data-toggle="modal" data-target="#edit_username" />
 
                 <div class="modal fade" id="edit_username" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
