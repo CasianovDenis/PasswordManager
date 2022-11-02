@@ -6,6 +6,7 @@ import  SignIn  from './components/SignIn/SignIn';
 import  SignUp  from './components/SignUp/SignUp';
 import Account from './components/Account/Account';
 import Secret from './components/SecretQuestion/Secret';
+import Settings from './components/Settings/Settings';
 
 import './custom.css'
 
@@ -64,6 +65,7 @@ export default function App() {
             <Route path='/SignUp' component={SignUp} />
             <Route path='/Account' component={Account} />
             <Route path='/Secret' component={Secret} />
+            <Route path='/Settings' component={Settings} />
         </Layout>
     );
 }

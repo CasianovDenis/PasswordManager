@@ -195,6 +195,111 @@ namespace PasswordManager.Controllers
 
         }
 
+        [Route("~/api/getuserdata")]
+        [HttpPost]
+        public JsonResult GetData(ProjectUsers newuser)
+        {
+            try
+            {
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == newuser.Username);
+
+                dbdata.Secret_question = DecodeFrom64(dbdata.Secret_question);
+
+                return Json(dbdata);
+            }
+            catch
+            {
+
+                return Json(null);
+
+            }
+
+        }
+
+        [Route("~/api/edit_username")]
+        [HttpPost]
+        public JsonResult EditUsername(TempData tempdata)
+        {
+            try
+            {
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.NewUsername);
+
+                return Json("This username already exist");
+                
+            }
+            catch
+            {
+                var dbdata_user = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
+                dbdata_user.Username = tempdata.NewUsername;
+                _conString.SaveChanges();
+
+                var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == tempdata.Username);
+
+                dbdata_encryption.Username = tempdata.NewUsername;
+                _conString.SaveChanges();
+
+                var dbdata_store = _conString.Password_store.Single(data => data.Username == tempdata.Username);
+
+                dbdata_store.Username = tempdata.NewUsername;
+                _conString.SaveChanges();
+
+
+                return Json("Succes");
+
+            }
+
+        }
+
+        [Route("~/api/edit_email")]
+        [HttpPost]
+        public JsonResult EditEmail(TempData tempdata)
+        {
+            try
+            {
+                var dbdata = _conString.ProjectUsers.Single(data => data.Email == tempdata.NewEmail);
+
+                return Json("This email already exist");
+
+            }
+            catch
+            {
+                var dbdata_user = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
+                dbdata_user.Email = tempdata.NewEmail;
+                _conString.SaveChanges();
+
+                return Json("Succes");
+
+            }
+
+        }
+
+        [Route("~/api/edit_secret_question")]
+        [HttpPost]
+        public JsonResult EditQuestion(TempData tempdata)
+        {
+            try
+            {
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
+
+                if (tempdata.OldAnswer == DecodeFrom64(dbdata.Secret_answer))
+                {
+                    dbdata.Secret_question = EncodeTo64(tempdata.NewQuestion);
+                    dbdata.Secret_answer = EncodeTo64(tempdata.NewAnswer);
+                    _conString.SaveChanges();
+                    return Json("Succes"); 
+                }
+                return Json("Answer for actual question isn't right");
+            }
+            catch
+            {
+               
+
+                return Json("User not found");
+
+            }
+
+        }
+
         [Route("~/api/sendanswer")]
         [HttpPost]
         public JsonResult SendAnswer(ProjectUsers user)
