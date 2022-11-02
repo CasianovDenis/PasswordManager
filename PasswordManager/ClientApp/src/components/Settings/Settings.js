@@ -11,7 +11,7 @@ import Modal_edit_secret_question from './Modal_edit_secret_question.js';
 
 
 export default function Settings() {
-    
+   
     const [username, setUsername] = useState('');
     const [dbdata, setDbdata] = useState('');
    
@@ -33,34 +33,36 @@ export default function Settings() {
     }
 
     if (getCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
+    
+    useEffect(() => {
+        //create object which get data from input             
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+
+                "Username": getCookie("username")
+
+            })
+        };
+
+        //call api from backend and send json data,which create before
 
 
-            //create object which get data from input             
-                const requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
+        fetch('http://localhost:32349/api/getuserdata', requestOptions)
+            .then(response => response.json())
+            .then((responseData) => {
 
-                        "Username": getCookie("username")
+                if (responseData != null) { setUsername(responseData.Username); setDbdata(responseData); }
 
-                    })
-                };
+            });
 
-                //call api from backend and send json data,which create before
-                
-                
-    fetch('http://localhost:32349/api/getuserdata', requestOptions)
-        .then(response => response.json())
-        .then((responseData) => {
-
-            if (responseData != null) { setUsername(responseData.Username); setDbdata(responseData); }
-
-        });
-
+    },[]);
+    
                         
     return (
-      
-            <div>
+
+        <div>
             
             <div className={style.background_top_color}>
 
@@ -75,19 +77,19 @@ export default function Settings() {
                 <img src={user_icon} className={style.image_user }/>
             </div>
 
-
+           
             <div className={style.settings_div}>
                 <img src={email_icon} className={style.icon_mail} />
-                <p style={{ color: "white", position: "absolute", top: "270px", left: "50px" }}>Email Settings:</p>
+                <p style={{ color: "white", marginLeft: "40px", marginTop:"-25px" }}>Email Settings:</p>
                 <p style={{ color: "white" }}>Email: {dbdata.Email}</p>
                 <Modal_edit_email Email={dbdata.Email}  />
             </div>
 
             <div className={style.settings_div}>
-                <img src={secret_icon}  className={style.secret_question_icon} />
-                <p style={{ color: "white", position: "absolute", top: "270px", left: "400px" }}>Secret question:</p>
-                <br/> <br/>
-                <p style={{ color: "#9b3126" }}>
+                <img src={secret_icon} className={style.secret_question_icon} />
+                <p style={{ color: "white", marginLeft:"40px" }}>Secret question:</p>
+                
+                <p style={{ color: "#9b3126"}}>
                     Don't use simple secret question for example "My name",question must be strong  for only you know answer</p>
                 <Modal_edit_secret_question question={dbdata.Secret_question} />
             </div>
@@ -95,9 +97,6 @@ export default function Settings() {
             
 
         </div>
-
-        
-
 
     );
 
