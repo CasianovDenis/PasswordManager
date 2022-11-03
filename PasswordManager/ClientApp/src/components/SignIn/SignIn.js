@@ -1,4 +1,5 @@
-import React, { useState,useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 import style from './SignIn.module.css';
 import home_office from './home_office.jpg';
 import { Link, NavLink } from 'react-router-dom';
@@ -10,7 +11,9 @@ export default function SignIn() {
 
     const refUsername = useRef("");
     const refPassword = useRef("");
-    
+
+    const redirect = useHistory();
+
     function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -27,7 +30,7 @@ export default function SignIn() {
         return "";
     }
 
-    if (getCookie("status_account") == "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
+    if (getCookie("status_account") == "online") redirect.push('/Account');
 
     
 
@@ -144,16 +147,17 @@ export default function SignIn() {
                         now.setTime(time);
 
 
+                        document.cookie = "window=active";
                         document.cookie = "username=" + userdata.Username + "; expires = " + now.toUTCString();
 
                         document.cookie = "status_account=online; expires = " + now.toUTCString();
 
                         setMessage( "Log in successfully" );
 
-                        document.cookie = "window=active";
+                        window.location.reload(false);
+                        
 
-                        window.open("http://localhost:32349/Account", '_self', "noopener noreferrer");
-
+                       
 
                     }
                     else
