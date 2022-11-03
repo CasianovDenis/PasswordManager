@@ -51,8 +51,7 @@ export default function Modal_edit_email(props) {
 
                     setMessage("Email change successfully");
 
-                    document.cookie = "window=active";
-
+                   
                     var field = document.getElementById("newemail");
                     field.value = "";
                 }
