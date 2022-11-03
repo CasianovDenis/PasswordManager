@@ -30,21 +30,22 @@ export default function App() {
 
     //if user close window system logout him from account,if system reload page user stay log in
     window.addEventListener('beforeunload', (e) => {
-
+       
         let data = getCookie("window");
-        
-        if (data == "active") console.log("");
+
+        if (data == "active") document.cookie = "window=";
         else
         {
             window.localStorage.clear();
             document.cookie = "username=";
-            document.cookie = "status_account=offline";}
-       
+            document.cookie = "status_account=offline";
+        }
+    
         
     })
             
         
-    //virifie if session time isn't expired
+    //verifie if session time isn't expired
         let time = window.localStorage.getItem('sesion_time');
         const date = new Date().toLocaleString();
 

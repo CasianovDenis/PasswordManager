@@ -52,7 +52,6 @@ export default function Modal_edit_username() {
 
                     setMessage("Username change successfully");
 
-                    document.cookie = "window=active";
 
 
                     // +1 hour when create cookie

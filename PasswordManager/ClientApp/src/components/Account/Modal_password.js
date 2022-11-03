@@ -54,7 +54,7 @@ export default function Modal_password() {
 
                     document.cookie = "window=active";
 
-                    window.open("http://localhost:32349/Account", '_self', "noopener noreferrer");
+                    window.location.reload(false);
                 }
 
                 else

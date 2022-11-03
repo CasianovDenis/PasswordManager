@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Modal_password from './Modal_password';
 import Modal_delete from './Modal_delete';
 import key from './key.png';
 import style from './Account.module.css'
 
 export default function Account() {
-   
+    
     const [responseData, setResponseData] = React.useState([]);
+
+    const redirect = useHistory();
 
     function getCookie(cname) {
         let name = cname + "=";
@@ -24,7 +27,7 @@ export default function Account() {
         return "";
     }
 
-    if (getCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
+    if (getCookie("status_account") != "online") redirect.push('/');
 
  
     //    //create object which get data from input
