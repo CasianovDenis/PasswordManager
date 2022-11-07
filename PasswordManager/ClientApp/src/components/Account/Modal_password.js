@@ -52,7 +52,6 @@ export default function Modal_password() {
 
                     setMessage("Data added successfully");
 
-                    document.cookie = "window=active";
 
                     window.location.reload(false);
                 }
