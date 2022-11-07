@@ -11,53 +11,7 @@ import Settings from './components/Settings/Settings';
 import './custom.css'
 
 export default function App() {
-
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    //if user close window system logout him from account,if system reload page user stay log in
-    window.addEventListener('beforeunload', (e) => {
-       
-        let data = getCookie("window");
-
-        if (data == "active") document.cookie = "window=";
-        else
-        {
-            window.localStorage.clear();
-            document.cookie = "username=";
-            document.cookie = "status_account=offline";
-        }
-    
-        
-    })
-            
-        
-    //verifie if session time isn't expired
-        let time = window.localStorage.getItem('sesion_time');
-        const date = new Date().toLocaleString();
-
-        if (time != null) {
-            if (Date.parse(date) > Date.parse(time)) {
-
-                document.cookie = "username=";
-                document.cookie = "status_account=offline";
-            }
-        }
-        
-        
+     
     
     return (
         <Layout>

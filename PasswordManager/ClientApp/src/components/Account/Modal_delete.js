@@ -51,7 +51,6 @@ export default function Modal_delete() {
 
                     setMessage("Data was deleted successfully");
 
-                    document.cookie = "window=active";
 
                     window.location.reload(false);
                 }

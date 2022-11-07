@@ -64,7 +64,7 @@ export default function SignIn() {
                             if (responseData == "user_not_exist")
                                 setMessage("user not exist");
                             else {
-                                window.localStorage.setItem('sesion_time', responseData);
+                             
 
                                     let element_div = document.getElementById('password_form');
                                     element_div.style.display = "block";
@@ -140,17 +140,17 @@ export default function SignIn() {
                         refPassword.current.value = "";
 
 
+                      
                         // +1 hour when create cookie
-                        var now = new Date();
-                        var time = now.getTime();
-                        time += 3600 * 1000;
-                        now.setTime(time);
+                        
+                        var date = new Date();
+                           
+                        date.setDate(date.getDate() + 1);
+                       
 
+                        document.cookie = "username=" + userdata.Username + "; expires=" + date.toGMTString();
 
-                        document.cookie = "window=active";
-                        document.cookie = "username=" + userdata.Username + "; expires = " + now.toUTCString();
-
-                        document.cookie = "status_account=online; expires = " + now.toUTCString();
+                        document.cookie = "status_account=online ; expires=" + date.toGMTString();
 
                         setMessage( "Log in successfully" );
 

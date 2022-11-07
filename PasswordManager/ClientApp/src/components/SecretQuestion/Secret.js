@@ -1,4 +1,5 @@
-import React, { useState,useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import style from './SecretQuestion.module.css';
 import { Link, NavLink } from 'react-router-dom';
 import question_mark from './question_mark.webp';
@@ -8,9 +9,27 @@ export default function Secret() {
 
     const [message, setMessage] = useState("");
     const [question, setQuestion] = useState("");
-    const refUsername = useRef(""),refAnswer=useRef("");
+    const refUsername = useRef(""), refAnswer = useRef("");
+    const redirect = useHistory();
 
-   
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    if (getCookie("status_account") == "online") redirect.push('/Account');
+
     
     const getquestion = (event) => {
         event.preventDefault();
@@ -81,26 +100,19 @@ export default function Secret() {
                 if (responseData.match(/\d/)) {
                     
 
-                    // +1 hour when create cookie
-                    var now = new Date();
-                    var time = now.getTime();
-                    time += 3600 * 1000;
-                    now.setTime(time);
+                    var date = new Date();
 
-                    window.localStorage.setItem('sesion_time', responseData);
+                    date.setDate(date.getDate() + 1);
 
-                    document.cookie = "username=" + refUsername.current.value + "; expires = " + now.toUTCString();
+                    document.cookie = "username=" + refUsername.current.value + "; expires=" + date.toGMTString();
 
-                    document.cookie = "status_account=online; expires = " + now.toUTCString();
+                    document.cookie = "status_account=online; expires=" + date.toGMTString();
 
                     setMessage("Log in successfully");
 
-                    document.cookie = "window=active";
+             
 
-                    refUsername.current.value = "";
-                    refAnswer.current.value = "";
-
-                    window.open("http://localhost:32349/Account", '_self', "noopener noreferrer");
+                    redirect.go('/Account');
                 }
                     
 
@@ -112,9 +124,10 @@ export default function Secret() {
 
             });
 
+
     }
    
-
+   
 
     return (
 
@@ -131,8 +144,11 @@ export default function Secret() {
                 <button class="btn btn-primary" id={style.signin_button } onClick={sendanswer }>Sign In</button>
             </form>
 
+           
+            <NavLink tag={Link} to="/SignIn" style={{ margin: "25px" }}>Back</NavLink>
+
             <img id="question_img" src={question_mark} className={style.question_image} />
-            {message}
+            <p>{message}</p>
 
         </div>
     );
