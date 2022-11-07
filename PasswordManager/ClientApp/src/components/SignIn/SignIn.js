@@ -154,9 +154,8 @@ export default function SignIn() {
 
                         setMessage( "Log in successfully" );
 
-                        window.location.reload(false);
-                        
-
+                        //redirect to page and refresh component
+                        redirect.go('/Account');
                        
 
                     }
