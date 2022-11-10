@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import user_icon from './user_icon.png';
 import './NavMenu.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import GetCookie from '../GetCookie.js';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -11,29 +12,13 @@ export class NavMenu extends Component {
   constructor (props) {
     super(props);
 
-      function getCookie(cname) {
-          let name = cname + "=";
-          let decodedCookie = decodeURIComponent(document.cookie);
-          let ca = decodedCookie.split(';');
-          for (let i = 0; i < ca.length; i++) {
-              let c = ca[i];
-              while (c.charAt(0) == ' ') {
-                  c = c.substring(1);
-              }
-              if (c.indexOf(name) == 0) {
-                  return c.substring(name.length, c.length);
-              }
-          }
-          return "";
-      }
-
       this.toggleNavbar = this.toggleNavbar.bind(this);
 
-      let status_account = getCookie("status_account");
-      let user_name = getCookie("username");
+     
+      let user_name = GetCookie("username");
 
 
-      if (status_account == "online") {
+      if (GetCookie("status_account") == "online") {
           
               if (user_name != "") {
                   this.state = {

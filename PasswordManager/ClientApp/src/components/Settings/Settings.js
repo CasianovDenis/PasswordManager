@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import style from './Settings.module.css';
+import getcookie from '../GetCookie.js';
 
 import user_icon from './user_icon.png';
 import email_icon from './email_icon.png';
@@ -8,6 +9,7 @@ import secret_icon from './secret_data.png';
 import Modal_edit_username from './Modal_edit_username.js';
 import Modal_edit_email from './Modal_edit_email.js';
 import Modal_edit_secret_question from './Modal_edit_secret_question.js';
+import GetCookie from '../GetCookie.js';
 
 
 export default function Settings() {
@@ -15,24 +17,8 @@ export default function Settings() {
     const [username, setUsername] = useState('');
     const [dbdata, setDbdata] = useState('');
    
-    
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
 
-    if (getCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
+    if (GetCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
     
     useEffect(() => {
         //create object which get data from input             
@@ -41,14 +27,12 @@ export default function Settings() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
 
-                "Username": getCookie("username")
+                "Username": GetCookie("username")
 
             })
         };
 
         //call api from backend and send json data,which create before
-
-
         fetch('http://localhost:32349/api/getuserdata', requestOptions)
             .then(response => response.json())
             .then((responseData) => {
