@@ -31,7 +31,7 @@ namespace PasswordManager.Controllers
 
             foreach (var item in dbdata)
             {
-                password_list.Add(new Password_list(DecodeFrom64(item.Name), DecodeFrom64(item.Description), Strings.Decrypt(DecodeFrom64(item.Password),item.Key, item.IV)));
+                password_list.Add(new Password_list(DecodeFrom64(item.Name), DecodeFrom64(item.Description), Strings.Decrypt(item.Password,item.Key, item.IV)));
             }
             
             
@@ -51,11 +51,11 @@ namespace PasswordManager.Controllers
                 {
                     add_store.Name = EncodeTo64(add_store.Name);
                     
-                    add_store.Description = EncodeTo64(add_store.Name);
+                    add_store.Description = EncodeTo64(add_store.Description);
 
                     byte[] key = Bytes.GenerateKey();
                     byte[] iv = Bytes.GenerateIV();
-                    add_store.Password = EncodeTo64(Strings.Encrypt(add_store.Password, key, iv));
+                    add_store.Password = Strings.Encrypt(add_store.Password, key, iv);
                     add_store.Key = key;
                     add_store.IV = iv;
 
