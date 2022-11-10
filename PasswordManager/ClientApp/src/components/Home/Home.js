@@ -5,8 +5,8 @@ import security from './security.png';
 import cross_platform from './cross_platform.png';
 import open_source from './open_source.png';
 
-export default function Home()  {
-  
+export default function Home() {
+
     
     const redirect_to_SignIn=() => {
 

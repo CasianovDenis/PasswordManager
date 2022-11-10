@@ -2,6 +2,7 @@ import React, { useState,useRef } from 'react';
 import style from './Account.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import delete_icon from './delete_icon.png';
+import GetCookie from '../GetCookie.js';
 
 export default function Modal_delete() {
 
@@ -13,28 +14,13 @@ export default function Modal_delete() {
 
     const deletepassword = () => {
 
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
+       
 
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                "Username": getCookie("username"),
+                "Username": GetCookie("username"),
                 "Name": refName_record.current.value,
                 "Password":"null"
                 
@@ -50,7 +36,6 @@ export default function Modal_delete() {
                 if (responseData == "Succes") {
 
                     setMessage("Data was deleted successfully");
-
 
                     window.location.reload(false);
                 }

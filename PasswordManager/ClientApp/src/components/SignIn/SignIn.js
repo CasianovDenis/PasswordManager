@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import style from './SignIn.module.css';
 import home_office from './home_office.jpg';
 import { Link, NavLink } from 'react-router-dom';
-
+import GetCookie from '../GetCookie.js';
 
 export default function SignIn() {
     const [message, setMessage] = useState('');
@@ -14,30 +14,14 @@ export default function SignIn() {
 
     const redirect = useHistory();
 
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    if (getCookie("status_account") == "online") redirect.push('/Account');
+    if (GetCookie("status_account") == "online") redirect.push('/Account');
 
     
 
         const Smtp_password=(event)=>  {
 
             event.preventDefault();
-            //create object which get data from input
+           
             if (refUsername.current.value.match(/\w/)) {
                 setMessage("Please wait");
 
@@ -133,7 +117,7 @@ export default function SignIn() {
                 .then(response => response.json())
                 .then((responseData) => {
 
-                    //get returned data from backend and display result on displya for user
+              
                     if (responseData == "Access_granted") {
 
                         refUsername.current.value = "";
@@ -141,7 +125,7 @@ export default function SignIn() {
 
 
                       
-                        // +1 hour when create cookie
+                        // +1 day when create cookie
                         
                         var date = new Date();
                            

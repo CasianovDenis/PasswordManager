@@ -2,6 +2,7 @@ import React, { useState,useRef } from 'react';
 import style from './Settings.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import edit_icon from './edit_icon.png';
+import GetCookie from '../GetCookie.js';
 
 export default function Modal_edit_secret_question(props) {
 
@@ -12,23 +13,6 @@ export default function Modal_edit_secret_question(props) {
     const refnewQuestion = useRef("");
     const refnewAnswer = useRef("");
 
-
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
     const editquestion = () => {
 
         setMessage("Please wait");
@@ -36,7 +20,7 @@ export default function Modal_edit_secret_question(props) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                "Username": getCookie("username"),
+                "Username": GetCookie("username"),
                 "NewQuestion": refnewQuestion.current.value,
                 "NewAnswer": refnewAnswer.current.value,
                 "OldAnswer": refanswer.current.value

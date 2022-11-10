@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import style from './SecretQuestion.module.css';
 import { Link, NavLink } from 'react-router-dom';
 import question_mark from './question_mark.webp';
-
+import GetCookie from '../GetCookie.js';
 
 export default function Secret() {
 
@@ -11,24 +11,9 @@ export default function Secret() {
     const [question, setQuestion] = useState("");
     const refUsername = useRef(""), refAnswer = useRef("");
     const redirect = useHistory();
+       
 
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    if (getCookie("status_account") == "online") redirect.push('/Account');
+    if (GetCookie("status_account") == "online") redirect.push('/Account');
 
     
     const getquestion = (event) => {
@@ -36,7 +21,7 @@ export default function Secret() {
 
                    setMessage("Please wait");
 
-                        //after email validation create option for json
+                     
                         const requestOptions = {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -45,7 +30,7 @@ export default function Secret() {
                             })
                         };
 
-                        //call api from backend and send json data,which create before
+                       
 
                         fetch('http://localhost:32349/api/getquestion', requestOptions)
                             .then(response => response.json())
@@ -79,8 +64,6 @@ export default function Secret() {
         event.preventDefault();
 
         
-
-        //after email validation create option for json
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -148,7 +131,7 @@ export default function Secret() {
             <NavLink tag={Link} to="/SignIn" style={{ margin: "25px" }}>Back</NavLink>
 
             <img id="question_img" src={question_mark} className={style.question_image} />
-            <p>{message}</p>
+            <p style={{ marginLeft:"5px" }}>{message}</p>
 
         </div>
     );
