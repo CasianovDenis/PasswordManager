@@ -9,5 +9,3 @@ String data was encoded in base64.
 - In this project are connected SMTP protocol for send one time password in the email,when user want log in account
 
 - All data was stored in PostgreSQL.
-
-- After user finish session,system automate log out user
