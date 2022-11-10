@@ -238,9 +238,12 @@ namespace PasswordManager.Controllers
                 dbdata_encryption.Username = tempdata.NewUsername;
                 _conString.SaveChanges();
 
-                var dbdata_store = _conString.Password_store.Single(data => data.Username == tempdata.Username);
+                var dbdata_store = _conString.Password_store.Where(data => data.Username == tempdata.Username).ToList();
 
-                dbdata_store.Username = tempdata.NewUsername;
+                for (int index=0;index<dbdata_store.Count;index++)
+                 dbdata_store[index].Username = tempdata.NewUsername;
+                
+                
                 _conString.SaveChanges();
 
 
