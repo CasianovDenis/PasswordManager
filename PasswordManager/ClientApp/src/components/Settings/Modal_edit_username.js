@@ -89,7 +89,7 @@ export default function Modal_edit_username() {
                                 <input type="text" id="newusername" ref={refnewName} class="form-control" style={{ width: "40%" }} required />
     
                             </div>
-                            <p>{message}</p>
+                            <p style={{ marginLeft: "5px" }}>{message}</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" onClick={editusername}>Save changes</button>

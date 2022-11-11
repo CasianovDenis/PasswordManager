@@ -94,7 +94,7 @@ export default function Modal_edit_secret_question(props) {
                                 <input type="text" ref={refnewAnswer} id="newanswer" class="form-control" style={{ width: "70%" }} required />
 
                             </div>
-                            <p>{message}</p>
+                            <p style={{ marginLeft: "5px" }}>{message}</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" onClick={editquestion}>Save changes</button>

@@ -131,7 +131,7 @@ export default function Secret() {
             <NavLink tag={Link} to="/SignIn" style={{ margin: "25px" }}>Back</NavLink>
 
             <img id="question_img" src={question_mark} className={style.question_image} />
-            <p style={{ marginLeft:"5px" }}>{message}</p>
+            <p style={{ marginLeft:"15px" }}>{message}</p>
 
         </div>
     );

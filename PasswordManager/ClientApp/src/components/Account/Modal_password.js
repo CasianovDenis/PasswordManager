@@ -77,7 +77,7 @@ export default function Modal_password() {
                                 <p>Description :</p>
                                 <input type="text" ref={refDescription} class="form-control" style={{ width: "40%" }} />
                             </div>
-                            <p>{message}</p>
+                            <p style={{ marginLeft: "5px" }}>{message}</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" onClick={storepassword}>Save changes</button>
