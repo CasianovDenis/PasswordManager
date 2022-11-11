@@ -77,7 +77,7 @@ export default function Modal_edit_email(props) {
                                 <input type="text" id="newemail" ref={refnewEmail} class="form-control" style={{ width: "60%" }} required />
     
                             </div>
-                            <p>{message}</p>
+                            <p style={{ marginLeft: "5px" }}>{message}</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" onClick={editemail}>Save changes</button>

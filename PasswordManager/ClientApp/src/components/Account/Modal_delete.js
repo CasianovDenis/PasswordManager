@@ -73,7 +73,7 @@ export default function Modal_delete() {
                                 <br />
                                
                             </div>
-                            <p>{message}</p>
+                            <p style={{ marginLeft:"5px" }}>{message}</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" onClick={deletepassword}>Save changes</button>

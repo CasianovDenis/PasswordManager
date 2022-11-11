@@ -116,7 +116,7 @@ export default function SignUp() {
 
                 <NavLink tag={Link} to="/SignIn" style={{ margin: "25px" }}>Already have account</NavLink>
 
-                <p>{message} </p>
+                <p style={{ marginLeft: "5px" }}>{message}</p>
 
             </form>
 
