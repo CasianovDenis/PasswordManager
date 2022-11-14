@@ -1,43 +1,47 @@
 ﻿/*div*/
 .background_top_color {
     width: 121.4%;
-    height: 150px;
+    height: 23.8vh;
     margin-top: -16px;
-
-    background: #141E30; 
-    background: -webkit-linear-gradient(to right, #243B55, #141E30); 
-    background: linear-gradient(to right, #243B55, #141E30);
+    background-color: #803d4d;
+    
 }
 
 .settings_user_photo {
-    width:10%;
+    width:100px;
    height:100px;
    background-color:white;
 
-   
+   position:absolute;
    border-radius:10px;
     padding: 12px;
     
-margin-left:25px;
+margin-left:55px;
 margin-top:-60px;
 }
 
 .settings_div {
     width: 30%;
     height: 150px;
-    background-color: gray;
+    background-color: #0073a2;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    margin-left: 8px;
+    margin-left: 200px;
     float: left;
+    margin-top:40px;
+}
+
+.settings_color {
+    background-color: #272e50;
+    width: 121.4%;
+    height: 65.8vh;
 }
 
 /*img*/
-.image_user{
-    width:100%;
-    height:80px;
-
+.image_user {
+    width: 100%;
+    height: 80px;
 }
 
 .icon_mail{
@@ -48,8 +52,7 @@ height:25px;
 .secret_question_icon{
 width:25px;
 height:25px;
-position:absolute;
-left:370px;
+
 }
 
 .email_edit_icon {
@@ -57,7 +60,7 @@ left:370px;
     height: 25px;
     cursor: pointer;
     position: absolute;
-    left: 300px;
+    left: 500px;
     top: 270px;
 }
 
@@ -66,7 +69,7 @@ left:370px;
     height: 25px;
     cursor: pointer;
     position: absolute;
-    left: 650px;
+    left: 1030px;
     top: 270px;
 }
 
@@ -91,11 +94,11 @@ left:370px;
 
 
 
-@media(max-width:991px) {
+@media(max-width:700px) {
 
     .background_top_color {
-        width: 150%;
-        height: 170px;
+        width: 102.8%;
+        height: 24.5vh;
         margin-top: -15px;
     }
 
@@ -109,21 +112,25 @@ left:370px;
         height: 160px;
     }
 
+    .settings_color {
+        
+        width: 102.8%;
+       
+    }
+
     .secret_question_icon {
         width: 25px;
         height: 25px;
-        position: absolute;
-        left: 240px;
     }
 
     .email_edit_icon {
-        left: 180px;
-        top: 280px;
+        left: 380px;
+        top: 270px;
     }
 
     .secret_question_edit_icon {
-        left: 390px;
-        top: 280px;
+        left: 380px;
+        top: 468px;
     }
 
     
