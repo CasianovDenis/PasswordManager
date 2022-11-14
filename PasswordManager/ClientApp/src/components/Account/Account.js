@@ -48,9 +48,12 @@ export default function Account() {
     return (
 
         <div >
+          
             <Modal_password />
             <Modal_delete />
-            <hr />
+       
+
+            <div className={style.display_div }>
             {responseData.map(item => {
                 return (
                     <div className={style.div_data } >
@@ -62,6 +65,7 @@ export default function Account() {
                         </div>
                     );
             })}
+                </div>
            
         </div>
     );
