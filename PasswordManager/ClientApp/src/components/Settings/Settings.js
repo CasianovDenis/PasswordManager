@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import style from './Settings.module.css';
-import getcookie from '../GetCookie.js';
 
 import user_icon from './user_icon.png';
 import email_icon from './email_icon.png';
@@ -71,13 +70,16 @@ export default function Settings() {
 
             <div className={style.settings_div}>
                 <img src={secret_icon} className={style.secret_question_icon} />
-                <p style={{ color: "white", marginLeft:"40px" }}>Secret question:</p>
+                <p style={{ color: "white", marginLeft: "40px", marginTop:"-25px" }}>Secret question:</p>
                 
-                <p style={{ color: "#9b3126"}}>
+                <p style={{ color: "#f28883"}}>
                     Don't use simple secret question for example "My name",question must be strong  for only you know answer</p>
                 <Modal_edit_secret_question question={dbdata.Secret_question} />
             </div>
 
+            <div className={style.settings_color }>
+
+                </div>
             
 
         </div>
