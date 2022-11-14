@@ -168,7 +168,7 @@ namespace PasswordManager.Controllers
             }
             catch
             {
-                return Json("User not exist");
+                return Json("Password incorect");
             }
 
         }
