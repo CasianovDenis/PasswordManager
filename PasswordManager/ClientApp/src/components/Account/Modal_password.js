@@ -1,8 +1,12 @@
 import React, { useState,useRef } from 'react';
+
 import style from './Account.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import add_icon from './add_icon.png';
+
 import GetCookie from '../GetCookie.js';
+//import fetch from '../Fetch.js';
 
 export default function Modal_password() {
 
@@ -14,6 +18,8 @@ export default function Modal_password() {
     
 
     const storepassword = () => {
+
+        setMessage("Please Wait");
 
         const requestOptions = {
             method: 'POST',
@@ -45,6 +51,11 @@ export default function Modal_password() {
 
 
             });
+        
+
+
+            
+
     }
 
 
