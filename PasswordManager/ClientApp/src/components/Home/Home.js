@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
-import  style  from './Home.module.css';
+import React from 'react';
+
+import style from './Home.module.css';
+
 import locker from './locker.png';
 import security from './security.png';
 import cross_platform from './cross_platform.png';
 import open_source from './open_source.png';
+
+
 
 export default function Home() {
 
