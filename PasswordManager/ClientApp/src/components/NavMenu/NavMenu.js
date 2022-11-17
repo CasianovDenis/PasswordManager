@@ -72,13 +72,13 @@ export class NavMenu extends Component {
               <ul className="navbar-nav flex-grow">
                
             <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/SignIn"
-                    style={{ display: this.state.status_link }}>Log In</NavLink>
+                <NavLink tag={Link}  to="/SignIn"
+                    style={{ display: this.state.status_link ,color:"white"}}>Log In</NavLink>
                  </NavItem>
 
                 <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/SignUp"
-                    style={{ display: this.state.status_link }}>Sign Up</NavLink>
+                <NavLink tag={Link}  to="/SignUp"
+                    style={{ display: this.state.status_link , color:"white"}}>Sign Up</NavLink>
             </NavItem>
 
                 <NavItem style={{ display: this.state.status_dropdown }}>

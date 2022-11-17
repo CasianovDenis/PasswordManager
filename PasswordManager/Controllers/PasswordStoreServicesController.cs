@@ -77,24 +77,24 @@ namespace PasswordManager.Controllers
 
         [Route("~/api/deletedatastore")]
         [HttpPost]
-        public JsonResult DeleteData(Password_store get_store)
+        public JsonResult DeleteData(Password_store delete_data)
         {
             try
             {
-                var dbdata = _conString.Password_store.Where(data => data.Username == get_store.Username).ToList();
+                var dbdata = _conString.Password_store.Where(data => data.Username == delete_data.Username).ToList();
                 foreach (var item in dbdata)
                 {
 
-                    if (get_store.Name == DecodeFrom64(item.Name))
+                    if (delete_data.Name == DecodeFrom64(item.Name))
                     {
                         _conString.Remove(item);
                         _conString.SaveChanges();
+                        return Json("Succes");
                     }
-                    else
-                        return Json("This name not exist");
+                    
                 }
-                
-                return Json("Succes");
+                return Json("This name not exist");
+               
         }
             catch
             {
