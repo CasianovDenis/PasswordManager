@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import style from './Home.module.css';
 
@@ -7,11 +8,16 @@ import security from './security.png';
 import cross_platform from './cross_platform.png';
 import open_source from './open_source.png';
 
+import GetCookie from '../public_files/GetCookie.js';
+
 
 
 export default function Home() {
 
-    
+    const redirect = useHistory();
+
+    if (GetCookie("status_account") == "online") redirect.push('/Account');
+
     const redirect_to_SignIn=() => {
 
         window.open("http://localhost:32349/SignIn", '_self', "noopener noreferrer");
