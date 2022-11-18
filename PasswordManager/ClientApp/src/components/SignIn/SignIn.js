@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
-import style from './SignIn.module.css';
-import home_office from './home_office.jpg';
 import { Link, NavLink } from 'react-router-dom';
-import GetCookie from '../GetCookie.js';
+
+import style from './SignIn.module.css';
+
+import home_office from './home_office.jpg';
+
+import GetCookie from '../public_files/GetCookie.js';
 
 export default function SignIn() {
     const [message, setMessage] = useState('');

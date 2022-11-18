@@ -5,18 +5,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import add_icon from './add_icon.png';
 
-import GetCookie from '../GetCookie.js';
-//import fetch from '../Fetch.js';
+import GetCookie from '../public_files/GetCookie.js';
+
 
 export default function Modal_password() {
 
     const [message, setMessage] = useState('');
+    
 
     const refName_record = useRef("");
     const refPassword = useRef("");
     const refDescription = useRef("");
     
-
+    
     const storepassword = () => {
 
         setMessage("Please Wait");
@@ -50,17 +51,9 @@ export default function Modal_password() {
                     setMessage(responseData);
 
 
-            });
-        
-
-
-            
+            });  
 
     }
-
-
-
-
 
         return (
 

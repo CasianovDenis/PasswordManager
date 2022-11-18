@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Modal_password from './Modal_password';
@@ -8,9 +8,9 @@ import key from './key.png';
 
 import style from './Account.module.css'
 
-import GetCookie from '../GetCookie.js';
-import Fetch from '../Fetch.js';
+import GetCookie from '../public_files/GetCookie.js';
 
+import loadingGif from '../public_files/loading_animation.gif';
 
 
 export default function Account() {
@@ -23,9 +23,26 @@ export default function Account() {
 
     if (GetCookie("status_account") != "online") redirect.push('/');
 
- 
-    //call api when loadin page
    
+    
+    useEffect(() => {
+
+        //added loading animation,timeout 5 second,after animation are hidden
+        setTimeout(() => {
+
+            const animation = document.getElementsByClassName('gifloading')[0];
+            const loading_div = document.getElementsByClassName('loader_wrapper')[0];
+            
+                animation.style.minWidth = "0px";
+                animation.style.height = "0px";
+
+                loading_div.style.minWidth = "0px";
+                loading_div.style.height = "0px";
+
+        
+        }, 5000)
+
+        //create request obj
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -38,17 +55,17 @@ export default function Account() {
             })
         };
 
+       //called api for get user data and display him
+            fetch('http://localhost:32349/api/getdatastore', requestOptions)
+            .then(response => response.json())
+            .then((responseData) => {
+                setResponseData(responseData)
 
-    let response = Fetch(requestOptions, 'getdatastore');
+            });
+
+    }, []);
 
 
-    useEffect(() => {
-
-        setResponseData(response);
-     
-
-    }, [response]);
-    
     
     const delete_password = (ev) => {
 
@@ -67,7 +84,7 @@ export default function Account() {
                 })
             };
 
-            //call api from backend and send json data,which create before
+            //called api where send json request for delete data from DB
 
             fetch('http://localhost:32349/api/deletedatastore', requestOptions)
                 .then(response => response.json())
@@ -83,18 +100,28 @@ export default function Account() {
 
                 });
         }
-        
-        
-       
+            
     }
 
     return (
 
-        <div >
-          
-            <Modal_password />
-           
        
+
+        <div >
+
+            {/*Called modal from another js page*/}
+
+            <Modal_password />
+
+            {/*Loading animation gif/div*/}
+
+            <div class="loader_wrapper" >
+               
+                <img src={loadingGif} alt="wait until the page loads"  class="gifloading"/>
+            </div>
+
+                    
+            {/*Div where are displayed data*/}
 
             <div className={style.display_div }>
             {responseData.map(item => {

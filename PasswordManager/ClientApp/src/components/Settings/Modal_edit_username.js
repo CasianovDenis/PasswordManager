@@ -1,8 +1,11 @@
 import React, { useState, useRef } from 'react';
+
 import style from './Settings.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import edit_icon from './edit_icon.png';
-import GetCookie from '../GetCookie.js';
+
+import GetCookie from '../public_files/GetCookie.js';
 
 export default function Modal_edit_username() {
 
@@ -34,8 +37,6 @@ export default function Modal_edit_username() {
                 if (responseData == "Succes") {
 
                     setMessage("Username change successfully");
-
-
 
                     // +1 hour when create cookie
                     var now = new Date();

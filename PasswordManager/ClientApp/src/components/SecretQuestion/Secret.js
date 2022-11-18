@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import style from './SecretQuestion.module.css';
 import { Link, NavLink } from 'react-router-dom';
+
+import style from './SecretQuestion.module.css';
+
 import question_mark from './question_mark.webp';
-import GetCookie from '../GetCookie.js';
+
+import GetCookie from '../public_files/GetCookie.js';
 
 export default function Secret() {
 
