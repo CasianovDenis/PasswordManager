@@ -1,8 +1,11 @@
-import React, { useState,useRef } from 'react';
+import React, { useState, useRef } from 'react';
+
 import style from './Settings.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import edit_icon from './edit_icon.png';
-import GetCookie from '../GetCookie.js';
+
+import GetCookie from '../public_files/GetCookie.js';
 
 export default function Modal_edit_email(props) {
 
@@ -46,8 +49,6 @@ export default function Modal_edit_email(props) {
 
             });
     }
-
-
 
 
 
