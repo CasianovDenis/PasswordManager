@@ -1,4 +1,5 @@
-﻿.button_add {
+﻿/*style for button which add data in DB*/
+.button_add {
     background: #5E5DF0;
     border-radius: 20px;
     box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -20,12 +21,14 @@
     border: none;
     margin-left: 10px;
     float: left;
-    
+    margin-top:-80px;
 }
 
 button:focus{
     outline:none !important;
 }
+
+/*Div which display all data*/
 .div_data {
     font-family: cursive, sans-serif;
     background-color: #3c497c;
@@ -35,36 +38,38 @@ button:focus{
     border-radius: 4px;
     margin-left: 10px;
     float: left;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
+/*div where display user data */
 .display_div {
-    position: absolute;
-    top: 160px;
+   
+    margin-top:100px;
     background-color: #00313f;
-    width: 100%;
-    height: 74.8vh;
+    width: 121.4%;
+    height: 73.8vh;
+
 }
 
-
-/*@media(max-width: 991px) {
-    
-    .display_div {
-       
-        top: 155px;
-        
-        
-    }
-}*/
-
-.add_image{
-    width:45px;
-    height:45px;
+/*image style*/
+.add_image {
+    width: 45px;
+    height: 45px;
 }
 
 .delete_image {
     width: 35px;
     height: 35px;
-    cursor:pointer;
-    float:right;
+    cursor: pointer;
+    float: right;
 }
+
+@media(max-width: 991px) {
+
+    .display_div {
+        width: 150%;
+        height: 71.5vh;
+    }
+
+}
+
