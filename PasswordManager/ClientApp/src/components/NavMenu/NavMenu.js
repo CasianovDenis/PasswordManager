@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import user_icon from './user_icon.png';
+
+import user_icon from '../public_files/user_icon.png';
+
 import './NavMenu.css';
+
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import GetCookie from '../GetCookie.js';
+import GetCookie from '../public_files/GetCookie.js';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
