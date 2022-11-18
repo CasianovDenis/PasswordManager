@@ -1,9 +1,12 @@
-import React, { useState,useRef } from 'react';
-import style from './SignUp.module.css';
+import React, { useState, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+
+import style from './SignUp.module.css';
+
 import book_readers from './book_readers.jpg';
 import faq from './faq.png';
-import GetCookie from '../GetCookie.js';
+
+import GetCookie from '../public_files/GetCookie.js';
 
 export default function SignUp() {
 
@@ -26,26 +29,32 @@ export default function SignUp() {
 
         };
 
+        //username validation,must contain only letters or numbers
+
         if (newuser.Username.match(/^[A-Za-z0-9]+$/)) {
-            //email validation
+            //email validation if contain symbol @
+
             if (newuser.Email.match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             )) {
+                //secret question validation,must contain only letters or numbers
 
                 if (newuser.Secret_question.match(/^[A-Za-z0-9]+$/)) {
+
+                    //secret question validation,must contain only letters or numbers
 
                     if (newuser.Secret_answer.match(/^[A-Za-z0-9]+$/)) {
 
                         setMessage("Please wait");
 
-                        //after email validation create option for json
+                        //create request 
                         const requestOptions = {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(newuser)
                         };
 
-                        //call api from backend and send json data,which create before
+                        //called api for send data in DB
 
                         fetch('http://localhost:32349/api/createuser', requestOptions)
                             .then(response => response.json())
