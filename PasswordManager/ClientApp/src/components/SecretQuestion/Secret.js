@@ -50,7 +50,7 @@ export default function Secret() {
                                     div_answer.style.display = "block";
 
                                     let image = document.getElementById('question_img');
-                                    image.style.marginTop = "-25%";
+                                    image.style.marginTop = "-20%";
 
                                     setMessage("");
                                 }
@@ -72,7 +72,7 @@ export default function Secret() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "Username": refUsername.current.value,
-                "Secret_answer": refAnswer.current.value
+                "Secret_answer": btoa(refAnswer.current.value)
             })
         };
 
@@ -83,7 +83,7 @@ export default function Secret() {
             .then((responseData) => {
 
                 //get returned data from backend and display result on displya for user
-                if (responseData.match(/\d/)) {
+                if (responseData=="Succes") {
                     
 
                     var date = new Date();
@@ -100,8 +100,7 @@ export default function Secret() {
 
                     redirect.go('/Account');
                 }
-                    
-
+                
 
                 else                   
                     setMessage(responseData);
