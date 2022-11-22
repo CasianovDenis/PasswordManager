@@ -48,9 +48,8 @@ namespace PasswordManager.Controllers
                     {
                         if (newuser.Secret_answer != "")
                         {
-                           
-                            newuser.Secret_question = EncodeTo64(newuser.Secret_question);
-                            newuser.Secret_answer = EncodeTo64(newuser.Secret_answer);
+
+                            
                             _conString.ProjectUsers.Add(newuser);
                             _conString.SaveChanges();
 
@@ -183,7 +182,7 @@ namespace PasswordManager.Controllers
 
 
 
-                if (user.Secret_answer == DecodeFrom64(dbdata.Secret_answer))
+                if (DecodeFrom64(user.Secret_answer) == DecodeFrom64(dbdata.Secret_answer))
                 {
 
                     DateTime actual_time = DateTime.Now;
@@ -193,7 +192,7 @@ namespace PasswordManager.Controllers
                     _conString.SaveChanges();
 
 
-                    return Json(dbdata.Time_expire);
+                    return Json("Succes");
                 }
 
                 return Json("Answer isn't right");
@@ -317,7 +316,7 @@ namespace PasswordManager.Controllers
             {
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
 
-                if (tempdata.OldAnswer == DecodeFrom64(dbdata.Secret_answer))
+                if (DecodeFrom64(tempdata.OldAnswer) == DecodeFrom64(dbdata.Secret_answer))
                 {
                     dbdata.Secret_question = EncodeTo64(tempdata.NewQuestion);
                     dbdata.Secret_answer = EncodeTo64(tempdata.NewAnswer);
