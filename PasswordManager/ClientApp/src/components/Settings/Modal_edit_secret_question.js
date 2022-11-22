@@ -20,44 +20,70 @@ export default function Modal_edit_secret_question(props) {
     const editquestion = () => {
 
         setMessage("Please wait");
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "Username": GetCookie("username"),
-                "NewQuestion": refnewQuestion.current.value,
-                "NewAnswer": refnewAnswer.current.value,
-                "OldAnswer": refanswer.current.value
-                
-            })
+
+        let newdata = {
+
+            "Username": GetCookie("username"),
+            "NewQuestion": refnewQuestion.current.value,
+            "NewAnswer": refnewAnswer.current.value,
+            "OldAnswer": refanswer.current.value
+
         };
 
-        //call api from backend and send json data,which create before
+        
 
-        fetch('http://localhost:32349/api/edit_secret_question', requestOptions)
-            .then(response => response.json())
-            .then((responseData) => {
 
-                if (responseData == "Succes") {
+        //old answer validation,must contain letters or numbers
+        if (newdata.OldAnswer.match(/^[a-zA-Z0-9\s]*$/)) {
 
-                    setMessage("Secret question and answer has change successfully");
+            //secret question validation,must contain  letters or numbers
+            if (newdata.NewQuestion.match(/^[a-zA-Z0-9\s]*$/)) {
 
-                    var field = document.getElementById("oldanswer");
-                    field.value = "";
+                //secret question validation,must contain  letters or numbers
 
-                    field = document.getElementById("newquestion");
-                    field.value = "";
+                if (newdata.NewAnswer.match(/^[A-Za-z0-9\s]*$/)) {
 
-                    field = document.getElementById("newanswer");
-                    field.value = "";
-                   
+                    newdata.OldAnswer = btoa(refanswer.current.value);
+                    newdata.Secret_question = btoa(refnewQuestion.current.value);
+                    newdata.Secret_answer = btoa(refnewAnswer.current.value);
+
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newdata)
+                    };
+
+                    fetch('http://localhost:32349/api/edit_secret_question', requestOptions)
+                        .then(response => response.json())
+                        .then((responseData) => {
+
+                            if (responseData == "Succes") {
+
+                                setMessage("Secret question and answer has change successfully");
+
+                                var field = document.getElementById("oldanswer");
+                                field.value = "";
+
+                                field = document.getElementById("newquestion");
+                                field.value = "";
+
+                                field = document.getElementById("newanswer");
+                                field.value = "";
+
+                            }
+
+                            else
+                                setMessage(responseData);
+
+
+                        });
                 }
-
                 else
-                    setMessage(responseData);
-
-
-            });
+                    setMessage("Actual answer isn't right");
+            }
+            else
+                setMessage("Not accepted symbol in the question");
+        }
     }
 
 
