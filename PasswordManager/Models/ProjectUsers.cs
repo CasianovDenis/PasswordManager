@@ -16,7 +16,7 @@ namespace PasswordManager.Models
         public string Email { get; set; }
        
         public string Password { get; set; }
-        public string Time_expire { get; set; }
+       
         public string Secret_question { get; set; }
         public string Secret_answer { get; set; }
 
