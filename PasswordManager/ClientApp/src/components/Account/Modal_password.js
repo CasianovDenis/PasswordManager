@@ -21,38 +21,49 @@ export default function Modal_password() {
     const storepassword = () => {
 
         setMessage("Please Wait");
+        
+        if (refName_record.current.value.match(/^[a-zA-Z0-9\s]*$/)) {
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "Username": GetCookie("username"),
-                "Name": refName_record.current.value,
-                "Password": refPassword.current.value,
-                "Description": refDescription.current.value
-            })
-        };
-
-        //call api from backend and send json data,which create before
-
-        fetch('http://localhost:32349/api/add_data', requestOptions)
-            .then(response => response.json())
-            .then((responseData) => {
-
-                if (responseData == "Succes") {
-
-                    setMessage("Data added successfully");
+            if (refDescription.current.value.match(/^[a-zA-Z0-9\s]*$/)) {
 
 
-                    window.location.reload(false);
-                }
 
-                else
-                    setMessage(responseData);
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        "Username": GetCookie("username"),
+                        "Name": refName_record.current.value,
+                        "Password": refPassword.current.value,
+                        "Description": refDescription.current.value
+                    })
+                };
+
+                //call api from backend and send json data,which create before
+
+                fetch('http://localhost:32349/api/add_data', requestOptions)
+                    .then(response => response.json())
+                    .then((responseData) => {
+
+                        if (responseData == "Succes") {
+
+                            setMessage("Data added successfully");
 
 
-            });  
+                            window.location.reload(false);
+                        }
 
+                        else
+                            setMessage(responseData);
+
+
+                    });
+            }
+            else
+                setMessage("Description can not have symbols");
+        }
+        else
+            setMessage("Name can not have symbols");
     }
 
         return (
@@ -73,13 +84,13 @@ export default function Modal_password() {
                             </div>
                             <div class="modal-body">
                                 <p> Title :</p>
-                                <input type="text" ref={refName_record } class="form-control" style={{ width: "40%" }} required />
+                                <input type="text" ref={refName_record } class="form-control" style={{ width: "60%" }} required />
                                 <br />
                                 <p>Password :</p>
-                                <input type="password" ref={refPassword} class="form-control" style={{ width: "40%" }} required />
+                                <input type="password" ref={refPassword} class="form-control" style={{ width: "60%" }} required />
                                 <br />
                                 <p>Description :</p>
-                                <input type="text" ref={refDescription} class="form-control" style={{ width: "40%" }} />
+                                <input type="text" ref={refDescription} class="form-control" style={{ width: "60%" }} />
                             </div>
                             <p style={{ marginLeft: "5px" }}>{message}</p>
                             <div class="modal-footer">

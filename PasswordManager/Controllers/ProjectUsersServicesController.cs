@@ -48,9 +48,8 @@ namespace PasswordManager.Controllers
                     {
                         if (newuser.Secret_answer != "")
                         {
-                           
-                            newuser.Secret_question = EncodeTo64(newuser.Secret_question);
-                            newuser.Secret_answer = EncodeTo64(newuser.Secret_answer);
+
+                            
                             _conString.ProjectUsers.Add(newuser);
                             _conString.SaveChanges();
 
@@ -111,10 +110,7 @@ namespace PasswordManager.Controllers
 
                 dbdata.Password = crypt_password;
 
-                DateTime actual_time = DateTime.Now;
-                DateTime new_time = actual_time.AddHours(1);
-
-                dbdata.Time_expire= new_time.ToString();
+                             
                 _conString.SaveChanges();
 
 
@@ -129,7 +125,7 @@ namespace PasswordManager.Controllers
                 dbdata_encrypt.IV = iv;
                 _conString.SaveChanges();
 
-                return Json(new_time.ToString());
+                return Json("Succes");
             }
             catch
             {
@@ -183,17 +179,14 @@ namespace PasswordManager.Controllers
 
 
 
-                if (user.Secret_answer == DecodeFrom64(dbdata.Secret_answer))
+                if (DecodeFrom64(user.Secret_answer) == DecodeFrom64(dbdata.Secret_answer))
                 {
 
-                    DateTime actual_time = DateTime.Now;
-                    DateTime new_time = actual_time.AddHours(1);
-
-                    dbdata.Time_expire = new_time.ToString();
+                  
                     _conString.SaveChanges();
 
 
-                    return Json(dbdata.Time_expire);
+                    return Json("Succes");
                 }
 
                 return Json("Answer isn't right");
@@ -317,7 +310,7 @@ namespace PasswordManager.Controllers
             {
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
 
-                if (tempdata.OldAnswer == DecodeFrom64(dbdata.Secret_answer))
+                if (DecodeFrom64(tempdata.OldAnswer) == DecodeFrom64(dbdata.Secret_answer))
                 {
                     dbdata.Secret_question = EncodeTo64(tempdata.NewQuestion);
                     dbdata.Secret_answer = EncodeTo64(tempdata.NewAnswer);

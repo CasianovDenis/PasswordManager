@@ -39,13 +39,15 @@ export default function SignUp() {
             )) {
                 //secret question validation,must contain only letters or numbers
 
-                if (newuser.Secret_question.match(/^[A-Za-z0-9]+$/)) {
+                if (newuser.Secret_question.match(/^[a-zA-Z0-9\s]*$/)) {
 
                     //secret question validation,must contain only letters or numbers
 
-                    if (newuser.Secret_answer.match(/^[A-Za-z0-9]+$/)) {
+                    if (newuser.Secret_answer.match(/^[a-zA-Z0-9\s]*$/)) {
 
                         setMessage("Please wait");
+                        newuser.Secret_question = btoa(refQuestion.current.value);
+                        newuser.Secret_answer = btoa(refAnswer.current.value);
 
                         //create request 
                         const requestOptions = {

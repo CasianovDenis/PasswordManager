@@ -5,7 +5,7 @@ import Modal_password from './Modal_password';
 
 import delete_icon from './delete_icon.png';
 import key from './key.png';
-
+import copy_icon from './copy_icon.png';
 import style from './Account.module.css'
 
 import GetCookie from '../public_files/GetCookie.js';
@@ -58,9 +58,9 @@ export default function Account() {
        //called api for get user data and display him
             fetch('http://localhost:32349/api/getdatastore', requestOptions)
             .then(response => response.json())
-            .then((responseData) => {
+                .then((responseData) => {
                 setResponseData(responseData)
-
+                
             });
 
     }, []);
@@ -103,6 +103,34 @@ export default function Account() {
             
     }
 
+    const copy = (ev) => {
+
+        let item = ev.target.getAttribute('alt');
+        let password;
+        for (let index = 0; index < responseData.length; index++)
+            if (responseData[index].Name == item) password = responseData[index].Password;
+       
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(password);
+
+        // Alert the copied text
+        var elem = document.getElementById("popup_div");
+        elem.style.display = "block";
+        elem = document.getElementById("popup_text");
+        elem.style.display = "block";
+
+        setTimeout(() => {
+
+            elem = document.getElementById("popup_div");
+            elem.style.display = "none";
+            elem = document.getElementById("popup_text");
+            elem.style.display = "none";
+
+
+        }, 5000)
+    }
+
     return (
 
        
@@ -129,7 +157,11 @@ export default function Account() {
                     <div className={style.div_data}  >
                         <img src={key} style={{width:"25px",height:"25px"} }/> Your Data
                         <p >Name: {item.Name}</p>
-                        <p>Password: {item.Password}</p>
+                        <p>Password: <p  class="hide_password">********</p></p>
+
+                        <img src={copy_icon} className={style.copy_icon} onClick={copy}
+                            alt={item.Name} />
+
                         <p>Description: {item.Description}</p>
 
                        
@@ -142,6 +174,10 @@ export default function Account() {
                         
                     );
             })}
+
+                <div className={style.popup_div} id="popup_div">
+                    <p className={ style.popup_text} id="popup_text"> Text are copied</p>
+                    </div>
                 </div>
            
         </div>
