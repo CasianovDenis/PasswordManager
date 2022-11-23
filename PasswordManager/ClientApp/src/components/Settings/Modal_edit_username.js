@@ -18,46 +18,50 @@ export default function Modal_edit_username() {
 
         setMessage("Please wait");
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "Username": GetCookie("username"),
-                "NewUsername": refnewName.current.value
-                
-            })
-        };
+        if (refnewName.current.value.match(/^[A-Za-z0-9]+$/)) {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "Username": GetCookie("username"),
+                    "NewUsername": refnewName.current.value
 
-        //call api from backend and send json data,which create before
+                })
+            };
 
-        fetch('http://localhost:32349/api/edit_username', requestOptions)
-            .then(response => response.json())
-            .then((responseData) => {
+            //call api from backend and send json data,which create before
 
-                if (responseData == "Succes") {
+            fetch('http://localhost:32349/api/edit_username', requestOptions)
+                .then(response => response.json())
+                .then((responseData) => {
 
-                    setMessage("Username change successfully");
+                    if (responseData == "Succes") {
 
-                    // +1 hour when create cookie
-                    var now = new Date();
-                    var time = now.getTime();
-                    time += 3600 * 1000;
-                    now.setTime(time);
+                        setMessage("Username change successfully");
 
-                   
-                    document.cookie = "username=" + refnewName.current.value + "; expires = " + now.toUTCString();
-
-                    document.cookie = "status_account=online; expires = " + now.toUTCString();
-
-                    var field = document.getElementById("newusername");
-                    field.value = "";
-                }
-
-                else
-                    setMessage(responseData);
+                        // +1 hour when create cookie
+                        var now = new Date();
+                        var time = now.getTime();
+                        time += 3600 * 1000;
+                        now.setTime(time);
 
 
-            });
+                        document.cookie = "username=" + refnewName.current.value + "; expires = " + now.toUTCString();
+
+                        document.cookie = "status_account=online; expires = " + now.toUTCString();
+
+                        var field = document.getElementById("newusername");
+                        field.value = "";
+                    }
+
+                    else
+                        setMessage(responseData);
+
+
+                });
+        }
+        else
+            setMessage("Username can not contain symbols and space");
     }
 
 
