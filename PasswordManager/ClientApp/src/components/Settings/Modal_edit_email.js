@@ -18,36 +18,41 @@ export default function Modal_edit_email(props) {
 
         setMessage("Please wait");
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "Username": GetCookie("username"),
-                "NewEmail": refnewEmail.current.value
-                
-            })
-        };
+        if (refnewEmail.current.value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )) {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "Username": GetCookie("username"),
+                    "NewEmail": refnewEmail.current.value
 
-        //call api from backend and send json data,which create before
+                })
+            };
 
-        fetch('http://localhost:32349/api/edit_email', requestOptions)
-            .then(response => response.json())
-            .then((responseData) => {
+            //call api from backend and send json data,which create before
 
-                if (responseData == "Succes") {
+            fetch('http://localhost:32349/api/edit_email', requestOptions)
+                .then(response => response.json())
+                .then((responseData) => {
 
-                    setMessage("Email change successfully");
+                    if (responseData == "Succes") {
 
-                   
-                    var field = document.getElementById("newemail");
-                    field.value = "";
-                }
-
-                else
-                    setMessage(responseData);
+                        setMessage("Email change successfully");
 
 
-            });
+                        var field = document.getElementById("newemail");
+                        field.value = "";
+                    }
+
+                    else
+                        setMessage(responseData);
+
+
+                });
+        }
+        else
+            setMessage("Email has incorect format");
     }
 
 
