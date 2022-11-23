@@ -110,10 +110,7 @@ namespace PasswordManager.Controllers
 
                 dbdata.Password = crypt_password;
 
-                DateTime actual_time = DateTime.Now;
-                DateTime new_time = actual_time.AddHours(1);
-
-                dbdata.Time_expire= new_time.ToString();
+                             
                 _conString.SaveChanges();
 
 
@@ -128,7 +125,7 @@ namespace PasswordManager.Controllers
                 dbdata_encrypt.IV = iv;
                 _conString.SaveChanges();
 
-                return Json(new_time.ToString());
+                return Json("Succes");
             }
             catch
             {
@@ -185,10 +182,7 @@ namespace PasswordManager.Controllers
                 if (DecodeFrom64(user.Secret_answer) == DecodeFrom64(dbdata.Secret_answer))
                 {
 
-                    DateTime actual_time = DateTime.Now;
-                    DateTime new_time = actual_time.AddHours(1);
-
-                    dbdata.Time_expire = new_time.ToString();
+                  
                     _conString.SaveChanges();
 
 
