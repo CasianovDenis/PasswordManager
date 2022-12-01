@@ -20,5 +20,7 @@ namespace PasswordManager.Models
         public string Secret_question { get; set; }
         public string Secret_answer { get; set; }
 
+        public string Time_ban {get; set;}
+
     }
 }
