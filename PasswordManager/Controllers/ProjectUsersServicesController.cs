@@ -24,6 +24,12 @@ namespace PasswordManager.Controllers
 
         }
 
+         /*public ProjectUsersServicesController()
+        {
+            
+
+        }*/
+
         [Route("~/api/createuser")]
         [HttpPost]
         public JsonResult CreateAccount([FromBody] ProjectUsers newuser)
@@ -190,7 +196,7 @@ namespace PasswordManager.Controllers
                 var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == user.Username);
 
 
-                //usr one time password
+                //use one time password
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
 
 
