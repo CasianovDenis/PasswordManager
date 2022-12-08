@@ -24,6 +24,12 @@ namespace PasswordManager.Controllers
 
         }
 
+         /*public ProjectUsersServicesController()
+        {
+            
+
+        }*/
+
         [Route("~/api/createuser")]
         [HttpPost]
         public JsonResult CreateAccount([FromBody] ProjectUsers newuser)
@@ -89,43 +95,54 @@ namespace PasswordManager.Controllers
             {
                 //get email from db
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+                DateTime currentTime = DateTime.Now;
+                DateTime timeDB = Convert.ToDateTime(dbdata.Time_ban);
+
+                if (dbdata.Time_ban == null || currentTime > timeDB)
+                {
+                    if (dbdata.Password == null)
+                    {
+                        // generate password   
+                        RandomNumberGenerator generator = new RandomNumberGenerator();
+                        int rand = generator.RandomNumber(16, 25);
+
+                        string str = generator.RandomString(rand, false);
+
+                        string pass = generator.RandomPassword();
+
+
+                        //encrypt password 
+                        byte[] key = Bytes.GenerateKey();
+                        byte[] iv = Bytes.GenerateIV();
+                        var crypt_password = Strings.Encrypt(pass, key, iv);
+
+                        //update db data
+
+                        dbdata.Password = crypt_password;
+
+
+                        _conString.SaveChanges();
 
 
 
-                // generate password   
-                RandomNumberGenerator generator = new RandomNumberGenerator();
-                int rand = generator.RandomNumber(16, 25);
 
-                string str = generator.RandomString(rand, false);
-
-                string pass = generator.RandomPassword();
+                        SendEmail send = new SendEmail(crypt_password, dbdata.Email);
 
 
-                //encrypt password 
-                byte[] key = Bytes.GenerateKey();
-                byte[] iv = Bytes.GenerateIV();
-                var crypt_password = Strings.Encrypt(pass, key, iv);
+                        //update encryption data in db
+                        var dbdata_encrypt = _conString.Encryption_data.Single(data => data.Username == user.Username);
+                        dbdata_encrypt.Key = key;
+                        dbdata_encrypt.IV = iv;
+                        _conString.SaveChanges();
 
-                //update db data
-
-                dbdata.Password = crypt_password;
-
-                             
-                _conString.SaveChanges();
-
-
-                
-
-                SendEmail send = new SendEmail(crypt_password, dbdata.Email);
-
-
-                //update encryption data in db
-                var dbdata_encrypt = _conString.Encryption_data.Single(data => data.Username == user.Username);
-                dbdata_encrypt.Key = key;
-                dbdata_encrypt.IV = iv;
-                _conString.SaveChanges();
-
-                return Json("Succes");
+                        return Json("Password is sended in the email." + '\n' +
+                                            "Mail can come delay or you can find him in the spam");
+                    }
+                    else
+                        return Json("old password");
+                }
+                else
+                    return Json("time ban");
             }
             catch
             {
@@ -165,6 +182,38 @@ namespace PasswordManager.Controllers
             catch
             {
                 return Json("Password incorect");
+            }
+
+        }
+
+        [Route("~/api/login_wrong")]
+        [HttpPost]
+        public JsonResult Login_wrong(ProjectUsers user)
+        {
+            try
+            {
+                //get key and iv for descrypt pass
+                var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == user.Username);
+
+
+                //use one time password
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+
+
+                dbdata.Password = null;
+                DateTime currentTime = DateTime.Now;
+               
+                dbdata.Time_ban= currentTime.AddMinutes(30).ToString();
+                dbdata_encryption.IV = null;
+                dbdata_encryption.Key = null;
+                _conString.SaveChanges();
+             
+                return Json("Password canceled,you was used all your attempts ");
+
+            }
+            catch
+            {
+                return Json("User not exist");
             }
 
         }
@@ -209,8 +258,12 @@ namespace PasswordManager.Controllers
             {
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
 
+               
 
-                return Json(DecodeFrom64(dbdata.Secret_question));
+                List<TimeText_list> new_list = new List<TimeText_list>();
+
+                new_list.Add(new TimeText_list(DecodeFrom64(dbdata.Secret_question),dbdata.Time_ban));
+                return Json(new_list);
             }
             catch
             {
