@@ -40,11 +40,13 @@ export default function Secret() {
                             .then(response => response.json())
                             .then((responseData) => {
                                 const date = new Date();
-
-                                const strdate = new Date(responseData[0].Time);
-
-                                
+                              
+                               
                                 if (responseData != null) {
+
+                                    if (responseData[0].Time != null)
+                                    var strdate = new Date(parseInt(responseData[0].Time.substr(6)));
+                                    
 
                                     if (date > strdate || responseData[0].Time == null) {
                                         setQuestion(responseData[0].Text);
