@@ -43,6 +43,8 @@ export default function Modal_edit_email(props) {
 
                         var field = document.getElementById("newemail");
                         field.value = "";
+
+                        refnewEmail.current.value = "";
                     }
 
                     else
