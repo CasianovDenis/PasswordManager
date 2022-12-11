@@ -50,7 +50,17 @@ export default function Modal_password() {
                             setMessage("Data added successfully");
 
 
-                            window.location.reload(false);
+                            let field_input = document.getElementById('Name_modal');
+                            field_input.value = "";
+
+                            field_input = document.getElementById('Password_modal');
+                            field_input.value = "";
+
+                            field_input = document.getElementById('Description_modal');
+                            field_input.value = "";
+
+                            refName_record.current.value = ""; refPassword.current.value = "";
+                             refDescription.current.value = "";
                         }
 
                         else
@@ -83,14 +93,20 @@ export default function Modal_password() {
                                 </button>
                             </div>
                             <div class="modal-body">
+
                                 <p> Title :</p>
-                                <input type="text" ref={refName_record } class="form-control" style={{ width: "60%" }} required />
+                                <input type="text" ref={refName_record } id="Name_modal" class="form-control" style={{ width: "60%" }} required />
+
                                 <br />
+
                                 <p>Password :</p>
-                                <input type="password" ref={refPassword} class="form-control" style={{ width: "60%" }} required />
+                                <input type="password" ref={refPassword} id="Password_modal" class="form-control" style={{ width: "60%" }} required />
+
                                 <br />
+
                                 <p>Description :</p>
-                                <input type="text" ref={refDescription} class="form-control" style={{ width: "60%" }} />
+                                <input type="text" ref={refDescription} id="Description_modal" class="form-control" style={{ width: "60%" }} />
+
                             </div>
                             <p style={{ marginLeft: "5px" }}>{message}</p>
                             <div class="modal-footer">

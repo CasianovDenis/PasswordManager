@@ -43,40 +43,47 @@ export default function Modal_edit_secret_question(props) {
 
                 if (newdata.NewAnswer.match(/^[A-Za-z0-9\s]*$/)) {
 
-                    newdata.OldAnswer = btoa(refanswer.current.value);
-                    newdata.Secret_question = btoa(refnewQuestion.current.value);
-                    newdata.Secret_answer = btoa(refnewAnswer.current.value);
+                    if (newdata.NewQuestion != props.question) {
 
-                    const requestOptions = {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newdata)
-                    };
+                        newdata.OldAnswer = btoa(refanswer.current.value);
+                        newdata.Secret_question = btoa(refnewQuestion.current.value);
+                        newdata.Secret_answer = btoa(refnewAnswer.current.value);
 
-                    fetch('http://localhost:32349/api/edit_secret_question', requestOptions)
-                        .then(response => response.json())
-                        .then((responseData) => {
+                        const requestOptions = {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(newdata)
+                        };
 
-                            if (responseData == "Succes") {
+                        fetch('http://localhost:32349/api/edit_secret_question', requestOptions)
+                            .then(response => response.json())
+                            .then((responseData) => {
 
-                                setMessage("Secret question and answer has change successfully");
+                                if (responseData == "Succes") {
 
-                                var field = document.getElementById("oldanswer");
-                                field.value = "";
+                                    setMessage("Secret question and answer has change successfully");
 
-                                field = document.getElementById("newquestion");
-                                field.value = "";
+                                    var field = document.getElementById("oldanswer");
+                                    field.value = "";
 
-                                field = document.getElementById("newanswer");
-                                field.value = "";
+                                    field = document.getElementById("newquestion");
+                                    field.value = "";
 
-                            }
+                                    field = document.getElementById("newanswer");
+                                    field.value = "";
 
-                            else
-                                setMessage(responseData);
+                                    refanswer.current.value = ""; refnewQuestion.current.value = "";
+                                    refnewAnswer.current.value = "";
+                                }
+
+                                else
+                                    setMessage(responseData);
 
 
-                        });
+                            });
+                    }
+                    else
+                        setMessage("New question match old");
                 }
                 else
                     setMessage("Actual answer isn't right");

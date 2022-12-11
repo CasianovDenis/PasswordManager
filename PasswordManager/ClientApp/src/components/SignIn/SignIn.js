@@ -56,7 +56,7 @@ export default function SignIn() {
                             if (responseData == "time ban")
                                 setMessage("Too much attempts wait to expire time ban");
                             else
-                                if (responseData == "old password" || responseData!="olda password")
+                                if (responseData == "old password" || responseData!="old password")
                                 {
                              
 

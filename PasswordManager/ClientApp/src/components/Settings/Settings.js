@@ -13,7 +13,6 @@ import GetCookie from '../public_files/GetCookie.js';
 
 export default function Settings() {
    
-    const [username, setUsername] = useState('');
     const [dbdata, setDbdata] = useState('');
    
 
@@ -37,11 +36,11 @@ export default function Settings() {
             .then(response => response.json())
             .then((responseData) => {
 
-                if (responseData != null) { setUsername(responseData.Username); setDbdata(responseData); }
+                if (responseData != null)  setDbdata(responseData); 
 
             });
 
-    },[]);
+    },[dbdata]);
     
                         
     return (
@@ -53,7 +52,7 @@ export default function Settings() {
 
             <div className={style.background_top_color}>
 
-                <p id="font_style"className={style.font_style}>{username}</p>
+                <p id="font_style"className={style.font_style}>{dbdata.Username}</p>
                 <Modal_edit_username />
                
             </div>
