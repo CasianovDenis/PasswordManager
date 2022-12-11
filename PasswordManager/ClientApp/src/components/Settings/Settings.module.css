@@ -78,7 +78,7 @@ height:25px;
     height: 25px;
     cursor: pointer;
     position: absolute;
-    left: 250px;
+    left: 505px;
     top: 180px;
 }
 
@@ -133,5 +133,15 @@ height:25px;
         top: 468px;
     }
 
-    
+    .username_edit_icon {
+       
+        left: 400px;
+       
+    }
+
+    .font_style {
+        
+        font-size: 20px;
+       
+    }
 }
