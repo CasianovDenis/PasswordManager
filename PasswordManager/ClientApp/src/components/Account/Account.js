@@ -15,7 +15,7 @@ import loadingGif from '../public_files/loading_animation.gif';
 
 export default function Account() {
     
-    const [responseData, setResponseData] = React.useState([]);
+    const [dbdata, setDbData] = React.useState([]);
     
 
     const redirect = useHistory();
@@ -59,11 +59,11 @@ export default function Account() {
             fetch('http://localhost:32349/api/getdatastore', requestOptions)
             .then(response => response.json())
                 .then((responseData) => {
-                setResponseData(responseData)
+                setDbData(responseData)
                 
             });
 
-    }, []);
+    }, [dbdata]);
 
 
     
@@ -90,13 +90,7 @@ export default function Account() {
                 .then(response => response.json())
                 .then((responseData) => {
 
-                    if (responseData == "Succes") {
-
-
-                        window.location.reload(false);
-                    }
-                    else
-                        alert("Error : data can not deleted");
+                    if (responseData != "Succes") alert("Error : data can not deleted");
 
                 });
         }
@@ -107,8 +101,8 @@ export default function Account() {
 
         let item = ev.target.getAttribute('alt');
         let password;
-        for (let index = 0; index < responseData.length; index++)
-            if (responseData[index].Name == item) password = responseData[index].Password;
+        for (let index = 0; index < dbdata.length; index++)
+            if (dbdata[index].Name == item) password = dbdata[index].Password;
        
 
         // Copy the text inside the text field
@@ -152,7 +146,7 @@ export default function Account() {
             {/*Div where are displayed data*/}
 
             <div className={style.display_div }>
-            {responseData.map(item => {
+            {dbdata.map(item => {
                 return (
                     <div className={style.div_data}  >
                         <img src={key} style={{width:"25px",height:"25px"} }/> Your Data
