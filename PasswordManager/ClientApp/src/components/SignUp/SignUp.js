@@ -29,61 +29,68 @@ export default function SignUp() {
 
         };
 
+        
+
         //username validation,must contain only letters or numbers
 
         if (newuser.Username.match(/^[A-Za-z0-9]+$/)) {
-            //email validation if contain symbol @
 
-            if (newuser.Email.match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            )) {
-                //secret question validation,must contain only letters or numbers
+            if (newuser.Username.length <= 25) {
+                //email validation if contain symbol @
 
-                if (newuser.Secret_question.match(/^[a-zA-Z0-9\s]*$/)) {
-
+                if (newuser.Email.match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )) {
                     //secret question validation,must contain only letters or numbers
 
-                    if (newuser.Secret_answer.match(/^[a-zA-Z0-9\s]*$/)) {
+                    if (newuser.Secret_question.match(/^[a-zA-Z0-9\s]*$/)) {
 
-                        setMessage("Please wait");
-                        newuser.Secret_question = btoa(refQuestion.current.value);
-                        newuser.Secret_answer = btoa(refAnswer.current.value);
+                        //secret question validation,must contain only letters or numbers
 
-                        //create request 
-                        const requestOptions = {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(newuser)
-                        };
+                        if (newuser.Secret_answer.match(/^[a-zA-Z0-9\s]*$/)) {
 
-                        //called api for send data in DB
+                            setMessage("Please wait");
+                            newuser.Secret_question = btoa(refQuestion.current.value);
+                            newuser.Secret_answer = btoa(refAnswer.current.value);
 
-                        fetch('http://localhost:32349/api/createuser', requestOptions)
-                            .then(response => response.json())
-                            .then((responseData) => {
+                            //create request 
+                            const requestOptions = {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(newuser)
+                            };
 
-                                //get returned data from backend and display result on displya for user
-                                if (responseData == "Create") {
-                                    setMessage("Account create succesfully");
-                                    refUsername.current.value = "";
-                                    refEmail.current.value = "";
-                                    refQuestion.current.value = "";
-                                    refAnswer.current.value = "";
-                                }
-                                else
-                                    setMessage(responseData);
+                            //called api for send data in DB
+
+                            fetch('http://localhost:32349/api/createuser', requestOptions)
+                                .then(response => response.json())
+                                .then((responseData) => {
+
+                                    //get returned data from backend and display result on displya for user
+                                    if (responseData == "Create") {
+                                        setMessage("Account create succesfully");
+                                        refUsername.current.value = "";
+                                        refEmail.current.value = "";
+                                        refQuestion.current.value = "";
+                                        refAnswer.current.value = "";
+                                    }
+                                    else
+                                        setMessage(responseData);
 
 
-                            });
+                                });
+                        }
+                        else
+                            setMessage("Secret answer can not empty or have symbols");
                     }
                     else
-                        setMessage( "Secret answer can not empty or have symbols" );
+                        setMessage("Secret question can not  empty or have symbols");
                 }
                 else
-                    setMessage( "Secret question can not  empty or have symbols" );
+                    setMessage("Email has incorrect format");
             }
             else
-                setMessage("Email has incorrect format" );
+                setMessage("Username is too long,maximum 25 letters");
         }
         else
             setMessage("Username can not have symbols" );
