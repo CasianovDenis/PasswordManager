@@ -362,21 +362,33 @@ namespace PasswordManager.Controllers
             try
             {
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
+               
+               
 
-                if (DecodeFrom64(tempdata.OldAnswer) == DecodeFrom64(dbdata.Secret_answer))
-                {
-                    dbdata.Secret_question = EncodeTo64(tempdata.NewQuestion);
-                    dbdata.Secret_answer = EncodeTo64(tempdata.NewAnswer);
-                    _conString.SaveChanges();
-                    return Json("Succes"); 
+                    if (DecodeFrom64(tempdata.OldAnswer) == DecodeFrom64(dbdata.Secret_answer))
+                    {
+
+                    if (DecodeFrom64(tempdata.OldAnswer) != DecodeFrom64(tempdata.NewAnswer))
+                    {
+                        dbdata.Secret_question = EncodeTo64(tempdata.NewQuestion);
+                        dbdata.Secret_answer = EncodeTo64(tempdata.NewAnswer);
+                        _conString.SaveChanges();
+                        return Json("Succes");
+                    }
+                    
+                        return Json("New answer match old");
+
                 }
-                return Json("Answer for actual question isn't right");
+                   
+                    return Json("Answer for actual question isn't right");
+                
+
             }
             catch
             {
-               
 
-                return Json("User not found");
+                return Json("Wrong data , please check new answer and old ");
+                
 
             }
 
