@@ -43,44 +43,54 @@ export default function Modal_edit_secret_question(props) {
 
                 if (newdata.NewAnswer.match(/^[A-Za-z0-9\s]*$/)) {
 
+                    //New question  must doesn't match actual question
                     if (newdata.NewQuestion != props.question) {
 
-                        newdata.OldAnswer = btoa(refanswer.current.value);
-                        newdata.Secret_question = btoa(refnewQuestion.current.value);
-                        newdata.Secret_answer = btoa(refnewAnswer.current.value);
+                        //question must doesn't equal answer
+                        if (newdata.NewQuestion != newdata.NewAnswer && newdata.NewQuestion != newdata.OldAnswer) {
 
-                        const requestOptions = {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(newdata)
-                        };
+                            //code base64 data from input field
+                            newdata.OldAnswer = btoa(refanswer.current.value);
+                            newdata.Secret_question = btoa(refnewQuestion.current.value);
+                            newdata.NewAnswer = btoa(refnewAnswer.current.value);
 
-                        fetch('http://localhost:32349/api/edit_secret_question', requestOptions)
-                            .then(response => response.json())
-                            .then((responseData) => {
+                            const requestOptions = {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(newdata)
+                            };
 
-                                if (responseData == "Succes") {
+                            fetch('http://localhost:32349/api/edit_secret_question', requestOptions)
+                                .then(response => response.json())
+                                .then((responseData) => {
 
-                                    setMessage("Secret question and answer has change successfully");
+                                    if (responseData == "Succes") {
 
-                                    var field = document.getElementById("oldanswer");
-                                    field.value = "";
+                                        setMessage("Secret question and answer has change successfully");
 
-                                    field = document.getElementById("newquestion");
-                                    field.value = "";
+                                        var field = document.getElementById("oldanswer");
+                                        field.value = "";
 
-                                    field = document.getElementById("newanswer");
-                                    field.value = "";
+                                        field = document.getElementById("newquestion");
+                                        field.value = "";
 
-                                    refanswer.current.value = ""; refnewQuestion.current.value = "";
-                                    refnewAnswer.current.value = "";
-                                }
+                                        field = document.getElementById("newanswer");
+                                        field.value = "";
 
-                                else
-                                    setMessage(responseData);
+                                        refanswer.current.value = ""; refnewQuestion.current.value = "";
+                                        refnewAnswer.current.value = "";
+
+                                     
+                                    }
+
+                                    else
+                                        setMessage(responseData);
 
 
-                            });
+                                });
+                        }
+                        else
+                            setMessage("Question doesn't match answer");
                     }
                     else
                         setMessage("New question match old");
