@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import style from './Settings.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +12,7 @@ export default function Modal_edit_username() {
 
     const [message, setMessage] = useState('');
    
-
+    const redirect = useHistory();
     const refnewName = useRef("");
 
     const editusername = () => {
@@ -58,8 +59,7 @@ export default function Modal_edit_username() {
 
                             refnewName.current.value = "";
 
-                            window.location.reload();
-
+                            redirect.go('Account');
                         }
 
                         else
