@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+
 import { Link } from 'react-router-dom';
 
 import user_icon from '../public_files/user_icon.png';
@@ -10,9 +11,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import GetCookie from '../public_files/GetCookie.js';
 
 export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+    static displayName = NavMenu.name;
 
-  constructor (props) {
+   
+    constructor (props) {
     super(props);
 
       this.toggleNavbar = this.toggleNavbar.bind(this);
@@ -62,7 +64,7 @@ export class NavMenu extends Component {
 
         document.cookie = "status_account=; expires = " + now.toUTCString();
 
-        window.open("http://localhost:32349/", '_self', "noopener noreferrer");
+       this.history.push('/');
     }
   render () {
     return (
