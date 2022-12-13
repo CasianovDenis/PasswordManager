@@ -371,7 +371,7 @@ namespace PasswordManager.Controllers
                     if (DecodeFrom64(tempdata.OldAnswer) != DecodeFrom64(tempdata.NewAnswer))
                     {
                         dbdata.Secret_question = EncodeTo64(tempdata.NewQuestion);
-                        dbdata.Secret_answer = EncodeTo64(tempdata.NewAnswer);
+                        dbdata.Secret_answer = tempdata.NewAnswer;
                         _conString.SaveChanges();
                         return Json("Succes");
                     }
@@ -387,7 +387,7 @@ namespace PasswordManager.Controllers
             catch
             {
 
-                return Json("Wrong data , please check new answer and old ");
+                return Json("Error,please send this in the support ");
                 
 
             }
