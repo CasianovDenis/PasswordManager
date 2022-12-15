@@ -1,6 +1,6 @@
 # PasswordManager
 
-- Password Manager was created using .net core framework and React js
+- Password Manager was created using asp .net core framework and React js
 
 - Password from account are one time and generated random. 
 Password was encrypted using cipher AES Rijndael. 
