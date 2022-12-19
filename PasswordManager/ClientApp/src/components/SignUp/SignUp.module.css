@@ -6,7 +6,7 @@
     position:relative;
     bottom:500px;
     left:50%;
-
+   
 }
 
 .faq_image{
@@ -15,4 +15,14 @@
     height:25px;
     top:-40px;
     left:150px;
+}
+
+@media(max-width:900px) {
+
+    .book_image {
+       top:-70vh;
+       width:70%;
+       height:40vh;
+    }
+
 }
