@@ -8,6 +8,4 @@ String data was encoded in base64.
 
 - In this project are connected SMTP protocol for send one time password in the user email
 
-- If inserted wrong password or answer for "secret question", system create time ban for user account on 30 minutes
-
 - Entity framework are using for work with database data PostgresSQL.
