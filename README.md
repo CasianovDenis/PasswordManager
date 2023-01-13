@@ -6,6 +6,6 @@
 Password was encrypted using cipher AES Rijndael. 
 String data was encoded in base64.
 
-- In this project are connected SMTP protocol for send one time password in the user email
+- In this project is connected SMTP protocol for send one time password in the user email
 
-- Entity framework are using for work with database data PostgresSQL.
+- Entity framework is using for work with database data PostgresSQL.
