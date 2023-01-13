@@ -27,29 +27,7 @@ export default function Account() {
    
         useEffect(() => {
 
-            //added loading animation,timeout 5 second,after animation are hidden
-            setTimeout(() => {
-
-                //catch exception
-                try {
-                const animation = document.getElementsByClassName('gifloading')[0];
-                const loading_div = document.getElementsByClassName('loader_wrapper')[0];
-
-                animation.style.minWidth = "0px";
-                animation.style.height = "0px";
-
-                loading_div.style.minWidth = "0px";
-                loading_div.style.height = "0px";
-
-            }
-                catch (event) {
-
-                    console.log(event);
-               
-            }
-
-            }, 5000)
-
+            
             //create request obj
             const requestOptions = {
                 method: 'POST',
@@ -70,6 +48,29 @@ export default function Account() {
                     setDbData(responseData)
 
                 });
+
+            //added loading animation
+            setTimeout(() => {
+
+                
+                try {
+                    const animation = document.getElementsByClassName('gifloading')[0];
+                    const loading_div = document.getElementsByClassName('loader_wrapper')[0];
+
+                    animation.style.minWidth = "0px";
+                    animation.style.height = "0px";
+
+                    loading_div.style.minWidth = "0px";
+                    loading_div.style.height = "0px";
+
+                }
+                catch (event) {
+
+                    console.log(event);
+
+                }
+
+            }, 6000)
 
         }, [dbdata]);
     
@@ -133,6 +134,8 @@ export default function Account() {
 
             }, 5000)
         }
+
+
     
     return (
 
@@ -144,7 +147,7 @@ export default function Account() {
 
             <Modal_password />
 
-            {/*Loading animation gif/div*/}
+            
 
             <div class="loader_wrapper" >
                
