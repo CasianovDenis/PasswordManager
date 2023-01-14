@@ -28,7 +28,6 @@ export default function Account() {
         useEffect(() => {
 
             
-            //create request obj
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -41,7 +40,7 @@ export default function Account() {
                 })
             };
 
-            //called api for get user data and display him
+           
             fetch('http://localhost:32349/api/getdatastore', requestOptions)
                 .then(response => response.json())
                 .then((responseData) => {
@@ -94,7 +93,7 @@ export default function Account() {
                     })
                 };
 
-                //called api where send json request for delete data from DB
+              
 
                 fetch('http://localhost:32349/api/deletedatastore', requestOptions)
                     .then(response => response.json())
@@ -118,7 +117,7 @@ export default function Account() {
             // Copy the text inside the text field
             navigator.clipboard.writeText(password);
 
-            // Alert the copied text
+           
             var elem = document.getElementById("popup_div");
             elem.style.display = "block";
             elem = document.getElementById("popup_text");
@@ -142,8 +141,7 @@ export default function Account() {
        
 
         <div >
-
-            {/*Called modal from another js page*/}
+  
 
             <Modal_password />
 
@@ -155,10 +153,11 @@ export default function Account() {
             </div>
 
                     
-            {/*Div where are displayed data*/}
+          
 
             <div className={style.display_div }>
-            {dbdata.map(item => {
+                {dbdata.map(item => {
+
                 return (
                     <div className={style.div_data}  >
                         <img src={key} style={{width:"25px",height:"25px"} }/> Your Data

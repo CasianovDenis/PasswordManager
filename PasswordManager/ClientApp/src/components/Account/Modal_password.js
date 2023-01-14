@@ -39,7 +39,6 @@ export default function Modal_password() {
                     })
                 };
 
-                //call api from backend and send json data,which create before
 
                 fetch('http://localhost:32349/api/add_data', requestOptions)
                     .then(response => response.json())

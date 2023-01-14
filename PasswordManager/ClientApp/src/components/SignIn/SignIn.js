@@ -41,15 +41,11 @@ export default function SignIn() {
                     })
                 };
 
-                //call api from backend and send json data,which create before
                 
                 
                     fetch('http://localhost:32349/api/smtp', requestOptions)
                         .then(response => response.json())
                         .then((responseData) => {
-                            
-                            
-                            //get returned data from backend and display result on display for user 
                             
 
                             

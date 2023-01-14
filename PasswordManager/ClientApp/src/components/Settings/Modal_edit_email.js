@@ -18,6 +18,8 @@ export default function Modal_edit_email(props) {
 
         setMessage("Please wait");
 
+        //Checking if "refnewEmail" has correct format email
+
         if (refnewEmail.current.value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
             const requestOptions = {
@@ -30,7 +32,6 @@ export default function Modal_edit_email(props) {
                 })
             };
 
-            //call api from backend and send json data,which create before
 
             fetch('http://localhost:32349/api/edit_email', requestOptions)
                 .then(response => response.json())

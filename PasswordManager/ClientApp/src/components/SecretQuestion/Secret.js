@@ -87,13 +87,13 @@ export default function Secret() {
                 })
             };
 
-            //call api from backend and send json data,which create before
+           
 
             fetch('http://localhost:32349/api/sendanswer', requestOptions)
                 .then(response => response.json())
                 .then((responseData) => {
 
-                    //get returned data from backend and display result on displya for user
+                  
                     if (responseData == "Succes") {
 
 
@@ -135,8 +135,6 @@ export default function Secret() {
             };
 
 
-
-            //call api from backend and send json data,which create before
 
             fetch('http://localhost:32349/api/login_wrong', requestOptions)
                 .then(response => response.json())
