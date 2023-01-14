@@ -46,10 +46,10 @@ export default function Modal_edit_secret_question(props) {
                     //New question  must doesn't match actual question
                     if (newdata.NewQuestion != props.question) {
 
-                        //question must doesn't equal answer
+                       
                         if (newdata.NewQuestion != newdata.NewAnswer && newdata.NewQuestion != newdata.OldAnswer) {
 
-                            //code base64 data from input field
+                           
                             newdata.OldAnswer = btoa(refanswer.current.value);
                             newdata.Secret_question = btoa(refnewQuestion.current.value);
                             newdata.NewAnswer = btoa(refnewAnswer.current.value);

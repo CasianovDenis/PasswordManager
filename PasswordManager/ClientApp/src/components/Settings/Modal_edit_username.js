@@ -33,7 +33,7 @@ export default function Modal_edit_username() {
                     })
                 };
 
-                //call api from backend and send json data,which create before
+              
 
                 fetch('http://localhost:32349/api/edit_username', requestOptions)
                     .then(response => response.json())
@@ -43,7 +43,7 @@ export default function Modal_edit_username() {
 
                             setMessage("Username change successfully");
 
-                            // +1 hour when create cookie
+                            
                             var now = new Date();
                             var time = now.getTime();
                             time += 3600 * 1000;

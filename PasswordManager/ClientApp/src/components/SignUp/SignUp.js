@@ -19,7 +19,7 @@ export default function SignUp() {
     const onCreateUser = (event) => {
 
         event.preventDefault();
-        //create object which get data from input
+      
         let newuser = {
 
             "Username": refUsername.current.value,
@@ -36,8 +36,8 @@ export default function SignUp() {
         if (newuser.Username.match(/^[A-Za-z0-9]+$/)) {
 
             if (newuser.Username.length <= 25) {
-                //email validation if contain symbol @
 
+                //Checking if "Email" has correct format email
                 if (newuser.Email.match(
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 )) {
@@ -53,20 +53,20 @@ export default function SignUp() {
                             newuser.Secret_question = btoa(refQuestion.current.value);
                             newuser.Secret_answer = btoa(refAnswer.current.value);
 
-                            //create request 
+                            
                             const requestOptions = {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify(newuser)
                             };
 
-                            //called api for send data in DB
+                          
 
                             fetch('http://localhost:32349/api/createuser', requestOptions)
                                 .then(response => response.json())
                                 .then((responseData) => {
 
-                                    //get returned data from backend and display result on displya for user
+                                    
                                     if (responseData == "Create") {
                                         setMessage("Account create succesfully");
                                         refUsername.current.value = "";

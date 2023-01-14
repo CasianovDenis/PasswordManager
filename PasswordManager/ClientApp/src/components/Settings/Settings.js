@@ -48,7 +48,7 @@ export default function Settings() {
         <div>
 
            
-            {/*div top whwere set background color*/}
+         
 
             <div className={style.background_top_color}>
 
@@ -57,14 +57,14 @@ export default function Settings() {
                
             </div>
 
-            {/*div where display user photo*/}
+          
 
             <div className={style.settings_user_photo} id="user_photo_div">
 
                 <img src={user_icon} className={style.image_user }/>
             </div>
 
-            {/*div where display settings option*/}
+           
 
             <div className={style.settings_div}>
                 <img src={email_icon} className={style.icon_mail} />
@@ -82,9 +82,9 @@ export default function Settings() {
                 <Modal_edit_secret_question question={dbdata.Secret_question} />
             </div>
 
-            {/*div which set bottom background color*/}
 
-            <div className={style.settings_color }>
+
+            <div className={style.background_bottom_color }>
 
                 </div>
             
