@@ -1,5 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toaster } from 'evergreen-ui';
 
 import Modal_password from './Modal_password';
 
@@ -10,13 +11,12 @@ import style from './Account.module.css'
 
 import GetCookie from '../public_files/GetCookie.js';
 
-import loadingGif from '../public_files/loading_animation.gif';
 
 
 export default function Account() {
     
     const [dbdata, setDbData] = React.useState([]);
-    
+    const [request, setRequest] = useState(true);
 
     const redirect = useHistory();
    
@@ -40,37 +40,16 @@ export default function Account() {
                 })
             };
 
-           
-            fetch('http://localhost:32349/api/getdatastore', requestOptions)
-                .then(response => response.json())
-                .then((responseData) => {
-                    setDbData(responseData)
+            if (request == true) {
+                fetch('http://localhost:32349/api/getdatastore', requestOptions)
+                    .then(response => response.json())
+                    .then((responseData) => {
+                        setDbData(responseData)
+                        setRequest(false);
+                    });
 
-                });
-
-            //added loading animation
-            setTimeout(() => {
-
-                
-                try {
-                    const animation = document.getElementsByClassName('gifloading')[0];
-                    const loading_div = document.getElementsByClassName('loader_wrapper')[0];
-
-                    animation.style.minWidth = "0px";
-                    animation.style.height = "0px";
-
-                    loading_div.style.minWidth = "0px";
-                    loading_div.style.height = "0px";
-
-                }
-                catch (event) {
-
-                    console.log(event);
-
-                }
-
-            }, 6000)
-
+               
+            }
         }, [dbdata]);
     
 
@@ -114,52 +93,32 @@ export default function Account() {
                 if (dbdata[index].Name == item) password = dbdata[index].Password;
 
 
-            // Copy the text inside the text field
+           
             navigator.clipboard.writeText(password);
 
            
-            var elem = document.getElementById("popup_div");
-            elem.style.display = "block";
-            elem = document.getElementById("popup_text");
-            elem.style.display = "block";
-
-            setTimeout(() => {
-
-                elem = document.getElementById("popup_div");
-                elem.style.display = "none";
-                elem = document.getElementById("popup_text");
-                elem.style.display = "none";
-
-
-            }, 5000)
+            toaster.success('Password was copied successfully');
         }
 
 
     
     return (
 
-       
 
-        <div >
+
+        <div classname={style.account_div}>
   
 
             <Modal_password />
 
-            
-
-            <div class="loader_wrapper" >
-               
-                <img src={loadingGif} alt="wait until the page loads"  class="gifloading"/>
-            </div>
-
-                    
           
 
             <div className={style.display_div }>
                 {dbdata.map(item => {
 
                 return (
-                    <div className={style.div_data}  >
+                    <div className={style.user_data}  >
+
                         <img src={key} style={{width:"25px",height:"25px"} }/> Your Data
                         <p >Name: {item.Name}</p>
                         <p>Password: <p  class="hide_password">********</p></p>
@@ -175,15 +134,12 @@ export default function Account() {
                        
                     </div>
                     
-                  
+                 
                         
                     );
-            })}
 
-                <div className={style.popup_div} id="popup_div">
-                    <p className={ style.popup_text} id="popup_text"> Text are copied</p>
-                    </div>
-                </div>
+            })}
+            </div>
            
         </div>
     );
