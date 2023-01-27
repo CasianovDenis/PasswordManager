@@ -64,7 +64,8 @@ export class NavMenu extends Component {
 
         document.cookie = "status_account=; expires = " + now.toUTCString();
 
-       this.history.push('/');
+        window.location.reload();
+
     }
   render () {
     return (
