@@ -23,7 +23,7 @@ export default function SignIn() {
 
     
 
-        const Smtp_password=(event)=>  {
+        const verifie_exist_user=(event)=>  {
 
             event.preventDefault();
            
@@ -43,7 +43,7 @@ export default function SignIn() {
 
                 
                 
-                    fetch('http://localhost:32349/api/smtp', requestOptions)
+                fetch('http://localhost:32349/api/verifie_exist_user_and_account_status', requestOptions)
                         .then(response => response.json())
                         .then((responseData) => {
                             
@@ -52,35 +52,20 @@ export default function SignIn() {
                             if (responseData == "time ban")
                                 setMessage("Too much attempts wait to expire time ban");
                             else
-                                if (responseData == "old password" || responseData!="old password")
-                                {
-                             
+                                if (responseData != "user not exist") {
+                                  
 
-                                    let element_div = document.getElementById('password_form');
-                                    element_div.style.display = "block";
 
-                                    let element_button = document.getElementById('smtp_button');
-                                    element_button.style.display = "none";
+                                        let element = document.getElementById('password_form');
+                                        element.style.display = "block";
 
-                                let style_image = document.getElementById("signin_image");
-                                style_image.style.top = "-300px";
+                                        element = document.getElementById('hide_elements');
+                                    element.style.display = "none";
 
-                                let link_signup = document.getElementById("link_signup");
-                                link_signup.style.position = "absolute";
-                                link_signup.style.marginTop = "130px";
-                                link_signup.style.marginLeft = "100px";
-
-                                let link_secret = document.getElementById("link_secret");
-                                link_secret.style.position = "absolute";
-                                link_secret.style.marginTop = "130px";
-                                link_secret.style.marginLeft = "220px";
-
-                                    if (responseData == "old password")
-                                        setMessage("Use your old password, which was sended in the email");
-                                    else
-                                        setMessage(responseData);
-                                   
+                                    setMessage(responseData);
                                 }
+                                    else
+                                    setMessage(responseData);
 
                         });
                 
@@ -100,7 +85,7 @@ export default function SignIn() {
         event.preventDefault();
         setMessage("Please wait");
 
-        //create object which get data from input
+        
         if (count_wrong_entry < 5) {
             let userdata = {
 
@@ -118,7 +103,7 @@ export default function SignIn() {
 
 
 
-            //call api from backend and send json data,which create before
+         
 
             fetch('http://localhost:32349/api/login', requestOptions)
                 .then(response => response.json())
@@ -145,7 +130,7 @@ export default function SignIn() {
 
                         setMessage("Log in successfully");
 
-                        //redirect to page and refresh component
+                        
                         redirect.go('/Account');
 
 
@@ -166,7 +151,7 @@ export default function SignIn() {
 
 
 
-                            //call api from backend and send json data,which create before
+                         
 
                             fetch('http://localhost:32349/api/login_wrong', requestOptions)
                                 .then(response => response.json())
@@ -174,23 +159,6 @@ export default function SignIn() {
 
                                    
                                     setMessage(responseData);
-
-                                    let element_div = document.getElementById('password_form');
-                                    element_div.style.display = "none";
-
-                                    let element_button = document.getElementById('smtp_button');
-                                    element_button.style.display = "block";
-
-                                    let style_image = document.getElementById("signin_image");
-                                    style_image.style.top = "-100px";
-
-                                    let link_signup = document.getElementById("link_signup");
-                                    link_signup.style.position = "relative";
-
-
-                                    let link_secret = document.getElementById("link_secret");
-                                    link_secret.style.position = "relative";
-
 
                                 });
 
@@ -223,12 +191,14 @@ export default function SignIn() {
                     <input type="text" class="form-control" style={{ width: "30%" }} ref={refUsername} />
                     <br />
 
-                <button id="smtp_button" class="btn btn-primary" onClick={Smtp_password}> Verifie </button>
+                <div id="hide_elements">
 
-                <NavLink id="link_signup" tag={Link} to="/SignUp" style={{ margin: "25px" }}>Create Account</NavLink>
+                <button id="verifie_user" class="btn btn-primary" onClick={verifie_exist_user}> Verifie </button>
 
-                <NavLink id="link_secret" tag={Link} to="/Secret" className={style.redirect_secret }>Inaccessible Email</NavLink>
+                <NavLink id="link_to_create_user" tag={Link} to="/SignUp" className={style.redirect_create_user}>Create Account</NavLink>
 
+                <NavLink id="link_to_secret_question" tag={Link} to="/Secret" className={style.redirect_secret }>Inaccessible Email</NavLink>
+                    </div>
                 </form>
 
                 <form id="password_form" className={style.form_position} style={{ display: "none" }}>
@@ -237,15 +207,18 @@ export default function SignIn() {
                     <input type="password" class="form-control" style={{ width: "30%" }} ref={refPassword} />
 
                     <br /><br />
-                <button  class="btn btn-primary" onClick={Login_account}>Log In</button>
-                
-            </form>
-            
-                <p>{message} </p>
+                <button class="btn btn-primary" onClick={Login_account}>Log In</button>
 
-                <div className={style.div_image}>
-                    <img id="signin_image" src={home_office} className={style.home_image} />
-                </div>
+                <NavLink tag={Link} to="/SignUp" className={style.redirect_create_user}>Create Account</NavLink>
+
+                <NavLink tag={Link} to="/Secret" className={style.redirect_secret}>Inaccessible Email</NavLink>
+            </form>
+
+            <p style={{ marginTop: "15px", marginLeft:"5px" }}>{message} </p>
+
+                
+                    <img  src={home_office} className={style.home_image} />
+                
            
             </div>
 
