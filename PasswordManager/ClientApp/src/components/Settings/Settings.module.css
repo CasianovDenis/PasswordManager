@@ -1,4 +1,4 @@
-﻿/*div*/
+﻿
 .background_top_color {
     width: 121.4%;
     height: 23.8vh;
@@ -38,7 +38,7 @@ margin-top:-60px;
     height: 65.8vh;
 }
 
-/*img*/
+
 .image_user {
     width: 100%;
     height: 80px;
@@ -82,7 +82,7 @@ height:25px;
     top: 180px;
 }
 
-/*p style*/
+
 .font_style {
     position: absolute;
     left: 170px;

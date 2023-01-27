@@ -14,13 +14,13 @@ import GetCookie from '../public_files/GetCookie.js';
 export default function Settings() {
    
     const [dbdata, setDbdata] = useState('');
-   
+    const [request, setRequest] = useState(true);
 
     if (GetCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
     
     useEffect(() => {
 
-        //create object which get data from input             
+                  
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -31,13 +31,14 @@ export default function Settings() {
             })
         };
 
-        //call api from backend and send json data,which create before
+        if (request==true)
         fetch('http://localhost:32349/api/getuserdata', requestOptions)
             .then(response => response.json())
             .then((responseData) => {
 
                 if (responseData != null)  setDbdata(responseData); 
 
+                setRequest(false);
             });
 
     },[dbdata]);
