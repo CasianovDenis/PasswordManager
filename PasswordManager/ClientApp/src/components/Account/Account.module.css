@@ -1,5 +1,4 @@
-﻿/*style for button which add data in DB*/
-.button_add {
+﻿.button_add {
     background: #5E5DF0;
     border-radius: 20px;
     box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -19,59 +18,44 @@
     width: fit-content;
     word-break: break-word;
     border: none;
-    margin-left: 10px;
-    float: left;
-    margin-top:-80px;
+
+    position:relative;
+    left: 10px;
+    top:10px;
 }
 
 button:focus{
     outline:none !important;
 }
-
-/*Div which display all data*/
-.div_data {
+.account_div{
+    width:100vh;
+    height:50vh;
+}
+.user_data {
+    position:relative;
     font-family: cursive, sans-serif;
     background-color: #3c497c;
     color: white;
     padding: 10px;
+    margin:10px;
     width: 30%;
     border-radius: 4px;
-    margin-left: 10px;
+    left: 10px;
     float: left;
-    margin-top: 15px;
+    top: 15px;
 }
 
-/*div where display user data */
+
 .display_div {
-   
-    margin-top:100px;
+   position:relative;
+   top:23px;
     background-color: #00313f;
     width: 121.4%;
     height: 73.8vh;
 
 }
 
-.popup_div{
-    position:relative;
-    width:190px;
-    height:70px;
-    background-color:rgb(41,44,51);
-    left:350px;
-    top:-80px;
-    border-radius:20px;
-    display:none;
-}
-.popup_text {
-    color: white;
-    position: relative;
-    top: -225px;
-    left: 25px;
-    font-size: 20px;
-    font-family: "Times New Roman", Times, serif;
-    display:none;
-}
 
-/*image style*/
 .add_image {
     width: 45px;
     height: 45px;
@@ -85,19 +69,23 @@ button:focus{
 }
 
 .copy_icon{
+    position:relative;
     width:25px;
     height:25px;
     cursor:pointer;
-   margin-top:-50px;
+   top:-50px;
    
    float:right;
 }
 
+
+
 @media(max-width: 991px) {
 
     .display_div {
-        width: 150%;
-        height: 71.5vh;
+        width: 94.3vh;
+        height: 74.5vh;
+
     }
 
 }

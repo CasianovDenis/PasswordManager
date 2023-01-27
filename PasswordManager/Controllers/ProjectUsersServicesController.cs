@@ -1,12 +1,9 @@
 ﻿using Effortless.Net.Encryption;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PasswordManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PasswordManager.Controllers
 {
@@ -24,11 +21,6 @@ namespace PasswordManager.Controllers
 
         }
 
-         /*public ProjectUsersServicesController()
-        {
-            
-
-        }*/
 
         [Route("~/api/createuser")]
         [HttpPost]
@@ -49,18 +41,18 @@ namespace PasswordManager.Controllers
                 catch
                 {
 
-                   
-                    if (newuser.Secret_question!= "")
+
+                    if (newuser.Secret_question != "")
                     {
                         if (newuser.Secret_answer != "")
                         {
 
-                            
+
                             _conString.ProjectUsers.Add(newuser);
                             _conString.SaveChanges();
 
-                           
-                           
+
+
 
                             //create record in encryption table
                             Encryption_data e_data = new Encryption_data();
@@ -87,66 +79,63 @@ namespace PasswordManager.Controllers
 
         }
 
-        [Route("~/api/smtp")]
+        [Route("~/api/verifie_exist_user_and_account_status")]
         [HttpPost]
         public JsonResult Smtp_password(ProjectUsers user)
         {
             try
             {
-                //get email from db
+
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
                 DateTime currentTime = DateTime.Now;
                 DateTime timeDB = Convert.ToDateTime(dbdata.Time_ban);
 
                 if (dbdata.Time_ban == null || currentTime > timeDB)
                 {
-                    if (dbdata.Password == null)
-                    {
-                        // generate password   
-                        RandomNumberGenerator generator = new RandomNumberGenerator();
-                        int rand = generator.RandomNumber(16, 25);
-
-                        string str = generator.RandomString(rand, false);
-
-                        string pass = generator.RandomPassword();
 
 
-                        //encrypt password 
-                        byte[] key = Bytes.GenerateKey();
-                        byte[] iv = Bytes.GenerateIV();
-                        var crypt_password = Strings.Encrypt(pass, key, iv);
+                    RandomNumberGenerator generator = new RandomNumberGenerator();
+                    int rand = generator.RandomNumber(16, 25);
 
-                        //update db data
+                    string str = generator.RandomString(rand, false);
 
-                        dbdata.Password = crypt_password;
-
-
-                        _conString.SaveChanges();
+                    string pass = generator.RandomPassword();
 
 
 
+                    byte[] key = Bytes.GenerateKey();
+                    byte[] iv = Bytes.GenerateIV();
+                    var crypt_password = Strings.Encrypt(pass, key, iv);
 
-                        SendEmail send = new SendEmail(crypt_password, dbdata.Email);
 
 
-                        //update encryption data in db
-                        var dbdata_encrypt = _conString.Encryption_data.Single(data => data.Username == user.Username);
-                        dbdata_encrypt.Key = key;
-                        dbdata_encrypt.IV = iv;
-                        _conString.SaveChanges();
+                    dbdata.Password = crypt_password;
 
-                        return Json("Password is sended in the email." + '\n' +
-                                            "Mail can come delay or you can find him in the spam");
-                    }
-                    else
-                        return Json("old password");
+
+                    _conString.SaveChanges();
+
+
+
+
+                    SendEmail send = new SendEmail(crypt_password, dbdata.Email);
+
+
+
+                    var dbdata_encrypt = _conString.Encryption_data.Single(data => data.Username == user.Username);
+                    dbdata_encrypt.Key = key;
+                    dbdata_encrypt.IV = iv;
+                    _conString.SaveChanges();
+
+                    return Json("Password is sended in the email." + '\n' +
+                                        "Mail can come delay or you can find him in the spam");
+
                 }
                 else
                     return Json("time ban");
             }
             catch
             {
-                return Json("user_not_exist");
+                return Json("user not exist");
             }
 
         }
@@ -160,20 +149,20 @@ namespace PasswordManager.Controllers
                 //get key and iv for descrypt pass
                 var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == user.Username);
 
-//decrypt password from post object
-          string decrypt_password_1 = Strings.Decrypt(user.Password.Trim(' '), dbdata_encryption.Key, dbdata_encryption.IV);
+                //decrypt password from post object
+                string decrypt_password_1 = Strings.Decrypt(user.Password.Trim(' '), dbdata_encryption.Key, dbdata_encryption.IV);
 
-//decrypt password from db
-        var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
-        string decrypt_password_2 = Strings.Decrypt(dbdata.Password.Trim(' '), dbdata_encryption.Key, dbdata_encryption.IV);
+                //decrypt password from db
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+                string decrypt_password_2 = Strings.Decrypt(dbdata.Password.Trim(' '), dbdata_encryption.Key, dbdata_encryption.IV);
 
-                if (decrypt_password_1==decrypt_password_2)
+                if (decrypt_password_1 == decrypt_password_2)
                 {
                     dbdata.Password = "";
-                   // _conString.SaveChanges();
+
                     dbdata_encryption.IV = null;
                     dbdata_encryption.Key = null;
-                  _conString.SaveChanges();
+                    _conString.SaveChanges();
                     return Json("Access_granted");
                 }
                 else
@@ -202,12 +191,12 @@ namespace PasswordManager.Controllers
 
                 dbdata.Password = null;
                 DateTime currentTime = DateTime.Now;
-               
-                dbdata.Time_ban= currentTime.AddMinutes(30).ToString();
+
+                dbdata.Time_ban = currentTime.AddMinutes(30).ToString();
                 dbdata_encryption.IV = null;
                 dbdata_encryption.Key = null;
                 _conString.SaveChanges();
-             
+
                 return Json("Password canceled,you was used all your attempts ");
 
             }
@@ -231,7 +220,7 @@ namespace PasswordManager.Controllers
                 if (DecodeFrom64(user.Secret_answer) == DecodeFrom64(dbdata.Secret_answer))
                 {
 
-                  
+
                     _conString.SaveChanges();
 
 
@@ -258,11 +247,11 @@ namespace PasswordManager.Controllers
             {
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
 
-               
+
 
                 List<TimeText_list> new_list = new List<TimeText_list>();
 
-                new_list.Add(new TimeText_list(DecodeFrom64(dbdata.Secret_question),dbdata.Time_ban));
+                new_list.Add(new TimeText_list(DecodeFrom64(dbdata.Secret_question), dbdata.Time_ban));
                 return Json(new_list);
             }
             catch
@@ -304,7 +293,7 @@ namespace PasswordManager.Controllers
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.NewUsername);
 
                 return Json("This username already exist");
-                
+
             }
             catch
             {
@@ -319,10 +308,10 @@ namespace PasswordManager.Controllers
 
                 var dbdata_store = _conString.Password_store.Where(data => data.Username == tempdata.Username).ToList();
 
-                for (int index=0;index<dbdata_store.Count;index++)
-                 dbdata_store[index].Username = tempdata.NewUsername;
-                
-                
+                for (int index = 0; index < dbdata_store.Count; index++)
+                    dbdata_store[index].Username = tempdata.NewUsername;
+
+
                 _conString.SaveChanges();
 
 
@@ -362,11 +351,11 @@ namespace PasswordManager.Controllers
             try
             {
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
-               
-               
 
-                    if (DecodeFrom64(tempdata.OldAnswer) == DecodeFrom64(dbdata.Secret_answer))
-                    {
+
+
+                if (DecodeFrom64(tempdata.OldAnswer) == DecodeFrom64(dbdata.Secret_answer))
+                {
 
                     if (DecodeFrom64(tempdata.OldAnswer) != DecodeFrom64(tempdata.NewAnswer))
                     {
@@ -375,26 +364,26 @@ namespace PasswordManager.Controllers
                         _conString.SaveChanges();
                         return Json("Succes");
                     }
-                    
-                        return Json("New answer match old");
+
+                    return Json("New answer match old");
 
                 }
-                   
-                    return Json("Answer for actual question isn't right");
-                
+
+                return Json("Answer for actual question isn't right");
+
 
             }
             catch
             {
 
                 return Json("Error,please send this in the support ");
-                
+
 
             }
 
         }
 
-        
+
 
         static public string DecodeFrom64(string encodedData)
 

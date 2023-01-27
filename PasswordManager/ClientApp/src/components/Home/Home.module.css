@@ -1,54 +1,75 @@
-﻿/*div style*/
-.first_div {
+﻿.home_div{
+    width:100%;
+    height:80vh;
+}
+.welcome_div {
     margin-top: -16px;
     background-color: rgb(41,44,51);
-    width: 121.4%;
+    width: 122%;
+    margin-left: -7px;
     height: 300px;
-    overflow-y: hidden; /* Hide vertical scrollbar */
+    
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
-.second_div{
-    position:relative;
-    top:25px;
+
+.security_info {
+    position: relative;
+    width: 200px;
+    top: 10px;
+    left: 10%;
+   
 }
 
-/*text style*/
-.home_text{
-    position:relative;
-    color:white;
-    left:30%;
-    top:25%;
-    font-size:20px;
+.crossplatform_info {
+    position: relative;
+    width: 200px;
+    top: -20vh;
+    left: 50%;
+}
+.opensource_info {
+    position: relative;
+    width: 200px;
+
+    top:-45vh;
+    left:80%;
+    
 }
 
-.text_description_1
-{
-    position:relative;
-display:inline-block;
-width:200px;
-height:50px;
+.security_logo{
+    width:50px;
+    height:50px;
+}
 
+.crossplatform_logo {
+    width: 50px;
+    height: 50px;
+}
+
+.opensource_logo {
+    width: 50px;
+    height: 50px;
+}
+
+.welcome_text {
+    position: relative;
+    color: white;
+    left: 30%;
+    top: 25%;
+    font-size: 20px;
 }
 
 
-/*image style*/
-.image_form {
-    position:relative;
+.image_locker {
+    position: relative;
     width: 150px;
     height: 150px;
-    top:50px;
-    left:25%;
+    top: 50px;
+    left: 25%;
     float: left;
 }
 
-.image_form_second{
-   
-    width:50px;
-    height:50px;
-   margin-left:220px;
-   
-}
+
 
 #login_button {
     position:relative;
@@ -64,34 +85,52 @@ height:50px;
 
 
 @media(max-width:991px) {
-    .first_div {
+
+    .home_div {
+        width: 140%;
+        height:0vh;
+        
+    }
+
+    .welcome_div {
         margin-top: -15px;
         
-        width: 150%;
-        
+        width: 102%;
+        margin-left:0px;
     }
 
-    .image_form {
-       
-        width: 100px;
-        height: 100px;
-       
-       left:0%;
-        
-    }
-    .image_form_second {
-        width: 50px;
-        height: 50px;
-        margin-left: 50px;
-    }
 
-    .home_text { 
-        left: 0%;     
+    .welcome_text {
+        left: 0%;
         font-size: 15px;
     }
-    .text_description_1 {
-        
+
+    .image_locker {
         width: 100px;
+        height: 100px;
+        left: 0%;
+    }
+    .security_info {
+       
+       
+        top: 10px;
+        left: 10%;
+       
+    }
+
+    .crossplatform_info {
+      
+        top: 5px;
+        left: 10%;
+       
+    }
+
+    .opensource_info {
+       
+        width:100px;
+        top: -40vh;
+        left: 70%;
+       
     }
 
     #login_button{
