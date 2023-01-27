@@ -17,12 +17,10 @@
     left:150px;
 }
 
-@media(max-width:900px) {
+@media(max-width:991px) {
 
     .book_image {
-       top:-70vh;
-       width:70%;
-       height:40vh;
+     display:none;
     }
 
 }

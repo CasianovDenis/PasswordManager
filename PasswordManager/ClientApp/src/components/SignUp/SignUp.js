@@ -104,7 +104,7 @@ export default function SignUp() {
 
     return (
 
-        <div >
+        <div style={{height:"50vh"} }>
             <form className={style.form_position} >
                 <p >Username: </p>
                 <input type="text" class="form-control" style={{ width: "30%" }} ref={refUsername} />
