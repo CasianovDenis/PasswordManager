@@ -11,11 +11,11 @@ namespace PasswordManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PasswordStoreServicesController : Controller
+    public class PasswordStoreController : Controller
     {
         private readonly ConString _conString;
 
-        public PasswordStoreServicesController(ConString conection)
+        public PasswordStoreController(ConString conection)
         {
             _conString = conection;
 

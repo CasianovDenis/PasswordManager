@@ -11,11 +11,11 @@ namespace PasswordManager.Controllers
     [Produces("application/json")]
     [Route("api/projectusers")]
     [ApiController]
-    public class ProjectUsersServicesController : Controller
+    public class ProjectUsersController : Controller
     {
         private readonly ConString _conString;
 
-        public ProjectUsersServicesController(ConString conection)
+        public ProjectUsersController(ConString conection)
         {
             _conString = conection;
 
@@ -117,7 +117,7 @@ namespace PasswordManager.Controllers
 
 
 
-                    SendEmail send = new SendEmail(crypt_password, dbdata.Email);
+                    SendOneTimePasswordEmail send = new SendOneTimePasswordEmail(crypt_password, dbdata.Email);
 
 
 
@@ -185,7 +185,6 @@ namespace PasswordManager.Controllers
                 var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == user.Username);
 
 
-                //use one time password
                 var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
 
 
