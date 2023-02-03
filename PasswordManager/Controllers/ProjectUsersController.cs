@@ -79,14 +79,14 @@ namespace PasswordManager.Controllers
 
         }
 
-        [Route("~/api/verifie_exist_user_and_account_status")]
-        [HttpPost]
-        public JsonResult Smtp_password(ProjectUsers user)
+
+        [HttpGet("~/api/verifie_exist_user_and_account_status/{Username}")]
+        public JsonResult Smtp_password(string Username)
         {
             try
             {
 
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == Username);
                 DateTime currentTime = DateTime.Now;
                 DateTime timeDB = Convert.ToDateTime(dbdata.Time_ban);
 
@@ -121,7 +121,7 @@ namespace PasswordManager.Controllers
 
 
 
-                    var dbdata_encrypt = _conString.Encryption_data.Single(data => data.Username == user.Username);
+                    var dbdata_encrypt = _conString.Encryption_data.Single(data => data.Username == Username);
                     dbdata_encrypt.Key = key;
                     dbdata_encrypt.IV = iv;
                     _conString.SaveChanges();
@@ -238,13 +238,13 @@ namespace PasswordManager.Controllers
         }
 
 
-        [Route("~/api/getquestion")]
-        [HttpPost]
-        public JsonResult GetQuestion(ProjectUsers user)
+
+        [HttpGet("~/api/getquestion/{Username}")]
+        public JsonResult GetQuestion(string Username)
         {
             try
             {
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == Username);
 
 
 
@@ -262,13 +262,13 @@ namespace PasswordManager.Controllers
 
         }
 
-        [Route("~/api/getuserdata")]
-        [HttpPost]
-        public JsonResult GetData(ProjectUsers user)
+
+        [HttpGet("~/api/getuserdata/{Username}")]
+        public JsonResult GetData(string Username)
         {
             try
             {
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == Username);
 
                 dbdata.Secret_question = DecodeFrom64(dbdata.Secret_question);
 
@@ -284,7 +284,7 @@ namespace PasswordManager.Controllers
         }
 
         [Route("~/api/edit_username")]
-        [HttpPost]
+        [HttpPut]
         public JsonResult EditUsername(TempData tempdata)
         {
             try
@@ -321,7 +321,7 @@ namespace PasswordManager.Controllers
         }
 
         [Route("~/api/edit_email")]
-        [HttpPost]
+        [HttpPut]
         public JsonResult EditEmail(TempData tempdata)
         {
             try
@@ -344,7 +344,7 @@ namespace PasswordManager.Controllers
         }
 
         [Route("~/api/edit_secret_question")]
-        [HttpPost]
+        [HttpPut]
         public JsonResult EditQuestion(TempData tempdata)
         {
             try

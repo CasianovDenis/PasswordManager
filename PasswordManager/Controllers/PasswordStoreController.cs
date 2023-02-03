@@ -1,11 +1,8 @@
 ﻿using Effortless.Net.Encryption;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PasswordManager.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PasswordManager.Controllers
 {
@@ -22,19 +19,19 @@ namespace PasswordManager.Controllers
         }
 
 
-        [Route("~/api/getdatastore")]
-        [HttpPost]
-        public JsonResult GetAll(Password_store get_store)
+
+        [HttpGet("~/api/getdatastore/{Username}")]
+        public JsonResult GetAll(string Username)
         {
-            var dbdata = _conString.Password_store.Where(data => data.Username == get_store.Username).ToList();
+            var dbdata = _conString.Password_store.Where(data => data.Username == Username).ToList();
             List<Password_list> password_list = new List<Password_list>();
 
             foreach (var item in dbdata)
             {
-                password_list.Add(new Password_list(DecodeFrom64(item.Name), DecodeFrom64(item.Description), Strings.Decrypt(item.Password,item.Key, item.IV)));
+                password_list.Add(new Password_list(DecodeFrom64(item.Name), DecodeFrom64(item.Description), Strings.Decrypt(item.Password, item.Key, item.IV)));
             }
-            
-            
+
+
             return Json(password_list);
         }
 
@@ -50,7 +47,7 @@ namespace PasswordManager.Controllers
                 if (add_store.Name != null && add_store.Password != null)
                 {
                     add_store.Name = EncodeTo64(add_store.Name);
-                    
+
                     add_store.Description = EncodeTo64(add_store.Description);
 
                     byte[] key = Bytes.GenerateKey();
@@ -72,11 +69,11 @@ namespace PasswordManager.Controllers
                 return Json("User not exist");
 
             }
-           
+
         }
 
         [Route("~/api/deletedatastore")]
-        [HttpPost]
+        [HttpDelete]
         public JsonResult DeleteData(Password_store delete_data)
         {
             try
@@ -91,16 +88,16 @@ namespace PasswordManager.Controllers
                         _conString.SaveChanges();
                         return Json("Succes");
                     }
-                    
+
                 }
                 return Json("This name not exist");
-               
-        }
+
+            }
             catch
             {
                 return Json("This name not exist");
-    }
-}
+            }
+        }
 
         static public string DecodeFrom64(string encodedData)
 
