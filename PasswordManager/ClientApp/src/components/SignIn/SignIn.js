@@ -32,18 +32,13 @@ export default function SignIn() {
 
                 
                 const requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-
-                        "Username": refUsername.current.value
-
-                    })
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
                 };
 
                 
                 
-                fetch('http://localhost:32349/api/verifie_exist_user_and_account_status', requestOptions)
+                fetch('http://localhost:32349/api/verifie_exist_user_and_account_status/' + refUsername.current.value, requestOptions)
                         .then(response => response.json())
                         .then((responseData) => {
                             
