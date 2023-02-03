@@ -1,4 +1,5 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import style from './Settings.module.css';
 
 import user_icon from '../public_files/user_icon.png';
@@ -16,23 +17,20 @@ export default function Settings() {
     const [dbdata, setDbdata] = useState('');
     const [request, setRequest] = useState(true);
 
-    if (GetCookie("status_account") != "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
-    
+    const redirect = useHistory();
+
+    if (GetCookie("status_account") != "online") redirect.push('/');
+
     useEffect(() => {
 
                   
         const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-
-                "Username": GetCookie("username")
-
-            })
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
         };
 
         if (request==true)
-        fetch('http://localhost:32349/api/getuserdata', requestOptions)
+            fetch('http://localhost:32349/api/getuserdata/' + GetCookie("username"), requestOptions)
             .then(response => response.json())
             .then((responseData) => {
 

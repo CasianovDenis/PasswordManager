@@ -4,7 +4,7 @@
     height: 23.8vh;
     margin-top: -16px;
     background-color: #803d4d;
-    
+   
 }
 
 .settings_user_photo {
@@ -59,34 +59,34 @@ height:25px;
     width: 25px;
     height: 25px;
     cursor: pointer;
-    position: absolute;
-    left: 500px;
-    top: 270px;
+    position: relative;
+    left: 90%;
+    top: -13vh;
 }
 
 .secret_question_edit_icon {
     width: 25px;
     height: 25px;
     cursor: pointer;
-    position: absolute;
-    left: 1030px;
-    top: 270px;
+    position: relative;
+    left: 90%;
+    top: -20vh;
 }
 
 .username_edit_icon {
     width: 25px;
     height: 25px;
     cursor: pointer;
-    position: absolute;
-    left: 505px;
-    top: 180px;
+    position: relative;
+    left: 38%;
+    top: 8vh;
 }
 
 
 .font_style {
-    position: absolute;
+    position: relative;
     left: 170px;
-    top: 170px;
+    top: 100px;
     font-family: "Times New Roman", Times, serif;
     font-size:30px;
     color:white;
@@ -122,13 +122,13 @@ height:25px;
     }
 
     .email_edit_icon {
-        left: 380px;
-        top: 270px;
+        left: 0px;
+        top: 0px;
     }
 
     .secret_question_edit_icon {
-        left: 380px;
-        top: 468px;
+        left: 80%;
+        top: -30px;
     }
 
     .username_edit_icon {

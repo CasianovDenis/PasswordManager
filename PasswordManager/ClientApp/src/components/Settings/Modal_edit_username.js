@@ -24,7 +24,7 @@ export default function Modal_edit_username() {
             if (refnewName.current.value.length <= 25) {
 
                 const requestOptions = {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         "Username": GetCookie("username"),

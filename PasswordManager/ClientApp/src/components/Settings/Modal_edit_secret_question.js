@@ -55,7 +55,7 @@ export default function Modal_edit_secret_question(props) {
                             newdata.NewAnswer = btoa(refnewAnswer.current.value);
 
                             const requestOptions = {
-                                method: 'POST',
+                                method: 'PUT',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify(newdata)
                             };

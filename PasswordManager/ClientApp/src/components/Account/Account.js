@@ -11,7 +11,7 @@ import style from './Account.module.css'
 
 import GetCookie from '../public_files/GetCookie.js';
 
-
+const username = GetCookie("username");
 
 export default function Account() {
     
@@ -29,19 +29,12 @@ export default function Account() {
 
             
             const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-
-                    "Username": GetCookie("username"),
-                    "Name": "null",
-                    "Password": "null"
-
-                })
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
             };
 
             if (request == true) {
-                fetch('http://localhost:32349/api/getdatastore', requestOptions)
+                fetch('http://localhost:32349/api/getdatastore/' + username, requestOptions)
                     .then(response => response.json())
                     .then((responseData) => {
                         setDbData(responseData)
@@ -62,7 +55,7 @@ export default function Account() {
             if (window.confirm("You want to delete data: " + item) == true) {
 
                 const requestOptions = {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         "Username": GetCookie("username"),
