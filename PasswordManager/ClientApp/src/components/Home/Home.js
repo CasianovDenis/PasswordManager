@@ -1,5 +1,5 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useHistory} from 'react-router-dom';
 
 import style from './Home.module.css';
 
@@ -18,6 +18,12 @@ export default function Home() {
 
     if (GetCookie("status_account") == "online") redirect.push('/Account');
 
+    useEffect(() => {
+
+        document.documentElement.style.setProperty('--bodyColor', 'rgb(41,44,51)');
+
+    }, []);
+
     const redirect_to_SignIn=() => {
 
         redirect.push('/SignIn');
@@ -35,6 +41,7 @@ export default function Home() {
         <div className={ style.home_div}>
 
             <div className={style.welcome_div} >
+
                 <img src={locker} className={style.image_locker } />
 
                 <p className={style.welcome_text}> Online Password Manager</p>
@@ -47,10 +54,11 @@ export default function Home() {
                     onClick={redirect_to_SignUp}> Sign Up </button>
             </div>
 
-           
+            <div className={style.Info_web_app}>
+
             <div className={style.security_info }>
 
-                <img src={security_image} className={style.security_logo} />Security
+                    <img src={security_image} style={{width: "50px" , height: "50px"} } />Security
 
                 <p  style={{ left: "20%" }}>
                     All data is store safe,because him is encrypted using 256-bit AES</p>
@@ -59,7 +67,7 @@ export default function Home() {
 
             <div className={style.crossplatform_info}>
 
-                <img src={cross_platform_image} className={style.crossplatform_logo}/> Cross-platform
+                    <img src={cross_platform_image} style={{ width: "50px", height: "50px" }} /> Cross-platform
 
               <p  style={{ left: "30%" }}>
                 Password Manager working on all platform MacOS,Windows,Linux and Smartphone</p>
@@ -67,13 +75,13 @@ export default function Home() {
             </div>
 
             <div className={style.opensource_info }>
-                <img src={open_source_image} className={style.opensource_logo} />Open source
+                    <img src={open_source_image} style={{ width: "50px", height: "50px" }} />Open source
 
 
                 <p  style={{ left: "47%", top: "-45px" }}>
                     The full source code is published on Github.</p>
             </div>
-
+                </div>
               
         </div>
     );

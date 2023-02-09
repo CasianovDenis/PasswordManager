@@ -21,18 +21,18 @@
 
     position:relative;
     left: 10px;
-    top:10px;
+   
 }
 
 button:focus{
     outline:none !important;
 }
-.account_div{
-    width:100vh;
-    height:50vh;
+.account_store_data {
+
+   display:flex;
 }
 .user_data {
-    position:relative;
+ 
     font-family: cursive, sans-serif;
     background-color: #3c497c;
     color: white;
@@ -40,26 +40,9 @@ button:focus{
     margin:10px;
     width: 30%;
     border-radius: 4px;
-    left: 10px;
-    float: left;
-    top: 15px;
+    
 }
 
-
-.display_div {
-   position:relative;
-   top:23px;
-    background-color: #00313f;
-    width: 121.4%;
-    height: 73.8vh;
-
-}
-
-
-.add_image {
-    width: 45px;
-    height: 45px;
-}
 
 .delete_image {
     width: 35px;
@@ -82,11 +65,14 @@ button:focus{
 
 @media(max-width: 991px) {
 
-    .display_div {
-        width: 94.3vh;
-        height: 74.5vh;
-
+    .account_store_data {
+       flex-direction:column;
     }
 
+    .user_data {
+       
+        width: 80%;
+       
+    }
 }
 

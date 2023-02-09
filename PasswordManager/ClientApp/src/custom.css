@@ -19,4 +19,11 @@ code {
     margin-left:0px;
 }
 
+:root {
+    --bodyColor: "#000000";
+}
+
+body {
+    background-color: var(--bodyColor);
+}
 

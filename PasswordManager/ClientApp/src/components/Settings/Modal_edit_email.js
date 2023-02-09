@@ -46,6 +46,8 @@ export default function Modal_edit_email(props) {
                         field.value = "";
 
                         refnewEmail.current.value = "";
+
+                        props.func('succes');
                     }
 
                     else
@@ -62,9 +64,7 @@ export default function Modal_edit_email(props) {
 
         return (
 
-            <body>
-
-
+            <>
                 <img src={edit_icon} className={ style.email_edit_icon} data-toggle="modal" data-target="#edit_email" />
 
                 <div class="modal fade" id="edit_email" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,7 +95,7 @@ export default function Modal_edit_email(props) {
                     </div>
                 </div>
 
-            </body>
+            </>
         );
 
 

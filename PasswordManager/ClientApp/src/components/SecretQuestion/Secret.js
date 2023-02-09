@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -19,7 +19,13 @@ export default function Secret() {
 
     if (GetCookie("status_account") == "online") redirect.push('/Account');
 
-    
+
+    useEffect(() => {
+
+        document.documentElement.style.setProperty('--bodyColor', 'white');
+
+    }, []);
+
     const getquestion = (event) => {
         event.preventDefault();
 
@@ -33,7 +39,7 @@ export default function Secret() {
 
                        
 
-        fetch('http://localhost:32349/api/getquestion' + refUsername.current.value, requestOptions)
+        fetch('http://localhost:32349/api/getquestion/' + refUsername.current.value, requestOptions)
                             .then(response => response.json())
                             .then((responseData) => {
                                 const date = new Date();

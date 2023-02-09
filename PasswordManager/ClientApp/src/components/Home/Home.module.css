@@ -1,142 +1,83 @@
 ﻿.home_div{
-    width:100%;
-    height:80vh;
+  position:relative;
+  left:30%;
+  width:50%;
 }
-.welcome_div {
-    margin-top: -16px;
-    background-color: rgb(41,44,51);
-    width: 122%;
-    margin-left: -7px;
-    height: 300px;
+
+.Info_web_app {
     
-    overflow-x: hidden; /* Hide horizontal scrollbar */
+    display: flex;
+   position:relative;
+   right:0%;
+   top:15vh;
 }
+
 
 
 .security_info {
-    position: relative;
-    width: 200px;
-    top: 10px;
-    left: 10%;
    
+    width: 200px;
+    
+   color:white;
+  margin:25px;
 }
 
 .crossplatform_info {
-    position: relative;
+   
     width: 200px;
-    top: -20vh;
-    left: 50%;
+   
+    color: white;
+    margin: 25px;
 }
 .opensource_info {
-    position: relative;
-    width: 200px;
-
-    top:-45vh;
-    left:80%;
     
+    width: 200px;
+    color: white;
+   
+    margin: 25px;
 }
 
-.security_logo{
-    width:50px;
-    height:50px;
-}
-
-.crossplatform_logo {
-    width: 50px;
-    height: 50px;
-}
-
-.opensource_logo {
-    width: 50px;
-    height: 50px;
-}
 
 .welcome_text {
-    position: relative;
+  
     color: white;
-    left: 30%;
-    top: 25%;
+ 
     font-size: 20px;
 }
 
 
 .image_locker {
-    position: relative;
+  
     width: 150px;
     height: 150px;
-    top: 50px;
-    left: 25%;
+   
     float: left;
 }
 
 
 
 #login_button {
-    position:relative;
-    left: 30%;
-    top: 30%;
+  margin:10px;
 }
 
 #signup_button {
-    position: relative;
-    left: 40%;
-    top: 30%;
+ 
 }
 
 
 @media(max-width:991px) {
-
     .home_div {
-        width: 140%;
-        height:0vh;
-        
-    }
-
-    .welcome_div {
-        margin-top: -15px;
-        
-        width: 102%;
-        margin-left:0px;
-    }
-
-
-    .welcome_text {
-        left: 0%;
-        font-size: 15px;
-    }
-
-    .image_locker {
-        width: 100px;
-        height: 100px;
-        left: 0%;
-    }
-    .security_info {
-       
-       
-        top: 10px;
+        position: relative;
         left: 10%;
        
     }
 
-    .crossplatform_info {
-      
-        top: 5px;
-        left: 10%;
+    .Info_web_app {
+        display: flex;
+        flex-direction:column;
+        position: initial;
        
     }
 
-    .opensource_info {
-       
-        width:100px;
-        top: -40vh;
-        left: 70%;
-       
-    }
-
-    #login_button{
-margin-left:-30%;
-    }
-
-    
 
 }

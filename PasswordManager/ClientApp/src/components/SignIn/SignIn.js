@@ -21,7 +21,11 @@ export default function SignIn() {
 
     if (GetCookie("status_account") == "online") redirect.push('/Account');
 
-    
+    useEffect(() => {
+
+        document.documentElement.style.setProperty('--bodyColor', 'white');
+
+    }, []);
 
         const verifie_exist_user=(event)=>  {
 

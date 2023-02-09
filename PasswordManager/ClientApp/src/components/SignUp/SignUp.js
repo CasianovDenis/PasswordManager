@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef , useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import style from './SignUp.module.css';
 
@@ -13,8 +14,15 @@ export default function SignUp() {
     const [message, setMessage] = useState("");
     const refUsername = useRef(""), refEmail = useRef(""), refQuestion = useRef(""), refAnswer = useRef("");
 
+    const redirect = useHistory();
 
-    if (GetCookie("status_account") == "online") window.open("http://localhost:32349/", '_self', "noopener noreferrer");
+    if (GetCookie("status_account") == "online") redirect.push('/Account');
+
+    useEffect(() => {
+
+        document.documentElement.style.setProperty('--bodyColor', 'white');
+
+    }, []);
 
     const onCreateUser = (event) => {
 
