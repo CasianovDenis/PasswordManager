@@ -8,7 +8,7 @@ import add_icon from './add_icon.png';
 import GetCookie from '../public_files/GetCookie.js';
 
 
-export default function Modal_password() {
+export default function Modal_password(props) {
 
     const [message, setMessage] = useState('');
     
@@ -18,7 +18,7 @@ export default function Modal_password() {
     const refDescription = useRef("");
     
     
-    const storepassword = () => {
+    const save_password = () => {
 
         setMessage("Please Wait");
         
@@ -59,7 +59,9 @@ export default function Modal_password() {
                             field_input.value = "";
 
                             refName_record.current.value = ""; refPassword.current.value = "";
-                             refDescription.current.value = "";
+                            refDescription.current.value = "";
+
+                            props.func('succes');
                         }
 
                         else
@@ -80,7 +82,7 @@ export default function Modal_password() {
             <body>
 
                 <button className={style.button_add} role="button" data-toggle="modal" data-target="#add_password"  >
-                    <img src={add_icon} className={style.add_image} /> <span class="text">Add password</span></button>
+                    <img src={add_icon} style={{ width: "45px", height: "45px" }} /> <span class="text">Add password</span></button>
 
                 <div class="modal fade" id="add_password" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -110,7 +112,7 @@ export default function Modal_password() {
                             <p style={{ marginLeft: "5px" }}>{message}</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onClick={storepassword}>Save changes</button>
+                                <button type="button" class="btn btn-primary" onClick={save_password}>Save changes</button>
                             </div>
                         </div>
                     </div>
