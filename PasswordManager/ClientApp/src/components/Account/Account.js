@@ -15,8 +15,8 @@ const username = GetCookie("username");
 
 export default function Account() {
     
-    const [dbdata, setDbData] = React.useState([]);
-    const [request, setRequest] = useState(true);
+    const [dbdata, setDbData] = React.useState(null);
+    const [request, setRequest] = useState(false);
 
     const redirect = useHistory();
    
@@ -26,27 +26,31 @@ export default function Account() {
    
    
         useEffect(() => {
-
+            document.documentElement.style.setProperty('--bodyColor', '#14273d');
             
             const requestOptions = {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             };
 
-            if (request == true) {
+            
                 fetch('http://localhost:32349/api/getdatastore/' + username, requestOptions)
                     .then(response => response.json())
                     .then((responseData) => {
                         setDbData(responseData)
-                        setRequest(false);
+                        
                     });
 
                
-            }
-        }, [dbdata]);
+            
+        }, [request]);
     
 
 
+    const change_page = (data) => {
+        if (data == 'succes')
+            request == false ? setRequest(true) : setRequest(false);
+    }
 
         const delete_password = (ev) => {
 
@@ -72,7 +76,8 @@ export default function Account() {
                     .then((responseData) => {
 
                         if (responseData != "Succes") alert("Error : data can not deleted");
-
+                        else
+                        request == false ? setRequest(true) : setRequest(false);
                     });
             }
 
@@ -94,19 +99,19 @@ export default function Account() {
         }
 
 
-    
+    if (dbdata != null)
     return (
 
-
+      
 
         <div classname={style.account_div}>
   
 
-            <Modal_password />
+            <Modal_password func={change_page} />
 
           
 
-            <div className={style.display_div }>
+            <div className={style.account_store_data }>
                 {dbdata.map(item => {
 
                 return (
@@ -134,8 +139,15 @@ export default function Account() {
             })}
             </div>
            
-        </div>
-    );
+            </div>
+           
+        );
+    else
+        return (
+            <div class="spinner-border" role="status" >
+                <span class="visually-hidden"></span>
+            </div>
+            )
 }
 
 
