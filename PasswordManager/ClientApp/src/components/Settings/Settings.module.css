@@ -1,23 +1,8 @@
-﻿
-.background_top_color {
-    width: 121.4%;
-    height: 23.8vh;
-    margin-top: -16px;
-    background-color: #803d4d;
-   
-}
-
-.settings_user_photo {
-    width:100px;
-   height:100px;
-   background-color:white;
-
-   position:absolute;
-   border-radius:10px;
-    padding: 12px;
-    
-margin-left:55px;
-margin-top:-60px;
+﻿.account_settings{
+    display:flex;
+   position:relative;
+   left:10%;
+   top:10vh;
 }
 
 .settings_div {
@@ -27,119 +12,63 @@ margin-top:-60px;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    margin-left: 200px;
-    float: left;
-    margin-top:40px;
+    margin: 10px;
 }
 
-.background_bottom_color {
-    background-color: #272e50;
-    width: 121.4%;
-    height: 65.8vh;
-}
-
-
-.image_user {
-    width: 100%;
-    height: 80px;
-}
-
-.icon_mail{
-width:25px;
-height:25px;
-}
-
-.secret_question_icon{
-width:25px;
-height:25px;
-
-}
 
 .email_edit_icon {
     width: 25px;
     height: 25px;
     cursor: pointer;
+    float: right;
     position: relative;
-    left: 90%;
-    top: -13vh;
+    top: -80px;
 }
 
 .secret_question_edit_icon {
     width: 25px;
     height: 25px;
     cursor: pointer;
-    position: relative;
-    left: 90%;
-    top: -20vh;
+   float:right;
+   position:relative;
+   top:-130px;
 }
 
 .username_edit_icon {
     width: 25px;
     height: 25px;
     cursor: pointer;
+    float: right;
     position: relative;
-    left: 38%;
-    top: 8vh;
+    top: -80px;
 }
 
-
-.font_style {
-    position: relative;
-    left: 170px;
-    top: 100px;
-    font-family: "Times New Roman", Times, serif;
-    font-size:30px;
-    color:white;
-}
 
 
 
 @media(max-width:900px) {
-
-    .background_top_color {
-        width: 141.8%;
-        height: 24.5vh;
-        margin-top: -15px;
-    }
-
-    .settings_user_photo {
-        width: 100px;
-        height: 100px;
+    .account_settings {
+        flex-direction: column;
+        position: initial;
     }
 
     .settings_div {
-        width: 40%;
-        height: 160px;
-    }
-
-    .background_bottom_color {
-        width: 141.7%;
-    }
-
-    .secret_question_icon {
-        width: 25px;
-        height: 25px;
+        width: 80%;
+        height: 150px;
     }
 
     .email_edit_icon {
-        left: 0px;
-        top: 0px;
+       
+        top: -70px;
     }
 
     .secret_question_edit_icon {
-        left: 80%;
-        top: -30px;
+       
+        top: -110px;
     }
 
     .username_edit_icon {
        
-        left: 400px;
-       
-    }
-
-    .font_style {
-        
-        font-size: 20px;
-       
+        top: -70px;
     }
 }
