@@ -43,7 +43,7 @@ export default function Modal_edit_secret_question(props) {
 
                 if (newdata.NewAnswer.match(/^[A-Za-z0-9\s]*$/)) {
 
-                    //New question  must doesn't match actual question
+                    
                     if (newdata.NewQuestion != props.question) {
 
                        
@@ -80,6 +80,7 @@ export default function Modal_edit_secret_question(props) {
                                         refanswer.current.value = ""; refnewQuestion.current.value = "";
                                         refnewAnswer.current.value = "";
 
+                                        props.func('succes');
                                      
                                     }
 
@@ -106,7 +107,7 @@ export default function Modal_edit_secret_question(props) {
 
         return (
 
-            <body>
+            <>
 
 
                 <img src={edit_icon} className={ style.secret_question_edit_icon} data-toggle="modal" data-target="#edit_secret_question" />
@@ -147,7 +148,7 @@ export default function Modal_edit_secret_question(props) {
                     </div>
                 </div>
 
-            </body>
+            </>
         );
 
 

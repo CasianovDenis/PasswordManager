@@ -8,7 +8,7 @@ import edit_icon from './edit_icon.png';
 
 import GetCookie from '../public_files/GetCookie.js';
 
-export default function Modal_edit_username() {
+export default function Modal_edit_username(props) {
 
     const [message, setMessage] = useState('');
    
@@ -59,6 +59,8 @@ export default function Modal_edit_username() {
 
                             refnewName.current.value = "";
 
+                            props.func('succes');
+
                             redirect.go('Account');
                         }
 
@@ -81,7 +83,7 @@ export default function Modal_edit_username() {
 
         return (
 
-            <body>
+            <>
 
 
                 <img src={edit_icon} className={ style.username_edit_icon} data-toggle="modal" data-target="#edit_username" />
@@ -114,7 +116,7 @@ export default function Modal_edit_username() {
                     </div>
                 </div>
 
-            </body>
+            </>
         );
 
 
