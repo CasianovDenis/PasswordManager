@@ -90,8 +90,8 @@ export class NavMenu extends Component {
                 <NavItem style={{ display: this.state.status_dropdown }}>
                     <div class="dropdown">
 
-                        <img src={user_icon} class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" />
+                                    <img src={user_icon} class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false" style={{cursor:"pointer"} }/>
 
                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
 
