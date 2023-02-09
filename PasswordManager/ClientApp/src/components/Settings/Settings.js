@@ -13,9 +13,9 @@ import GetCookie from '../public_files/GetCookie.js';
 
 
 export default function Settings() {
-   
-    const [dbdata, setDbdata] = useState('');
-    const [request, setRequest] = useState(true);
+
+    const [dbdata, setDbdata] = useState(null);
+    const [request, setRequest] = useState(false);
 
     const redirect = useHistory();
 
@@ -23,74 +23,81 @@ export default function Settings() {
 
     useEffect(() => {
 
-                  
+        document.documentElement.style.setProperty('--bodyColor', '#272e50');
+
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         };
 
-        if (request==true)
+        
             fetch('http://localhost:32349/api/getuserdata/' + GetCookie("username"), requestOptions)
-            .then(response => response.json())
-            .then((responseData) => {
+                .then(response => response.json())
+                .then((responseData) => {
 
-                if (responseData != null)  setDbdata(responseData); 
+                    if (responseData != null) setDbdata(responseData);
 
-                setRequest(false);
-            });
 
-    },[dbdata]);
-    
-                        
+                });
+
+    }, [request]);
+
+
+    const change_page = (data) => {
+        if (data == 'succes')
+        request == false ? setRequest(true) : setRequest(false);
+    }
+
+    if (dbdata != null)
     return (
 
-        <div>
+        <div className={style.account_settings }>
 
-           
-         
+            <div className={style.settings_div}>
+                <img src={user_icon} style={{ width: "25px" , height: "25px"} } />
 
-            <div className={style.background_top_color}>
-
-                <p id="font_style"className={style.font_style}>{dbdata.Username}</p>
-                <Modal_edit_username />
+                <p style={{ color: "white", marginLeft: "40px", marginTop: "-25px" }}>Edit Username :</p>
+                <p style={{ color: "white" }}>Username : {dbdata.Username}</p>
                
+                <Modal_edit_username func={change_page} />
+                
             </div>
-
-          
-
-            <div className={style.settings_user_photo} id="user_photo_div">
-
-                <img src={user_icon} className={style.image_user }/>
-            </div>
+                
+           
 
            
 
             <div className={style.settings_div}>
-                <img src={email_icon} className={style.icon_mail} />
+                <img src={email_icon} style={{ width: "25px", height: "25px" }} /> 
+
                 <p style={{ color: "white", marginLeft: "40px", marginTop:"-25px" }}>Email Settings:</p>
                 <p style={{ color: "white" }}>Email: {dbdata.Email}</p>
-                <Modal_edit_email Email={dbdata.Email}  />
+
+                <Modal_edit_email Email={dbdata.Email} func={change_page} />
             </div>
 
             <div className={style.settings_div}>
-                <img src={secret_icon} className={style.secret_question_icon} />
+
+                <img src={secret_icon} style={{ width: "25px", height: "25px" }} /> 
                 <p style={{ color: "white", marginLeft: "40px", marginTop:"-25px" }}>Secret question:</p>
                 
                 <p style={{ color: "#f28883"}}>
                     Don't use simple secret question for example "My name",question must be strong  for only you know answer</p>
-                <Modal_edit_secret_question question={dbdata.Secret_question} />
+
+                <Modal_edit_secret_question question={dbdata.Secret_question} func={change_page} />
+
             </div>
-
-
-
-            <div className={style.background_bottom_color }>
-
-                </div>
             
 
         </div>
 
-    );
+        );
+    else
+        return (
+            <div class="spinner-border" role="status" >
+                <span class="visually-hidden"></span>
+            </div>
+        )
 
     }
         
