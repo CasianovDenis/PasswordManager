@@ -47,7 +47,7 @@ namespace PasswordManager.Controllers
                         if (newuser.Secret_answer != "")
                         {
 
-
+                            newuser.AuthorizationToken = "null";
                             _conString.ProjectUsers.Add(newuser);
                             _conString.SaveChanges();
 
@@ -80,7 +80,7 @@ namespace PasswordManager.Controllers
         }
 
 
-        [HttpGet("~/api/verifie_exist_user_and_account_status/{Username}")]
+        [HttpGet("~/api/send_one_time_password/{Username}")]
         public JsonResult Smtp_password(string Username)
         {
             try
@@ -153,17 +153,18 @@ namespace PasswordManager.Controllers
                 string decrypt_password_1 = Strings.Decrypt(user.Password.Trim(' '), dbdata_encryption.Key, dbdata_encryption.IV);
 
                 //decrypt password from db
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
-                string decrypt_password_2 = Strings.Decrypt(dbdata.Password.Trim(' '), dbdata_encryption.Key, dbdata_encryption.IV);
+                var user_data = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+                string decrypt_password_2 = Strings.Decrypt(user_data.Password.Trim(' '), dbdata_encryption.Key, dbdata_encryption.IV);
 
                 if (decrypt_password_1 == decrypt_password_2)
                 {
-                    dbdata.Password = "";
+                    user_data.Password = "";
+                    user_data.AuthorizationToken = RandomString(25);
 
                     dbdata_encryption.IV = null;
                     dbdata_encryption.Key = null;
                     _conString.SaveChanges();
-                    return Json("Access_granted");
+                    return Json(user_data.AuthorizationToken);
                 }
                 else
                     return Json("Password does not match");
@@ -212,18 +213,19 @@ namespace PasswordManager.Controllers
         {
             try
             {
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == user.Username);
+                var user_data = _conString.ProjectUsers.Single(data => data.Username == user.Username);
 
 
 
-                if (DecodeFrom64(user.Secret_answer) == DecodeFrom64(dbdata.Secret_answer))
+                if (DecodeFrom64(user.Secret_answer) == DecodeFrom64(user_data.Secret_answer))
                 {
 
+                    user_data.AuthorizationToken = RandomString(25);
 
                     _conString.SaveChanges();
 
 
-                    return Json("Succes");
+                    return Json(user_data.AuthorizationToken);
                 }
 
                 return Json("Answer isn't right");
@@ -263,21 +265,26 @@ namespace PasswordManager.Controllers
         }
 
 
-        [HttpGet("~/api/getuserdata/{Username}")]
-        public JsonResult GetData(string Username)
+        [HttpGet("~/api/getuserdata/{Username}/{authorizationToken}")]
+        public JsonResult GetData(string Username, string authorizationToken)
         {
             try
             {
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == Username);
+                var user_data = _conString.ProjectUsers.Single(data => data.Username == Username);
 
-                dbdata.Secret_question = DecodeFrom64(dbdata.Secret_question);
+                if (user_data.AuthorizationToken == authorizationToken)
+                {
+                    user_data.Secret_question = DecodeFrom64(user_data.Secret_question);
 
-                return Json(dbdata);
+                    return Json(user_data);
+                }
+                else
+                    return Json("Incorrect authorization token");
             }
             catch
             {
 
-                return Json(null);
+                return Json("Incorrect username");
 
             }
 
@@ -285,83 +292,99 @@ namespace PasswordManager.Controllers
 
         [Route("~/api/edit_username")]
         [HttpPut]
-        public JsonResult EditUsername(TempData tempdata)
+        public JsonResult EditUsername(EditUserData editUser)
         {
             try
             {
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.NewUsername);
+                var dbdata = _conString.ProjectUsers.Single(data => data.Username == editUser.NewUsername);
 
                 return Json("This username already exist");
 
             }
             catch
             {
-                var dbdata_user = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
-                dbdata_user.Username = tempdata.NewUsername;
-                _conString.SaveChanges();
+                var dbdata_user = _conString.ProjectUsers.Single(data => data.Username == editUser.Username);
 
-                var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == tempdata.Username);
-
-                dbdata_encryption.Username = tempdata.NewUsername;
-                _conString.SaveChanges();
-
-                var dbdata_store = _conString.Password_store.Where(data => data.Username == tempdata.Username).ToList();
-
-                for (int index = 0; index < dbdata_store.Count; index++)
-                    dbdata_store[index].Username = tempdata.NewUsername;
+                if (dbdata_user.AuthorizationToken == editUser.AuthorizationToken)
+                {
+                    dbdata_user.Username = editUser.NewUsername;
 
 
-                _conString.SaveChanges();
+                    var dbdata_encryption = _conString.Encryption_data.Single(data => data.Username == editUser.Username);
+
+                    dbdata_encryption.Username = editUser.NewUsername;
 
 
-                return Json("Succes");
+                    var dbdata_store = _conString.Password_store.Where(data => data.Username == editUser.Username).ToList();
 
+                    for (int index = 0; index < dbdata_store.Count; index++)
+                        dbdata_store[index].Username = editUser.NewUsername;
+
+
+                    _conString.SaveChanges();
+
+
+                    return Json("Succes");
+                }
+                else
+                    return Json("Incorrect authorization token");
             }
 
         }
 
         [Route("~/api/edit_email")]
         [HttpPut]
-        public JsonResult EditEmail(TempData tempdata)
+        public JsonResult EditEmail(EditUserData editUser)
         {
             try
             {
-                var dbdata = _conString.ProjectUsers.Single(data => data.Email == tempdata.NewEmail);
+                var verifie_email = _conString.ProjectUsers.Single(data => data.Email == editUser.NewEmail);
 
                 return Json("This email already exist");
 
             }
             catch
             {
-                var dbdata_user = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
-                dbdata_user.Email = tempdata.NewEmail;
-                _conString.SaveChanges();
+                var user_data = _conString.ProjectUsers.Single(data => data.Username == editUser.Username);
 
-                return Json("Succes");
+                if (user_data.AuthorizationToken == editUser.AuthorizationToken)
+                {
+                    user_data.Email = editUser.NewEmail;
+                    _conString.SaveChanges();
 
+                    return Json("Succes");
+                }
+                else
+                    return Json("Incorrect authorization token");
             }
 
         }
 
         [Route("~/api/edit_secret_question")]
         [HttpPut]
-        public JsonResult EditQuestion(TempData tempdata)
+        public JsonResult EditQuestion(EditUserData editUser)
         {
             try
             {
-                var dbdata = _conString.ProjectUsers.Single(data => data.Username == tempdata.Username);
+                var user_data = _conString.ProjectUsers.Single(data => data.Username == editUser.Username);
 
 
 
-                if (DecodeFrom64(tempdata.OldAnswer) == DecodeFrom64(dbdata.Secret_answer))
+                if (DecodeFrom64(editUser.OldAnswer) == DecodeFrom64(user_data.Secret_answer))
                 {
 
-                    if (DecodeFrom64(tempdata.OldAnswer) != DecodeFrom64(tempdata.NewAnswer))
+                    if (DecodeFrom64(editUser.OldAnswer) != DecodeFrom64(editUser.NewAnswer))
                     {
-                        dbdata.Secret_question = EncodeTo64(tempdata.NewQuestion);
-                        dbdata.Secret_answer = tempdata.NewAnswer;
-                        _conString.SaveChanges();
-                        return Json("Succes");
+                        if (user_data.AuthorizationToken == editUser.AuthorizationToken)
+                        {
+                            user_data.Secret_question = EncodeTo64(editUser.NewQuestion);
+                            user_data.Secret_answer = editUser.NewAnswer;
+                            _conString.SaveChanges();
+                            return Json("Succes");
+                        }
+                        else
+                            return Json("Incorrect Authorization token");
+
                     }
 
                     return Json("New answer match old");
@@ -372,10 +395,10 @@ namespace PasswordManager.Controllers
 
 
             }
-            catch
+            catch (Exception ex)
             {
 
-                return Json("Error,please send this in the support ");
+                return Json(ex);
 
 
             }
@@ -406,6 +429,15 @@ namespace PasswordManager.Controllers
 
             return returnValue;
 
+        }
+
+        public static string RandomString(int length)
+        {
+            Random random = new Random();
+
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 
