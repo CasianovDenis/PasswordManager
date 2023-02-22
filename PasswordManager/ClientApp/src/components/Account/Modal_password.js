@@ -35,7 +35,8 @@ export default function Modal_password(props) {
                         "Username": GetCookie("username"),
                         "Name": refName_record.current.value,
                         "Password": refPassword.current.value,
-                        "Description": refDescription.current.value
+                        "Description": refDescription.current.value,
+                        "AuthorizationToken": GetCookie("auth_token")
                     })
                 };
 

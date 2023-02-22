@@ -27,7 +27,8 @@ export default function Modal_edit_email(props) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "Username": GetCookie("username"),
-                    "NewEmail": refnewEmail.current.value
+                    "NewEmail": refnewEmail.current.value,
+                    "AuthorizationToken":GetCookie("auth_token")
 
                 })
             };
