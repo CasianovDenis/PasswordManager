@@ -31,11 +31,11 @@ export default function Settings() {
         };
 
         
-            fetch('http://localhost:32349/api/getuserdata/' + GetCookie("username"), requestOptions)
+            fetch('http://localhost:32349/api/getuserdata/' + GetCookie("username")+'/'+GetCookie("auth_token"), requestOptions)
                 .then(response => response.json())
                 .then((responseData) => {
 
-                    if (responseData != null) setDbdata(responseData);
+                    if (responseData != "Incorrect username") setDbdata(responseData);
 
 
                 });
