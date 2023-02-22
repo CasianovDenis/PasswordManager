@@ -28,8 +28,8 @@ export default function Modal_edit_username(props) {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         "Username": GetCookie("username"),
-                        "NewUsername": refnewName.current.value
-
+                        "NewUsername": refnewName.current.value,
+                        "AuthorizationToken": GetCookie("auth_token")
                     })
                 };
 

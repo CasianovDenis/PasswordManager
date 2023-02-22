@@ -26,8 +26,8 @@ export default function Modal_edit_secret_question(props) {
             "Username": GetCookie("username"),
             "NewQuestion": refnewQuestion.current.value,
             "NewAnswer": refnewAnswer.current.value,
-            "OldAnswer": refanswer.current.value
-
+            "OldAnswer": refanswer.current.value,
+            "AuthorizationToken": GetCookie("auth_token")
         };
 
         
@@ -68,14 +68,6 @@ export default function Modal_edit_secret_question(props) {
 
                                         setMessage("Secret question and answer has change successfully");
 
-                                        var field = document.getElementById("oldanswer");
-                                        field.value = "";
-
-                                        field = document.getElementById("newquestion");
-                                        field.value = "";
-
-                                        field = document.getElementById("newanswer");
-                                        field.value = "";
 
                                         refanswer.current.value = ""; refnewQuestion.current.value = "";
                                         refnewAnswer.current.value = "";

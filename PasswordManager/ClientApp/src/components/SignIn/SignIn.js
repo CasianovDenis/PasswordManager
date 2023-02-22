@@ -42,7 +42,7 @@ export default function SignIn() {
 
                 
                 
-                fetch('http://localhost:32349/api/verifie_exist_user_and_account_status/' + refUsername.current.value, requestOptions)
+                fetch('http://localhost:32349/api/send_one_time_password/' + refUsername.current.value, requestOptions)
                         .then(response => response.json())
                         .then((responseData) => {
                             
@@ -109,11 +109,11 @@ export default function SignIn() {
                 .then((responseData) => {
 
 
-                    if (responseData == "Access_granted") {
+                    if (responseData != "Password does not match" && responseData != "Password incorect") {
+
 
                         refUsername.current.value = "";
                         refPassword.current.value = "";
-
 
 
                         // +1 day when create cookie
@@ -126,6 +126,8 @@ export default function SignIn() {
                         document.cookie = "username=" + userdata.Username + "; expires=" + date.toGMTString();
 
                         document.cookie = "status_account=online ; expires=" + date.toGMTString();
+
+                        document.cookie = "auth_token=" + responseData +"; expires = " + date.toGMTString();
 
                         setMessage("Log in successfully");
 

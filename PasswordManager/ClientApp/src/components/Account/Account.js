@@ -19,22 +19,22 @@ export default function Account() {
     const [request, setRequest] = useState(false);
 
     const redirect = useHistory();
-   
 
-    if (GetCookie("status_account") != "online") redirect.push('/');
+    const auth_token = GetCookie("auth_token");
+    if (GetCookie("status_account") != "online" || auth_token.length != 25 ) redirect.push('/');
 
    
    
         useEffect(() => {
-            document.documentElement.style.setProperty('--bodyColor', '#14273d');
+            document.documentElement.style.setProperty('--bodyColor', '#0a0e23');
             
             const requestOptions = {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             };
 
-            
-                fetch('http://localhost:32349/api/getdatastore/' + username, requestOptions)
+
+            fetch('http://localhost:32349/api/getdatastore/' + username + '/'+ auth_token, requestOptions)
                     .then(response => response.json())
                     .then((responseData) => {
                         setDbData(responseData)
@@ -64,7 +64,8 @@ export default function Account() {
                     body: JSON.stringify({
                         "Username": GetCookie("username"),
                         "Name": item,
-                        "Password": "null"
+                        "Password": "null",
+                        "AuthorizationToken": auth_token
 
                     })
                 };

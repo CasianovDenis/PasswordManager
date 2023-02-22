@@ -60,8 +60,6 @@ export default function Secret() {
                                         let div_answer = document.getElementById('form_answer');
                                         div_answer.style.display = "block";
 
-                                        let image = document.getElementById('question_img');
-                                        image.style.marginTop = "-20%";
 
                                         setMessage("");
                                     }
@@ -96,8 +94,8 @@ export default function Secret() {
                 .then(response => response.json())
                 .then((responseData) => {
 
-                  
-                    if (responseData == "Succes") {
+
+                    if (responseData != "Answer isn't right" && responseData != "User not exist") {
 
 
                         var date = new Date();
@@ -107,6 +105,8 @@ export default function Secret() {
                         document.cookie = "username=" + refUsername.current.value + "; expires=" + date.toGMTString();
 
                         document.cookie = "status_account=online; expires=" + date.toGMTString();
+
+                        document.cookie = "auth_token=" + responseData + "; expires = " + date.toGMTString();
 
                         setMessage("Log in successfully");
 
@@ -150,11 +150,6 @@ export default function Secret() {
             
         }
     
-                    
-
-
-           
-
 
     }
    

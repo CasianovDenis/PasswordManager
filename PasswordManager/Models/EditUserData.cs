@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PasswordManager.Models
 {
-    public class TempData
+    public class EditUserData
     {
         [Required]
         public string Username { get; set; }
@@ -20,6 +16,9 @@ namespace PasswordManager.Models
         public string NewAnswer { get; set; }
 
         public string OldAnswer { get; set; }
+
+        [Required]
+        public string AuthorizationToken { get; set; }
 
     }
 }

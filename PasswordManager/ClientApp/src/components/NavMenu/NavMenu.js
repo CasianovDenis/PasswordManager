@@ -22,8 +22,9 @@ export class NavMenu extends Component {
      
       let user_name = GetCookie("username");
 
+        let token = GetCookie("auth_token");
 
-      if (GetCookie("status_account") == "online") {
+        if (GetCookie("status_account") == "online" && token.length == 25 && token.match(/^[A-Za-z0-9]*$/)) {
           
               if (user_name != "") {
                   this.state = {
@@ -63,6 +64,8 @@ export class NavMenu extends Component {
         document.cookie = "username= ; expires =" + now.toUTCString();
 
         document.cookie = "status_account=; expires = " + now.toUTCString();
+
+        document.cookie = "auth_token=; expires = " + now.toUTCString();
 
         window.location.reload();
 
