@@ -8,4 +8,4 @@ String data is encoded in base64.
 
 - In this project is connected SMTP protocol for send one time password in the user email.
 
-- Entity framework is using for work with database data PostgresSQL.
+- Entity framework is using for work with database data PostgreSQL.
