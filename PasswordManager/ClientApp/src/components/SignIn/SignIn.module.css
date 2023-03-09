@@ -1,6 +1,5 @@
-﻿.form_position
-{
-    margin-left:10%;
+﻿.signin_content {
+    margin-left: 10%;
 }
 .home_image{
     position:absolute;
@@ -10,25 +9,14 @@
     height:350px;
 }
 
-.redirect_secret {
- 
-   position:relative;
-   margin-left:15px;
-   
-}
-.redirect_create_user{
-    position:relative;
-    margin-left:10px;
-}
+
 
 @media(max-width:991px) {
-    .redirect_secret {
 
-    position: absolute;
-    margin-left: -17%;
-    margin-top:30px;
-
+    .signin_content {
+        margin-left: 1%;
     }
+
     .home_image {
        
         display:none;

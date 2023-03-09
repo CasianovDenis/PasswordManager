@@ -50,11 +50,14 @@
     .account_settings {
         flex-direction: column;
         position: initial;
+        justify-content:center;
+       
     }
 
     .settings_div {
         width: 80%;
         height: 150px;
+        margin: 10px auto;
     }
 
     .email_edit_icon {

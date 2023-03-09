@@ -183,10 +183,10 @@ export default function SignIn() {
  
 
     return (
-      
-            <div>
+
+        <div className={ style.signin_content}>
             
-                <form className={style.form_position}>
+                <form >
 
                     <p class="login_text">Username: </p>
                     <input type="text" class="form-control" style={{ width: "30%" }} ref={refUsername} />
@@ -196,9 +196,9 @@ export default function SignIn() {
 
                 <button id="verifie_user" class="btn btn-primary" onClick={verifie_exist_user}> Verifie </button>
 
-                <NavLink id="link_to_create_user" tag={Link} to="/SignUp" className={style.redirect_create_user}>Create Account</NavLink>
+                    <NavLink style={{margin:"15px"} } tag={Link} to="/SignUp" >Create Account</NavLink>
 
-                <NavLink id="link_to_secret_question" tag={Link} to="/Secret" className={style.redirect_secret }>Inaccessible Email</NavLink>
+                    <NavLink style={{ margin: "15px" }}  tag={Link} to="/Secret" >Inaccessible Email</NavLink>
                     </div>
                 </form>
 
@@ -210,16 +210,17 @@ export default function SignIn() {
                     <br /><br />
                 <button class="btn btn-primary" onClick={Login_account}>Log In</button>
 
-                <NavLink tag={Link} to="/SignUp" className={style.redirect_create_user}>Create Account</NavLink>
+                <NavLink style={{ margin: "15px" }} tag={Link} to="/SignUp" >Create Account</NavLink>
 
-                <NavLink tag={Link} to="/Secret" className={style.redirect_secret}>Inaccessible Email</NavLink>
+                <NavLink style={{ margin: "15px" }} tag={Link} to="/Secret" >Inaccessible Email</NavLink>
+               
             </form>
+            <p style={{ marginTop: "15px", marginLeft: "5px" }}>{message} </p>
+   
 
-            <p style={{ marginTop: "15px", marginLeft:"5px" }}>{message} </p>
-
-                
+               
                     <img  src={home_office} className={style.home_image} />
-                
+               
            
             </div>
 

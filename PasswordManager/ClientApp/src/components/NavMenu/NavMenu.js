@@ -76,7 +76,7 @@ export class NavMenu extends Component {
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white box-shadow mb-3" light>
           <Container>
                     <NavbarBrand tag={Link} style={{color:"white"} }to="/">PasswordManager</NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                    <NavbarToggler onClick={this.toggleNavbar} className="mr-2" style={{backgroundColor:"white"} }/>
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                
