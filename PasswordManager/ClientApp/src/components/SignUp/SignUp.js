@@ -18,11 +18,7 @@ export default function SignUp() {
 
     if (GetCookie("status_account") == "online") redirect.push('/Account');
 
-    useEffect(() => {
-
-        document.documentElement.style.setProperty('--bodyColor', 'white');
-
-    }, []);
+  
 
     const onCreateUser = (event) => {
 
@@ -112,43 +108,67 @@ export default function SignUp() {
 
     return (
 
-        <div style={{height:"50vh"} }>
-            <form className={style.form_position} >
-                <p >Username: </p>
-                <input type="text" class="form-control" style={{ width: "30%" }} ref={refUsername} />
-                <br />
+        <div className={style.signup_div}>
 
-                <p>Email: </p>
-                <input type="email" class="form-control" style={{ width: "30%" }} ref={refEmail} />
+           
+            <form >
+                <div className={ style.inputBox}>
+               
+               
+                <input type="text" ref={refUsername} maxlength="100" required/>
+                <span >Username</span>
+                    <i></i>
+                </div>
 
-                <br />
 
-                <p >Secret Question: </p> <img src={faq} className={style.faq_image }
+                <div className={style.inputBox}>
+                
+                    <input type="text" ref={refEmail} required/>
+                    <span >Email</span>
+                    <i></i>
+              </div>
+
+                <div className={style.inputBox}>
+               
+                    <input type="text"  ref={refQuestion} required/>
+                    <span >Question</span>
+                    <i></i>
+
+                <img src={faq} className={style.faq_image}
                     title="You need to create secret question,where know only you answer.
                     Its help you for log in account without password,if you can not acces your email" />
 
-                <input type="text" class="form-control" style={{ width: "30%" }} ref={refQuestion} />
+                   </div>
+               
+               
+                <div className={style.inputBox}>
+                    <input type="text"  ref={refAnswer} required/>
+                    <span >Answer</span>
+                    <i></i>
 
-                <br />
-
-                <p >Secret Answer: </p> <img src={faq} className={style.faq_image}
+                 <img src={faq} className={style.faq_image}
                     title="In this field you must write answer for secret question" />
 
-                <input type="text" class="form-control" style={{ width: "30%" }} ref={refAnswer} />
+            
+                </div>
 
-                <br /><br />
-                <button class="btn btn-primary" onClick={onCreateUser}>Create</button>
+                <button class="btn btn-primary" onClick={onCreateUser} style={{ margin:"10px" }}>Create</button>
 
 
-                <NavLink tag={Link} to="/SignIn" style={{ margin: "25px" }}>Already have account</NavLink>
+                <NavLink tag={Link} to="/SignIn" style={{ margin: "20px" }}>Already have account</NavLink>
 
                 <p style={{ marginLeft: "5px" }}>{message}</p>
 
             </form>
 
-            <img src={book_readers} className={style.book_image} />
+           
+           
+                <img className={style.image_book} src={book_readers}   />
+            
+               
 
-        </div>
+                </div>
+       
     );
   }
 
