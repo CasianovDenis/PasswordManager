@@ -13,6 +13,8 @@ export default function Secret() {
     const [message, setMessage] = useState("");
     const [question, setQuestion] = useState("");
     const [count_wrong_entry, setCount_Wrong_Entry] = useState(0);
+    const [show_answer_form, setShowAnswerForm] = useState(false);
+
     const refUsername = useRef(""), refAnswer = useRef("");
     const redirect = useHistory();
        
@@ -57,8 +59,7 @@ export default function Secret() {
                                         let button = document.getElementById('verifie_button');
                                         button.style.display = "none";
 
-                                        let div_answer = document.getElementById('form_answer');
-                                        div_answer.style.display = "block";
+                                        setShowAnswerForm(true);
 
 
                                         setMessage("");
@@ -157,24 +158,45 @@ export default function Secret() {
 
     return (
 
-        <div className={style.form }>
+        <div className={style.authorization_form }>
             <form >
-                <p>Insert your username:</p>
-                <input type="text" class="form-control" style={{ width: "30%" }} ref={refUsername} />
-                <button class="btn btn-primary" id="verifie_button" style={{ marginTop: "10px" }} onClick={getquestion}>Verifie</button>
-                </form>
+                <div className={style.inputBox }>
+               
+                    <input type="text" ref={refUsername} required />
+                    <span>Username</span>
+                    <i></i>
+               
+                </div>
+                <button class="btn btn-primary" id="verifie_button" style={{ margin: "10px" }} onClick={getquestion}>Verifie</button>
+                    
+                
+                {show_answer_form && (
+                    <form>
+                <div className={style.inputBox}>
+                    <input type="text" value={ question} disabled />
+                    <span>Question</span>
+                    <i></i>
 
-            <form id="form_answer" className={style.form_answer }>
-                <p>Question: {question }</p>
-                <input type="text" class="form-control" style={{ width: "30%" }} ref={refAnswer} />
-                <button class="btn btn-primary" id={style.signin_button } onClick={sendanswer }>Sign In</button>
+                </div>
+
+                <div className={style.inputBox}>
+                    <input type="text" ref={refAnswer} required />
+                    <span>Answer</span>
+                    <i></i>
+                    </div>
+
+                        <button class="btn btn-primary" style={{margin:"10px"} } onClick={sendanswer }>Sign In</button>
+                        </form>
+            )}
+                   
+          
+            <NavLink tag={Link} to="/SignIn" >Back</NavLink>
+                <p style={{ marginLeft: "15px" }}>{message}</p>
+
             </form>
 
-           
-            <NavLink tag={Link} to="/SignIn" style={{ margin: "25px" }}>Back</NavLink>
-
             <img id="question_img" src={question_mark} className={style.question_image} />
-            <p style={{ marginLeft:"15px" }}>{message}</p>
+            
 
         </div>
     );
