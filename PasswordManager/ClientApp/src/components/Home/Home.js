@@ -18,11 +18,7 @@ export default function Home() {
 
     if (GetCookie("status_account") == "online") redirect.push('/Account');
 
-    useEffect(() => {
-
-        document.documentElement.style.setProperty('--bodyColor', 'rgb(41,44,51)');
-
-    }, []);
+   
 
     const redirect_to_SignIn=() => {
 

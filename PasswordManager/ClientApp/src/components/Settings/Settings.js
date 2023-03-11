@@ -23,7 +23,7 @@ export default function Settings() {
 
     useEffect(() => {
 
-        document.documentElement.style.setProperty('--bodyColor', '#272e50');
+      
 
         const requestOptions = {
             method: 'GET',

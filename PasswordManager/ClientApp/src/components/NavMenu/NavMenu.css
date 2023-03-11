@@ -20,7 +20,9 @@ html {
     height: 50px;
     margin: 0px;
 }
-
+#dropdown_menu{
+   margin-left:-70%;
+}
 
 .nav-link:hover {
     background: #7a7a76;
@@ -34,5 +36,15 @@ header {
 @media (min-width: 768px) {
     html {
         font-size: 16px;
+    }
+}
+@media (max-width: 900px){
+    #dropdown_menu {
+        margin-left: -130%;
+    }
+}
+@media (max-width: 600px) {
+    #dropdown_menu {
+        margin-left: 0%;
     }
 }

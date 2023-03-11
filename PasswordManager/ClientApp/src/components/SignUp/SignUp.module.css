@@ -1,25 +1,81 @@
-﻿
-.form_position {
-    margin-left: 10%;
-}
-.book_image {
-    position:relative;
-    bottom:500px;
-    left:50%;
+﻿.signup_div {
+     margin-left: 10%;
+    justify-content: center;
+    display: flex;
+    background-color: white;
    
+    width: 80%;
+   
+    border-radius: 20px;
+  
+}
+
+
+.image_book {
+  width:50%;
+  height:300px;
+
 }
 
 .faq_image{
-    position:relative;
+   
     width:25px;
     height:25px;
-    top:-40px;
-    left:150px;
+    margin-top:-40px;
+    
+    float:right;
+    cursor:pointer;
+}
+.inputBox{
+    position:relative;
+    width:200px;
+    margin:50px;
+    right:50px;
+    top:-20px;
 }
 
-@media(max-width:991px) {
+    .inputBox input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+    .inputBox span{
+        position: absolute;
+        left: 0;
+        color: rgb(220,220,220);
+        pointer-events: none;
+        transition: 0.5s;
+    }
 
-    .book_image {
+    .inputBox input:focus ~ span,
+    .inputBox input:valid ~ span {
+        color: #2196f3;
+        font-size: 0.90rem;
+        transform: translateY(-16px);
+    }
+   
+    .inputBox input:focus ~ i {
+        background: linear-gradient(to right, #4776e6, #8e54e9);
+    }
+    .inputBox i {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: #708090;
+        height: 2px;
+        overflow: hidden;
+    }
+   
+   
+    @media(max-width:991px) {
+        .inputBox {
+           
+            right: 0px;
+          
+        }
+        .image_book {
      display:none;
     }
 

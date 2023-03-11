@@ -4,13 +4,15 @@ import { Link, NavLink } from 'react-router-dom';
 
 import style from './SignIn.module.css';
 
-import home_office from './home_office.jpg';
+import welcome_image from './signin_welcome.avif';
 
 import GetCookie from '../public_files/GetCookie.js';
 
 export default function SignIn() {
     const [message, setMessage] = useState('');
     const [count_wrong_entry, setCount_Wrong_Entry] = useState(0);
+    const [authorization_form, setAuthorizationForm] = useState(false);
+    const [username, setUsername] = useState('');
 
    
 
@@ -21,11 +23,7 @@ export default function SignIn() {
 
     if (GetCookie("status_account") == "online") redirect.push('/Account');
 
-    useEffect(() => {
-
-        document.documentElement.style.setProperty('--bodyColor', 'white');
-
-    }, []);
+   
 
         const verifie_exist_user=(event)=>  {
 
@@ -54,13 +52,9 @@ export default function SignIn() {
                                 if (responseData != "user not exist") {
                                   
 
-
-                                        let element = document.getElementById('password_form');
-                                        element.style.display = "block";
-
-                                        element = document.getElementById('hide_elements');
-                                    element.style.display = "none";
-
+                                    setUsername(refUsername.current.value);
+                                    setAuthorizationForm(true);
+                                   
                                     setMessage(responseData);
                                 }
                                     else
@@ -88,7 +82,7 @@ export default function SignIn() {
         if (count_wrong_entry < 5) {
             let userdata = {
 
-                "Username": refUsername.current.value,
+                "Username": username,
                 "Password": refPassword.current.value
 
             };
@@ -112,7 +106,7 @@ export default function SignIn() {
                     if (responseData != "Password does not match" && responseData != "Password incorect") {
 
 
-                        refUsername.current.value = "";
+                       
                         refPassword.current.value = "";
 
 
@@ -146,7 +140,7 @@ export default function SignIn() {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
-                                    "Username": refUsername.current.value
+                                    "Username": username
                                 })
                             };
 
@@ -180,46 +174,73 @@ export default function SignIn() {
             setMessage("You was used all attempts please wait 10 minutes");
     }
 
- 
+    if (authorization_form == true) 
+    return (
+        <div className={style.signin_content}>
+            <form >
 
+            <div className={style.inputBox}>
+                <input type="text" value={username} disabled />
+                <span>Username</span>
+                <i></i>
+
+            </div>
+
+            <div className={style.inputBox}>
+
+                <input type="password" ref={refPassword} />
+                <span>Password </span>
+                <i> </i>
+            </div>
+
+                <button class="btn btn-primary" onClick={Login_account} style={{margin:"5px"}}> Log In</button>
+
+            <NavLink style={{ margin: "15px" }} tag={Link} to="/SignUp" >Create Account</NavLink>
+
+                <NavLink style={{ margin: "15px" }} tag={Link} to="/Secret" >Inaccessible Email</NavLink>
+
+                <p style={{ marginTop: "15px" }}>{message} </p>
+        </form>
+           
+
+
+
+            <img src={welcome_image} className={style.signin_welcome} />
+
+
+        </div>
+        )
+        
+    
+    else
     return (
 
         <div className={ style.signin_content}>
             
-                <form >
+            <form >
 
-                    <p class="login_text">Username: </p>
-                    <input type="text" class="form-control" style={{ width: "30%" }} ref={refUsername} />
-                    <br />
+                <div className={ style.inputBox}>
+                    
+                    <input type="text"  ref={refUsername} required />
+                    <span>Username</span>
+                    <i></i>
 
-                <div id="hide_elements">
+                </div>
 
-                <button id="verifie_user" class="btn btn-primary" onClick={verifie_exist_user}> Verifie </button>
+               
+
+                <button class="btn btn-primary" style={{margin:"10px"} }onClick={verifie_exist_user}> Verifie </button>
 
                     <NavLink style={{margin:"15px"} } tag={Link} to="/SignUp" >Create Account</NavLink>
 
                     <NavLink style={{ margin: "15px" }}  tag={Link} to="/Secret" >Inaccessible Email</NavLink>
-                    </div>
-                </form>
-
-                <form id="password_form" className={style.form_position} style={{ display: "none" }}>
-
-                    <p class="login_text">Password: </p>
-                    <input type="password" class="form-control" style={{ width: "30%" }} ref={refPassword} />
-
-                    <br /><br />
-                <button class="btn btn-primary" onClick={Login_account}>Log In</button>
-
-                <NavLink style={{ margin: "15px" }} tag={Link} to="/SignUp" >Create Account</NavLink>
-
-                <NavLink style={{ margin: "15px" }} tag={Link} to="/Secret" >Inaccessible Email</NavLink>
-               
+                   
+                <p style={{ marginTop: "15px" }}>{message} </p>
             </form>
-            <p style={{ marginTop: "15px", marginLeft: "5px" }}>{message} </p>
-   
 
+            
                
-                    <img  src={home_office} className={style.home_image} />
+            <img src={welcome_image} className={style.signin_welcome} />
                
            
             </div>

@@ -26,7 +26,7 @@ export default function Account() {
    
    
         useEffect(() => {
-            document.documentElement.style.setProperty('--bodyColor', '#0a0e23');
+         
             
             const requestOptions = {
                 method: 'GET',
