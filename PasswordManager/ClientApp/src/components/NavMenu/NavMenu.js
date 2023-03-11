@@ -96,7 +96,7 @@ export class NavMenu extends Component {
                                     <img src={user_icon} class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false" style={{cursor:"pointer"} }/>
 
-                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >
+                        <div class="dropdown-menu " id="dropdown_menu" aria-labelledby="dropdownMenuButton" >
 
                             <p class="dropdown-item" style={{ cursor: "pointer" }}>Name : {this.state.username}</p>
                             <NavLink tag={Link} class="dropdown-item" to="/Account" >Account</NavLink>
