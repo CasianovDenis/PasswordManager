@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect , useContext } from 'react';
 import {useHistory} from 'react-router-dom';
 import { Link, NavLink } from 'react-router-dom';
+import { Context } from '../Context';
 
 import style from './SignIn.module.css';
 
@@ -14,6 +15,7 @@ export default function SignIn() {
     const [authorization_form, setAuthorizationForm] = useState(false);
     const [username, setUsername] = useState('');
 
+    const [context, setContext] = useContext(Context);
    
 
     const refUsername = useRef("");
@@ -126,8 +128,7 @@ export default function SignIn() {
                         setMessage("Log in successfully");
 
                         
-                        redirect.go('/Account');
-
+                        setContext('succes_entered');
 
                     }
                     else {
