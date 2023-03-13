@@ -207,6 +207,30 @@ namespace PasswordManager.Controllers
 
         }
 
+
+        [HttpGet("~/api/verifie_token/{Username}/{authorization_token}")]
+        public JsonResult VerifieToken(string Username, string authorization_token)
+        {
+            try
+            {
+                var user_data = _conString.ProjectUsers.Single(data => data.Username == Username);
+
+                if (user_data.AuthorizationToken == authorization_token)
+
+                    return Json("actual token");
+
+                //false
+                return Json("Incorrect token");
+            }
+            catch
+            {
+
+                return Json("User not exist");
+
+            }
+
+        }
+
         [Route("~/api/sendanswer")]
         [HttpPost]
         public JsonResult SendAnswer(ProjectUsers user)
