@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect , useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link, NavLink } from 'react-router-dom';
+
+import { Context } from '../Context';
 
 import style from './SecretQuestion.module.css';
 
@@ -15,6 +17,8 @@ export default function Secret() {
     const [count_wrong_entry, setCount_Wrong_Entry] = useState(0);
     const [show_answer_form, setShowAnswerForm] = useState(false);
 
+    const [context, setContext] = useContext(Context);
+
     const refUsername = useRef(""), refAnswer = useRef("");
     const redirect = useHistory();
        
@@ -22,11 +26,7 @@ export default function Secret() {
     if (GetCookie("status_account") == "online") redirect.push('/Account');
 
 
-    useEffect(() => {
-
-        document.documentElement.style.setProperty('--bodyColor', 'white');
-
-    }, []);
+   
 
     const getquestion = (event) => {
         event.preventDefault();
@@ -80,6 +80,9 @@ export default function Secret() {
         event.preventDefault();
 
         if (count_wrong_entry < 5) {
+
+            setMessage("Processing");
+
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -111,9 +114,8 @@ export default function Secret() {
 
                         setMessage("Log in successfully");
 
-
-
-                        redirect.go('/Account');
+                     
+                        setContext('succes_entered');
                     }
 
 
